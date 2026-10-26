@@ -1,0 +1,17 @@
+[
+  { "id": "o1", "chain": "rewe", "productId": "milk-1l", "price": 1.09, "validFrom": "MON", "validTo": "SAT" },
+  { "id": "o2", "chain": "rewe", "productId": "gouda-400g", "price": 2.49, "validFrom": "MON", "validTo": "SAT" },
+  { "id": "o3", "chain": "rewe", "productId": "olive-oil-750ml", "price": 6.99, "validFrom": "MON", "validTo": "SAT" },
+  { "id": "o4", "chain": "rewe", "productId": "toilet-paper-8", "price": 3.95, "validFrom": "MON", "validTo": "SAT" },
+  { "id": "o5", "chain": "rewe", "productId": "basmati-rice-1kg", "price": 2.79, "validFrom": "MON", "validTo": "WED" },
+  { "id": "o6", "chain": "rewe", "productId": "coffee-500g", "price": 5.49, "validFrom": "MON", "validTo": "SAT" },
+  { "id": "o7", "chain": "rewe", "productId": "minced-beef-500g", "price": 3.99, "validFrom": "THU", "validTo": "SAT" },
+  { "id": "o8", "chain": "lidl", "productId": "coffee-500g", "price": 4.99, "validFrom": "MON", "validTo": "SAT" },
+  { "id": "o9", "chain": "lidl", "productId": "chicken-breast-600g", "price": 5.49, "validFrom": "MON", "validTo": "WED" },
+  { "id": "o10", "chain": "lidl", "productId": "butter-250g", "price": 1.99, "validFrom": "THU", "validTo": "SAT" },
+  { "id": "o11", "chain": "lidl", "productId": "frozen-pizza", "price": 1.79, "validFrom": "MON", "validTo": "SAT" },
+  { "id": "o12", "chain": "aldi", "productId": "bananas-1kg", "price": 1.19, "validFrom": "MON", "validTo": "SAT" },
+  { "id": "o13", "chain": "aldi", "productId": "apples-1kg", "price": 1.99, "validFrom": "MON", "validTo": "SAT" },
+  { "id": "o14", "chain": "aldi", "productId": "laundry-detergent", "price": 2.99, "validFrom": "MON", "validTo": "SAT" },
+  { "id": "o15", "chain": "aldi", "productId": "orange-juice-1l", "price": 1.49, "validFrom": "WED", "validTo": "SAT" }
+]

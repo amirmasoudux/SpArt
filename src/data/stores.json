@@ -1,0 +1,26 @@
+[
+  {
+    "id": "rewe-siegburg",
+    "chain": "rewe",
+    "name": "REWE",
+    "address": "[Dummy address], Siegburg",
+    "location": { "lat": 50.7975, "lng": 7.205 },
+    "takesGlassBottles": true
+  },
+  {
+    "id": "lidl-siegburg",
+    "chain": "lidl",
+    "name": "Lidl",
+    "address": "[Dummy address], Siegburg",
+    "location": { "lat": 50.811, "lng": 7.221 },
+    "takesGlassBottles": false
+  },
+  {
+    "id": "aldi-siegburg",
+    "chain": "aldi",
+    "name": "Aldi Süd",
+    "address": "[Dummy address], Siegburg",
+    "location": { "lat": 50.788, "lng": 7.188 },
+    "takesGlassBottles": false
+  }
+]

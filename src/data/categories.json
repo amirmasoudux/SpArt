@@ -1,0 +1,10 @@
+[
+  { "id": "produce", "label": "Fruit & veg", "order": 1 },
+  { "id": "bakery", "label": "Bread & bakery", "order": 2 },
+  { "id": "dairy", "label": "Dairy & eggs", "order": 3 },
+  { "id": "meat", "label": "Meat & fish", "order": 4 },
+  { "id": "pantry", "label": "Pantry", "order": 5 },
+  { "id": "frozen", "label": "Frozen", "order": 6 },
+  { "id": "drinks", "label": "Drinks", "order": 7 },
+  { "id": "household", "label": "Household & cleaning", "order": 8 }
+]
