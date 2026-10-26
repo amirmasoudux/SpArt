@@ -1,0 +1,26 @@
+:root {
+  --bg: #f5f6fa;
+  --surface: #ffffff;
+  --border: #e3e6ef;
+  --ink: #161a2e;
+  --muted: #5a6074;
+  --primary: #3352e0;
+  --deal-bg: #fff1e5;
+  --deal-ink: #8a3b00;
+  --saving: #0b6b4a;
+  --highlight: #ffd27a;
+
+  font-family: Manrope, system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 48px 20px;
+}
