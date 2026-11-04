@@ -78,7 +78,7 @@ export default function Lists() {
               <Link to={`/list/${current.id}/check`} className="flex min-h-11 flex-1 items-center justify-center rounded-full bg-brand-soft text-sm font-extrabold text-brand">
                 Edit
               </Link>
-              <Link to={`/list/${current.id}/plan`} className="flex min-h-11 flex-1 items-center justify-center rounded-full bg-brand text-sm font-extrabold text-white">
+              <Link to={`/list/${current.id}/analyze`} className="flex min-h-11 flex-1 items-center justify-center rounded-full bg-brand text-sm font-extrabold text-white">
                 See plan
               </Link>
             </div>

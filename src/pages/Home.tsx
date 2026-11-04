@@ -18,7 +18,7 @@ export default function Home() {
     const d = new Date(t.date);
     return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
   });
-  const saved = monthTrips.reduce((s, t) => s + t.netSaving, 0);
+  const saved = monthTrips.reduce((s, t) => s + t.saved, 0);
 
   return (
     <Screen nav>
@@ -31,7 +31,7 @@ export default function Home() {
         </span>
         <span className="flex flex-col gap-1">
           <span className="text-2xl font-extrabold tracking-tight">Write my list</span>
-          <span className="text-[15px] text-muted">Type it. We find the best store.</span>
+          <span className="text-[15px] text-muted">Type it. We check this week’s Prospekte.</span>
         </span>
       </Link>
 

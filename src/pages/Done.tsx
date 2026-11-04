@@ -7,7 +7,7 @@ import { getTrip } from '../lib/storage';
 export default function Done() {
   const { id = '' } = useParams();
   const trip = getTrip(id);
-  const target = Math.max(0, trip?.netSaving ?? 0);
+  const target = Math.max(0, trip?.saved ?? 0);
   const [shown, setShown] = useState(0);
 
   // Count the saving up, for a small moment of joy.
@@ -40,7 +40,7 @@ export default function Done() {
           {euro(shown)}
         </p>
         <p className="text-[15px] leading-relaxed text-white/85">
-          At {trip.storeName} · {trip.itemCount} items · {euro(trip.total)} · after {euro(trip.tripCost)} trip cost.
+          At {trip.storeName} · {trip.itemCount} items · {euro(trip.total)} · thanks to this week’s Prospekt offers.
         </p>
       </div>
       <div className="flex flex-col gap-3 rounded-[28px] bg-white/15 p-5">

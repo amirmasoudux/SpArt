@@ -13,8 +13,6 @@ export interface Store {
   id: string;
   chain: Chain;
   name: string;
-  address: string;
-  location: { lat: number; lng: number };
   takesGlassBottles: boolean;
 }
 
@@ -57,13 +55,6 @@ export interface ShoppingList {
   updatedAt: string;
 }
 
-export type TravelMode = 'car' | 'bike' | 'walk' | 'transit';
-
-export interface Settings {
-  travelMode: TravelMode;
-  home: { lat: number; lng: number };
-}
-
 export interface Trip {
   id: string;
   ownerId: string;
@@ -72,8 +63,6 @@ export interface Trip {
   storeName: string;
   itemCount: number;
   total: number;
-  offerSavings: number;
-  tripCost: number;
-  netSaving: number;
+  saved: number; // money saved through Prospekt offers
   date: string;
 }

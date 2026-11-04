@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Lists from './pages/Lists';
 import WriteList from './pages/WriteList';
 import CheckList from './pages/CheckList';
+import Analyze from './pages/Analyze';
 import Plan from './pages/Plan';
 import Shop from './pages/Shop';
 import Done from './pages/Done';
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/lists" element={<Lists />} />
         <Route path="/new" element={<WriteList />} />
         <Route path="/list/:id/check" element={<CheckList />} />
+        <Route path="/list/:id/analyze" element={<Analyze />} />
         <Route path="/list/:id/plan" element={<Plan />} />
         <Route path="/list/:id/shop" element={<Shop />} />
         <Route path="/trip/:id" element={<Done />} />

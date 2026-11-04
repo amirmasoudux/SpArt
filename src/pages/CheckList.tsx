@@ -48,7 +48,7 @@ export default function CheckList() {
 
   function confirmList() {
     update({ ...list!, status: 'confirmed' });
-    navigate(`/list/${list!.id}/plan`);
+    navigate(`/list/${list!.id}/analyze`);
   }
 
   const groups = getCategories()

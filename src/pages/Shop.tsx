@@ -5,7 +5,7 @@ import { IconCheck, IconClose } from '../components/icons';
 import { getCategories, getCurrentOffers, getProducts, getStores } from '../lib/dataSource';
 import { newId } from '../lib/parseList';
 import { planForStore } from '../lib/plan';
-import { getGuestId, getList, getSettings, saveList, saveTrip } from '../lib/storage';
+import { getGuestId, getList, saveList, saveTrip } from '../lib/storage';
 import type { ShoppingList } from '../types';
 
 export default function Shop() {
@@ -31,7 +31,7 @@ export default function Shop() {
   function finish() {
     // The trip counts only what was put in the cart.
     const bought = list!.items.filter((i) => i.checked);
-    const plan = planForStore(bought, store, getProducts(), getCurrentOffers(), getSettings());
+    const plan = planForStore(bought, store, getProducts(), getCurrentOffers());
     const trip = {
       id: newId(),
       ownerId: getGuestId(),
@@ -40,9 +40,7 @@ export default function Shop() {
       storeName: store.name,
       itemCount: bought.length,
       total: plan.basketTotal,
-      offerSavings: plan.offerSavings,
-      tripCost: plan.tripCost,
-      netSaving: plan.netSaving,
+      saved: plan.saved,
       date: new Date().toISOString(),
     };
     saveTrip(trip);

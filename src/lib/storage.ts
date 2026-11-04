@@ -2,17 +2,13 @@
 // Each browser gets a random guest id, and lists, trips and settings are saved in localStorage.
 // Later the same functions can call the API instead (lists and trips get the user id).
 
-import type { Settings, ShoppingList, Trip } from '../types';
+import type { ShoppingList, Trip } from '../types';
 
 const KEYS = {
   guestId: 'spart:guestId',
   lists: 'spart:lists',
-  trips: 'spart:trips',
-  settings: 'spart:settings',
+  trips: 'spart:trips:v2', // v2: trips without trip cost
 };
-
-// Siegburg town centre as the default home point.
-export const DEFAULT_SETTINGS: Settings = { travelMode: 'car', home: { lat: 50.7997, lng: 7.2075 } };
 
 function read<T>(key: string, fallback: T): T {
   try {
@@ -69,13 +65,4 @@ export function getTrip(id: string): Trip | undefined {
 
 export function saveTrip(trip: Trip): void {
   write(KEYS.trips, [...read<Trip[]>(KEYS.trips, []), trip]);
-}
-
-// Settings
-export function getSettings(): Settings {
-  return { ...DEFAULT_SETTINGS, ...read<Partial<Settings>>(KEYS.settings, {}) };
-}
-
-export function saveSettings(settings: Settings): void {
-  write(KEYS.settings, settings);
 }
