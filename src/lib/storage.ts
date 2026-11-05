@@ -1,13 +1,12 @@
 // Guest mode: no login in the MVP.
-// Each browser gets a random guest id, and lists, trips and settings are saved in localStorage.
-// Later the same functions can call the API instead (lists and trips get the user id).
+// Each browser gets a random guest id, and lists are saved in localStorage.
+// Later the same functions can call the API instead (lists get the user id).
 
-import type { ShoppingList, Trip } from '../types';
+import type { ShoppingList } from '../types';
 
 const KEYS = {
   guestId: 'spart:guestId',
   lists: 'spart:lists',
-  trips: 'spart:trips:v2', // v2: trips without trip cost
 };
 
 function read<T>(key: string, fallback: T): T {
@@ -52,17 +51,4 @@ export function saveList(list: ShoppingList): void {
 
 export function deleteList(id: string): void {
   write(KEYS.lists, read<ShoppingList[]>(KEYS.lists, []).filter((l) => l.id !== id));
-}
-
-// Trips
-export function getTrips(): Trip[] {
-  return read<Trip[]>(KEYS.trips, []).sort((a, b) => b.date.localeCompare(a.date));
-}
-
-export function getTrip(id: string): Trip | undefined {
-  return getTrips().find((t) => t.id === id);
-}
-
-export function saveTrip(trip: Trip): void {
-  write(KEYS.trips, [...read<Trip[]>(KEYS.trips, []), trip]);
 }

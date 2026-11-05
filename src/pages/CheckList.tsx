@@ -48,7 +48,7 @@ export default function CheckList() {
 
   function confirmList() {
     update({ ...list!, status: 'confirmed' });
-    navigate(`/list/${list!.id}/analyze`);
+    navigate('/lists');
   }
 
   const groups = getCategories()
@@ -159,14 +159,14 @@ export default function CheckList() {
 
       <BottomAction>
         <PrimaryButton onClick={confirmList} disabled={list.items.length === 0}>
-          Looks good · {count} {count === 1 ? 'item' : 'items'}
+          Save list · {count} {count === 1 ? 'item' : 'items'}
         </PrimaryButton>
       </BottomAction>
 
       {removing && (
         <ConfirmSheet
           title={`Remove ${removing.name}?`}
-          text="It won’t be part of this week’s plan. You can add it again any time."
+          text="It will be removed from this list. You can add it again any time."
           confirmLabel="Remove"
           cancelLabel="Keep it"
           danger

@@ -54,15 +54,3 @@ export interface ShoppingList {
   createdAt: string;
   updatedAt: string;
 }
-
-export interface Trip {
-  id: string;
-  ownerId: string;
-  listId: string;
-  storeId: string;
-  storeName: string;
-  itemCount: number;
-  total: number;
-  saved: number; // money saved through Prospekt offers
-  date: string;
-}

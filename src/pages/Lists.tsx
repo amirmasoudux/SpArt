@@ -11,11 +11,11 @@ export default function Lists() {
   const [lists, setLists] = useState(getLists);
   const [removing, setRemoving] = useState<ShoppingList | null>(null);
 
-  const current = lists.find((l) => l.status !== 'done');
-  const earlier = lists.filter((l) => l.status === 'done');
+  const current = lists[0];
+  const earlier = lists.slice(1);
   const short = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
 
-  // "Use again": a fresh copy of an old list, nothing ticked.
+  // "Use again": a fresh copy of an old list.
   function reuseList(old: ShoppingList) {
     const now = new Date().toISOString();
     const copy: ShoppingList = {
@@ -45,13 +45,13 @@ export default function Lists() {
 
       {current && (
         <>
-          <SectionLabel>This week</SectionLabel>
+          <SectionLabel>Latest</SectionLabel>
           <section className="flex flex-col gap-4 rounded-[28px] bg-white p-5" aria-label={current.title}>
             <div className="flex items-start justify-between gap-3">
               <span className="flex flex-col gap-1">
                 <span className="text-xl font-extrabold tracking-tight">{current.title}</span>
                 <span className="text-sm text-muted">
-                  {current.items.length} items · edited {short(current.updatedAt)}
+                  {current.items.length} items · {current.status === 'confirmed' ? 'saved' : 'draft'} · {short(current.updatedAt)}
                 </span>
               </span>
               <button
@@ -74,14 +74,12 @@ export default function Lists() {
                 <span className="px-2.5 py-1.5 text-[13px] font-bold text-muted">+{current.items.length - 6} more</span>
               )}
             </div>
-            <div className="flex gap-2 border-t border-line pt-3.5">
-              <Link to={`/list/${current.id}/check`} className="flex min-h-11 flex-1 items-center justify-center rounded-full bg-brand-soft text-sm font-extrabold text-brand">
-                Edit
-              </Link>
-              <Link to={`/list/${current.id}/analyze`} className="flex min-h-11 flex-1 items-center justify-center rounded-full bg-brand text-sm font-extrabold text-white">
-                See plan
-              </Link>
-            </div>
+            <Link
+              to={`/list/${current.id}/check`}
+              className="flex min-h-11 items-center justify-center rounded-full bg-brand-soft text-sm font-extrabold text-brand"
+            >
+              Edit list
+            </Link>
           </section>
         </>
       )}

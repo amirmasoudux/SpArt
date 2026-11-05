@@ -1,6 +1,6 @@
 import { useEffect, useRef, type ReactNode } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router';
-import { IconBack, IconChart, IconHome, IconList } from './icons';
+import { IconBack, IconHome, IconList } from './icons';
 
 // Page frame: phone-width column, centred on bigger screens.
 export function Screen({ children, nav = false }: { children: ReactNode; nav?: boolean }) {
@@ -110,7 +110,7 @@ function BottomNav() {
   const item = ({ isActive }: { isActive: boolean }) =>
     `flex min-h-12 flex-col items-center justify-center gap-1 text-xs ${isActive ? 'font-extrabold text-ink' : 'font-bold text-faint'}`;
   return (
-    <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-40 mx-auto grid w-full max-w-[440px] grid-cols-3 bg-white px-4 pt-2.5 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+    <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-40 mx-auto grid w-full max-w-[440px] grid-cols-2 bg-white px-4 pt-2.5 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
       <NavLink to="/" end className={item}>
         <IconHome className="size-6" />
         Home
@@ -118,10 +118,6 @@ function BottomNav() {
       <NavLink to="/lists" className={item}>
         <IconList className="size-6" />
         List
-      </NavLink>
-      <NavLink to="/savings" className={item}>
-        <IconChart className="size-6" />
-        Savings
       </NavLink>
     </nav>
   );
