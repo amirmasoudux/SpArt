@@ -32,7 +32,10 @@ describe('Prospekt import', () => {
 
   it('turns the sample AI answer into offers', () => {
     const raw = JSON.parse(readFileSync(new URL('../scripts/sample-flyer-answer.json', import.meta.url), 'utf8')).offers;
-    const result = toOffers(raw, 'rewe', products, week, 'test');
+    // Fixed REWE normal prices, so this test does not change when the real prices change.
+    const fixed: Record<string, number> = { 'bananas-1kg': 1.69, 'coffee-500g': 5.99, 'dish-soap': 1.35, 'gouda-400g': 3.29, 'milk-1l': 1.29, 'tomatoes-500g': 1.99 };
+    const testProducts = products.map((p) => ({ ...p, prices: { ...p.prices, rewe: fixed[p.id] ?? p.prices.rewe } }));
+    const result = toOffers(raw, 'rewe', testProducts, week, 'test');
     const ids = result.offers.map((o) => o.productId).sort();
     expect(ids).toEqual(['bananas-1kg', 'coffee-500g', 'dish-soap', 'gouda-400g', 'milk-1l', 'tomatoes-500g'].sort());
     // Spaghetti 1.19 is NOT cheaper than our normal pasta price 0.99, so it is dropped.
