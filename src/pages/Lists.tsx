@@ -26,9 +26,14 @@ export default function Lists() {
             <Link to={`/list/${l.id}/check`} className="flex-1">
               <span className="block font-semibold">{l.title}</span>
               <span className="text-sm text-muted">
-                {l.items.length} items · {l.status === 'confirmed' ? 'saved' : 'draft'}
+                {l.items.length} items · {l.status === 'done' ? 'shopped' : l.status === 'confirmed' ? 'saved' : 'draft'}
               </span>
             </Link>
+            {l.status !== 'done' && l.items.length > 0 && (
+              <Link to={`/list/${l.id}/analyze`} className="px-2 text-brand">
+                Plan
+              </Link>
+            )}
             <button type="button" onClick={() => setRemoving(l)} className="px-2 text-red-600">
               Delete
             </button>

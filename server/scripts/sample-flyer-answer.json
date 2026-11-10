@@ -1,0 +1,14 @@
+{
+  "offers": [
+    { "product": "Weihenstephan H-Milch 1,5%", "price": 0.99, "regularPrice": 1.29, "unit": "1 l" },
+    { "product": "Gouda jung, am Stück", "price": 2.29, "regularPrice": 3.29, "unit": "400 g" },
+    { "product": "Bio-Bananen", "price": 1.49, "regularPrice": null, "unit": "1 kg" },
+    { "product": "Rispentomaten", "price": 1.79, "regularPrice": 2.29, "unit": "500 g" },
+    { "product": "Barilla Spaghetti", "price": 1.19, "regularPrice": 1.99, "unit": "500 g" },
+    { "product": "Jacobs Krönung Kaffee gemahlen", "price": 4.99, "regularPrice": 7.49, "unit": "500 g" },
+    { "product": "Pril Spülmittel", "price": 1.09, "regularPrice": null, "unit": "450 ml" },
+    { "product": "Lachsfilet", "price": 3.99, "regularPrice": 5.49, "unit": "250 g" },
+    { "product": "Gouda Scheiben", "price": 1.99, "regularPrice": null, "unit": "200 g" },
+    { "product": "Erdbeeren", "price": "2,99", "regularPrice": null, "unit": "500 g" }
+  ]
+}

@@ -1,0 +1,5 @@
+[
+  { "id": "rewe", "chain": "rewe", "name": "REWE", "takesGlassBottles": true },
+  { "id": "lidl", "chain": "lidl", "name": "Lidl", "takesGlassBottles": false },
+  { "id": "aldi", "chain": "aldi", "name": "Aldi", "takesGlassBottles": false }
+]

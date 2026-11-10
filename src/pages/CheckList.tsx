@@ -44,7 +44,7 @@ export default function CheckList() {
 
   function saveAndClose() {
     update({ ...list!, status: 'confirmed' });
-    navigate('/lists');
+    navigate(`/list/${list!.id}/analyze`);
   }
 
   // Group the items by category (Dairy, Fruit & veg, ...).
@@ -109,7 +109,7 @@ export default function CheckList() {
       </Link>
 
       <Button onClick={saveAndClose} disabled={list.items.length === 0}>
-        Save list
+        Find the cheapest store
       </Button>
 
       {removing && <Confirm text={`Remove ${removing.name}?`} onYes={removeItem} onNo={() => setRemoving(null)} />}

@@ -13,6 +13,9 @@ export function Screen({ children }: { children: ReactNode }) {
         <NavLink to="/lists" className={({ isActive }) => `flex-1 p-3 text-center ${isActive ? 'font-bold' : 'text-muted'}`}>
           My lists
         </NavLink>
+        <NavLink to="/savings" className={({ isActive }) => `flex-1 p-3 text-center ${isActive ? 'font-bold' : 'text-muted'}`}>
+          Savings
+        </NavLink>
       </nav>
     </div>
   );

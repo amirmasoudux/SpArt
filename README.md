@@ -1,16 +1,60 @@
-# React + Vite
+# SpArt · The art of Sparen
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Type your shopping list. SpArt checks this week's Prospekte and tells you the cheapest store for your list, and how much you save.
 
-Currently, two official plugins are available:
+WBS Coding School final project (3 weeks).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Versions
 
-## React Compiler
+| Version | Branch | What it has |
+|---|---|---|
+| v0.1 (week 1) | `week-1` | Write a list, check and edit it, save it in the browser |
+| v0.2 (week 2, MVP) | `week-2` | + Express API, MongoDB, Prospekt import with AI, cheapest store, shopping checklist, savings |
+| v0.3 (week 3) | `week-3` | + final design, AI list understanding, report wrong prices, meal plan, deploy setup |
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+See `CHANGELOG.md` for details.
 
-## Expanding the Oxlint configuration
+## Run it
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+You need Node.js 20 or newer.
+
+**Backend** (in one Terminal):
+```
+cd server
+npm install
+cp .env.example .env     # then fill in MONGO_URI (optional) and AI_API_KEY (optional)
+npm run dev              # http://localhost:4000
+```
+Without `MONGO_URI` the server uses the demo data in memory, so it works right away.
+
+**Frontend** (in a second Terminal):
+```
+npm install
+npm run dev              # http://localhost:5173
+```
+If the backend is not running, the app uses the demo data in the browser.
+
+## Useful commands (server)
+
+| Command | What it does |
+|---|---|
+| `npm test` | Runs the tests (plan logic, Prospekt import, API) |
+| `npm run seed` | Puts the demo data into MongoDB (needs `MONGO_URI`) |
+| `npm run import-flyer -- --chain rewe --from 2026-11-16 --to 2026-11-21 page1.png` | Reads Prospekt pages with AI and saves the offers |
+| `npm run import-flyer -- --chain rewe --from 2026-11-16 --to 2026-11-21 --sample scripts/sample-flyer-answer.json --dry-run` | Practice run without AI and without saving |
+
+## Folders
+
+```
+src/            frontend (React + TypeScript + Tailwind)
+  pages/        one file per screen
+  components/   pieces used on many screens
+  lib/          logic: parse the list, storage, API calls, plan
+  data/         demo data (used when the backend is not running)
+server/         backend (Express + MongoDB + Zod)
+  src/app.ts    API routes
+  src/repo.ts   data access (MongoDB or demo data)
+  src/lib/      plan logic, Prospekt import, product matching
+  scripts/      seed and Prospekt import
+  test/         tests
+```

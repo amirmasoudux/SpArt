@@ -54,3 +54,16 @@ export interface ShoppingList {
   createdAt: string;
   updatedAt: string;
 }
+
+// A finished shopping trip (saved after the checklist).
+export interface Trip {
+  id: string;
+  ownerId: string;
+  listId: string;
+  storeId: string;
+  storeName: string;
+  itemCount: number;
+  total: number;
+  saved: number; // money saved through Prospekt offers
+  date: string;
+}

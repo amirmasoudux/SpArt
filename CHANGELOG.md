@@ -1,0 +1,25 @@
+# Changelog
+
+## v0.2 · Week 2 (MVP)
+
+**Backend (new `server/` folder)**
+- Express API: `GET /api/health`, `GET /api/catalog`, `GET /api/offers`, `POST /api/plan`
+- MongoDB with Mongoose models (categories, stores, products, offers); demo data in memory when no database is set
+- Zod checks every request and all data from files, the database and the AI
+- Seed script for MongoDB
+- Prospekt import: AI reads flyer pages → Zod check → sizes made comparable → linked to our products → saved
+- Tests for the plan logic, the Prospekt import and the API
+
+**Frontend**
+- After checking the list: "Checking this week's Prospekte" → plan with the cheapest store and the saving
+- Shopping checklist grouped by category
+- Trip saved, plus a Savings tab
+- Uses the API, with demo data as a backup when the server is not running
+
+## v0.1 · Week 1
+
+- Project setup: Vite, React, TypeScript, Tailwind, React Router
+- Data model (`types.ts`) and demo data
+- Write a list in normal words → items with categories
+- Check the list: change quantities, rename, remove with a confirm step
+- Lists saved in the browser (localStorage), no login
