@@ -4,6 +4,7 @@ import type { Offer, PlanRequest, Product, Store } from '../schemas.js';
 
 export interface PlanLine {
   itemId: string;
+  productId: string;
   name: string;
   qty: number;
   price: number;
@@ -36,6 +37,7 @@ export function planForStore(items: PlanRequest['items'], store: Store, products
     const unitPrice = offer ? Math.min(offer.price, regular) : regular;
     lines.push({
       itemId: item.id,
+      productId: product.id,
       name: `${product.name} ${product.unit}`,
       qty: item.qty,
       price: round(unitPrice * item.qty),

@@ -1,0 +1,18 @@
+# Render.com blueprint for the backend. In Render: New → Blueprint → pick this repo.
+services:
+  - type: web
+    name: spart-api
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: MONGO_URI
+        sync: false # set it in the Render dashboard
+      - key: CLIENT_URL
+        sync: false # e.g. https://spart.vercel.app
+      - key: AI_API_KEY
+        sync: false
+      - key: AI_MODEL
+        value: gpt-4o-mini

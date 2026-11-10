@@ -11,6 +11,8 @@ import Plan from './pages/Plan';
 import Shop from './pages/Shop';
 import Done from './pages/Done';
 import Savings from './pages/Savings';
+import Meals from './pages/Meals';
+import MealPlan from './pages/MealPlan';
 
 // HashRouter: works on any static host without extra server setup.
 // The one-file preview build uses MemoryRouter instead (its host controls the URL).
@@ -29,6 +31,8 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/list/:id/shop" element={<Shop />} />
         <Route path="/trip/:id" element={<Done />} />
         <Route path="/savings" element={<Savings />} />
+        <Route path="/meals" element={<Meals />} />
+        <Route path="/meals/plan" element={<MealPlan />} />
         <Route path="*" element={<Home />} />
       </Routes>
     </Router>

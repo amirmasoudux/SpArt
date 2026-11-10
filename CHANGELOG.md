@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.3 · Week 3
+
+**New features**
+- "Tell me what to buy": 4 questions → meal plan → shopping list (AI plans the meals; our own recipes when no AI key is set)
+- AI helps with unknown words: typed items the word list does not know are sent to the AI, which links them to products (made-up ids are rejected)
+- "Wrong price?" on the plan: users report wrong prices, ended offers or missing products
+- New API routes: `POST /api/items/match`, `POST /api/meal-plan`, `POST /api/reports`
+
+**Design**
+- Final design from the prototype: Manrope font, violet primary buttons, cards, bottom sheets, Prospekte check animation, counting saving on "Trip done"
+
+**Quality and deploy**
+- 18 server tests, including the AI path with a fake AI answer
+- `render.yaml` for the backend on Render; frontend ready for Vercel (`VITE_API_URL`)
+
 ## v0.2 · Week 2 (MVP)
 
 **Backend (new `server/` folder)**

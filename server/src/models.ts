@@ -49,3 +49,18 @@ export const OfferModel = model(
     { timestamps: true },
   ).index({ chain: 1, validFrom: 1, validTo: 1 }),
 );
+
+export const ReportModel = model(
+  'Report',
+  new Schema(
+    {
+      _id: String,
+      productId: { type: String, ref: 'Product', required: true },
+      storeId: { type: String, ref: 'Store', required: true },
+      kind: { type: String, required: true },
+      correctPrice: Number,
+      note: String,
+    },
+    { timestamps: true },
+  ),
+);

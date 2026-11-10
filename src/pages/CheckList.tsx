@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router';
-import { BackLink, Button, Confirm, Screen } from '../components/ui';
+import { BottomAction, ConfirmSheet, PrimaryButton, Screen, SectionLabel, Title, TopBar } from '../components/ui';
+import { IconClose } from '../components/icons';
 import { getCategories, getProducts } from '../lib/dataSource';
 import { matchProduct } from '../lib/parseList';
 import { getList, saveList } from '../lib/storage';
@@ -15,7 +16,10 @@ export default function CheckList() {
 
   if (!list) return <Navigate to="/lists" replace />;
 
-  // Save every change right away, so nothing is lost.
+  const products = getProducts();
+  const count = list.items.reduce((s, i) => s + i.qty, 0);
+  const unknown = list.items.filter((i) => !i.productId);
+
   function update(next: ShoppingList) {
     setList(next);
     saveList(next);
@@ -25,9 +29,8 @@ export default function CheckList() {
     update({ ...list!, items: list!.items.map((i) => (i.id === itemId ? { ...i, ...patch } : i)) });
   }
 
-  // When the name changes, try to find the product again.
   function rename(item: ListItem, name: string) {
-    const product = matchProduct(name, getProducts());
+    const product = matchProduct(name, products);
     changeItem(item.id, {
       name: product ? product.name : name,
       productId: product ? product.id : null,
@@ -37,82 +40,140 @@ export default function CheckList() {
     setEditing(null);
   }
 
-  function removeItem() {
-    update({ ...list!, items: list!.items.filter((i) => i.id !== removing!.id) });
+  function confirmRemove() {
+    if (!removing) return;
+    update({ ...list!, items: list!.items.filter((i) => i.id !== removing.id) });
     setRemoving(null);
   }
 
-  function saveAndClose() {
+  function confirmList() {
     update({ ...list!, status: 'confirmed' });
     navigate(`/list/${list!.id}/analyze`);
   }
 
-  // Group the items by category (Dairy, Fruit & veg, ...).
   const groups = getCategories()
     .map((c) => ({ ...c, items: list.items.filter((i) => i.categoryId === c.id) }))
     .filter((g) => g.items.length > 0);
 
   return (
     <Screen>
-      <BackLink to="/lists" />
-      <h1 className="text-2xl font-bold">Check your list</h1>
+      <TopBar label="Step 2 of 2" back="/lists" />
+      <Title>Check your list</Title>
+
+      {unknown.length > 0 && (
+        <div className="flex flex-col gap-1 rounded-[22px] bg-warn-soft p-4 text-warn-ink">
+          <p className="text-[15px] font-extrabold">
+            {unknown.length === 1 ? '1 item has no price yet' : `${unknown.length} items have no price yet`}
+          </p>
+          <p className="text-sm">We keep them on your list, but they don’t count for the best store. Tap one to rename it.</p>
+        </div>
+      )}
+
+      {list.items.length === 0 && (
+        <p className="rounded-[22px] bg-white p-5 text-center text-muted">Your list is empty. Add some items.</p>
+      )}
 
       {groups.map((g) => (
-        <section key={g.id}>
-          <h2 className="mb-1 text-sm font-bold text-muted uppercase">{g.label}</h2>
-          <ul className="rounded-lg border bg-white">
+        <section key={g.id} className="flex flex-col gap-1.5" aria-label={g.label}>
+          <SectionLabel>{g.label}</SectionLabel>
+          <ul className="rounded-[22px] bg-white py-1">
             {g.items.map((item) => (
-              <li key={item.id} className="flex items-center gap-2 border-b p-2 last:border-b-0">
+              <li key={item.id} className="flex min-h-[58px] items-center gap-2 pr-2 pl-4">
                 {editing === item.id ? (
-                  <input
-                    aria-label="Item name"
-                    defaultValue={item.name}
-                    autoFocus
-                    onBlur={(e) => rename(item, e.target.value.trim() || item.name)}
-                    onKeyDown={(e) => e.key === 'Enter' && e.currentTarget.blur()}
-                    className="flex-1 rounded border p-1"
-                  />
+                  <form
+                    className="flex flex-1 items-center gap-2"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      const value = new FormData(e.currentTarget).get('name')?.toString().trim();
+                      if (value) rename(item, value);
+                    }}
+                  >
+                    <label htmlFor={`name-${item.id}`} className="sr-only">Item name</label>
+                    <input
+                      id={`name-${item.id}`}
+                      name="name"
+                      defaultValue={item.name}
+                      autoFocus
+                      className="h-10 min-w-0 flex-1 rounded-xl border-2 border-brand px-2.5 text-[15px] font-bold outline-none"
+                    />
+                    <button type="submit" className="min-h-10 rounded-full bg-brand px-3.5 text-[13px] font-extrabold text-white">
+                      Done
+                    </button>
+                  </form>
                 ) : (
-                  <button type="button" onClick={() => setEditing(item.id)} className="flex-1 text-left">
-                    {item.name} <span className="text-sm text-muted">{item.productId ? item.unit : '(no price yet)'}</span>
-                  </button>
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => setEditing(item.id)}
+                      aria-label={`Edit ${item.name}`}
+                      className="flex min-h-11 min-w-0 flex-1 flex-col justify-center text-left"
+                    >
+                      <span className="truncate text-base font-extrabold">{item.name}</span>
+                      <span className="text-xs font-bold text-faint">
+                        {item.productId ? item.unit : 'No price yet'} · tap to edit
+                      </span>
+                    </button>
+                    <div className="flex items-center gap-0.5 rounded-full bg-bg p-0.5">
+                      <button
+                        type="button"
+                        aria-label={`Less ${item.name}`}
+                        disabled={item.qty <= 1}
+                        onClick={() => changeItem(item.id, { qty: item.qty - 1 })}
+                        className="size-10 rounded-full text-xl font-bold disabled:opacity-30"
+                      >
+                        −
+                      </button>
+                      <span className="min-w-6 text-center text-base font-extrabold" aria-live="polite">{item.qty}</span>
+                      <button
+                        type="button"
+                        aria-label={`More ${item.name}`}
+                        disabled={item.qty >= 20}
+                        onClick={() => changeItem(item.id, { qty: item.qty + 1 })}
+                        className="size-10 rounded-full bg-white text-xl font-bold disabled:opacity-30"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <button
+                      type="button"
+                      aria-label={`Remove ${item.name}`}
+                      onClick={() => setRemoving(item)}
+                      className="flex size-10 items-center justify-center rounded-full text-faint hover:bg-bg"
+                    >
+                      <IconClose className="size-4" />
+                    </button>
+                  </>
                 )}
-                <button
-                  type="button"
-                  aria-label={`Less ${item.name}`}
-                  disabled={item.qty <= 1}
-                  onClick={() => changeItem(item.id, { qty: item.qty - 1 })}
-                  className="h-8 w-8 rounded border disabled:opacity-30"
-                >
-                  −
-                </button>
-                <span className="w-6 text-center">{item.qty}</span>
-                <button
-                  type="button"
-                  aria-label={`More ${item.name}`}
-                  onClick={() => changeItem(item.id, { qty: item.qty + 1 })}
-                  className="h-8 w-8 rounded border"
-                >
-                  +
-                </button>
-                <button type="button" aria-label={`Remove ${item.name}`} onClick={() => setRemoving(item)} className="px-2 text-red-600">
-                  ✕
-                </button>
               </li>
             ))}
           </ul>
         </section>
       ))}
 
-      <Link to={`/new?add=${list.id}`} className="text-brand">
+      <Link
+        to={`/new?add=${list.id}`}
+        className="flex min-h-[52px] items-center justify-center rounded-full border-2 border-dashed border-line text-[15px] font-extrabold"
+      >
         + Add more items
       </Link>
 
-      <Button onClick={saveAndClose} disabled={list.items.length === 0}>
-        Find the cheapest store
-      </Button>
+      <BottomAction>
+        <PrimaryButton onClick={confirmList} disabled={list.items.length === 0}>
+          Looks good · {count} {count === 1 ? 'item' : 'items'}
+        </PrimaryButton>
+      </BottomAction>
 
-      {removing && <Confirm text={`Remove ${removing.name}?`} onYes={removeItem} onNo={() => setRemoving(null)} />}
+      {removing && (
+        <ConfirmSheet
+          title={`Remove ${removing.name}?`}
+          text="It won’t be part of this week’s plan. You can add it again any time."
+          confirmLabel="Remove"
+          cancelLabel="Keep it"
+          danger
+          onConfirm={confirmRemove}
+          onCancel={() => setRemoving(null)}
+        />
+      )}
     </Screen>
   );
 }

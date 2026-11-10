@@ -65,3 +65,36 @@ export const FlyerOffer = z.object({
 });
 export const FlyerPage = z.object({ offers: z.array(FlyerOffer) });
 export type FlyerOffer = z.infer<typeof FlyerOffer>;
+
+// A user report about wrong data ("the price is different in the store").
+export const ReportRequest = z.object({
+  productId: z.string(),
+  storeId: z.string(),
+  kind: z.enum(['wrong_price', 'offer_ended', 'not_in_store', 'other']),
+  correctPrice: z.number().positive().nullable().optional(),
+  note: z.string().max(300).optional(),
+});
+export type ReportRequest = z.infer<typeof ReportRequest>;
+export interface Report extends ReportRequest {
+  id: string;
+  createdAt: Date;
+}
+
+// Item names the simple parser could not match. The AI tries to link them to products.
+export const MatchRequest = z.object({ names: z.array(z.string().min(1).max(80)).min(1).max(30) });
+export const MatchAnswer = z.object({
+  matches: z.array(z.object({ name: z.string(), productId: z.string().nullable() })),
+});
+
+// "Tell me what to buy": the 4 questions.
+export const MealPlanRequest = z.object({
+  days: z.number().int().min(1).max(7),
+  mealsPerDay: z.number().int().min(1).max(3),
+  cook: z.enum(['quick', 'normal', 'love']),
+  avoid: z.array(z.enum(['meat', 'pork', 'fish', 'dairy'])).default([]),
+});
+export type MealPlanRequest = z.infer<typeof MealPlanRequest>;
+export const MealPlan = z.object({
+  meals: z.array(z.object({ day: z.string(), name: z.string(), ingredients: z.array(z.string()).min(1) })).min(1),
+});
+export type MealPlan = z.infer<typeof MealPlan>;

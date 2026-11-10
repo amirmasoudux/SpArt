@@ -2,9 +2,12 @@
 import cors from 'cors';
 import express, { type NextFunction, type Request, type Response } from 'express';
 import { ZodError } from 'zod';
+import { aiConfigured } from './ai.js';
+import { matchWithAi } from './lib/aiMatch.js';
+import { makeMealPlan } from './lib/meals.js';
 import { rankStores } from './lib/plan.js';
 import type { Repo } from './repo.js';
-import { PlanRequest } from './schemas.js';
+import { MatchRequest, MealPlanRequest, PlanRequest, ReportRequest } from './schemas.js';
 
 export function createApp(repo: Repo, clientUrl = '*') {
   const app = express();
@@ -38,6 +41,37 @@ export function createApp(repo: Repo, clientUrl = '*') {
       const { items } = PlanRequest.parse(req.body);
       const [stores, products, offers] = await Promise.all([repo.stores(), repo.products(), repo.currentOffers()]);
       res.json({ plans: rankStores(items, stores, products, offers), offerCount: offers.length });
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  // Words the simple parser did not know → ask the AI which product they are.
+  app.post('/api/items/match', async (req, res, next) => {
+    try {
+      const { names } = MatchRequest.parse(req.body);
+      const matches = await matchWithAi(names, await repo.products());
+      res.json({ matches, aiUsed: aiConfigured() });
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  // "Tell me what to buy": 4 answers → meal plan with ingredients.
+  app.post('/api/meal-plan', async (req, res, next) => {
+    try {
+      const answers = MealPlanRequest.parse(req.body);
+      res.json(await makeMealPlan(answers, await repo.products()));
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  // A user tells us a price or offer is wrong.
+  app.post('/api/reports', async (req, res, next) => {
+    try {
+      const report = await repo.addReport(ReportRequest.parse(req.body));
+      res.status(201).json({ id: report.id });
     } catch (err) {
       next(err);
     }

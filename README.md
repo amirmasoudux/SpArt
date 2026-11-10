@@ -26,6 +26,7 @@ cp .env.example .env     # then fill in MONGO_URI (optional) and AI_API_KEY (opt
 npm run dev              # http://localhost:4000
 ```
 Without `MONGO_URI` the server uses the demo data in memory, so it works right away.
+Without `AI_API_KEY` the meal plan uses our own recipes and unknown words stay unknown.
 
 **Frontend** (in a second Terminal):
 ```
@@ -58,3 +59,9 @@ server/         backend (Express + MongoDB + Zod)
   scripts/      seed and Prospekt import
   test/         tests
 ```
+
+## Deploy
+
+- **Backend → Render:** New → Blueprint → this repo (uses `render.yaml`). Set `MONGO_URI`, `CLIENT_URL` and `AI_API_KEY` in the dashboard.
+- **Frontend → Vercel:** import the repo, framework "Vite", and set `VITE_API_URL` to the Render address.
+- **Database → MongoDB Atlas:** create a free cluster, copy the connection string into `MONGO_URI`, then run `npm run seed` once.

@@ -1,0 +1,12 @@
+[
+  { "name": "Tomato pasta", "time": "quick", "tags": ["vegetarian"], "ingredients": ["pasta", "canned tomatoes", "onions", "olive oil"] },
+  { "name": "Spinach pasta with gouda", "time": "quick", "tags": ["vegetarian", "dairy"], "ingredients": ["pasta", "frozen spinach", "gouda"] },
+  { "name": "Veggie omelette", "time": "quick", "tags": ["vegetarian"], "ingredients": ["eggs", "tomatoes", "onions"] },
+  { "name": "Pizza night with salad", "time": "quick", "tags": ["vegetarian", "dairy"], "ingredients": ["frozen pizza", "cucumber", "tomatoes"] },
+  { "name": "Eggs on toast", "time": "quick", "tags": ["vegetarian", "dairy"], "ingredients": ["toast", "eggs", "butter"] },
+  { "name": "Rice with vegetables", "time": "normal", "tags": ["vegetarian"], "ingredients": ["basmati rice", "tomatoes", "onions", "cucumber"] },
+  { "name": "Potato and egg pan", "time": "normal", "tags": ["vegetarian"], "ingredients": ["potatoes", "eggs", "onions"] },
+  { "name": "Chicken rice bowl", "time": "normal", "tags": ["dairy"], "ingredients": ["chicken breast", "basmati rice", "cucumber", "greek yogurt"] },
+  { "name": "Pasta bolognese", "time": "normal", "tags": [], "ingredients": ["minced beef", "pasta", "canned tomatoes", "onions"] },
+  { "name": "Chicken with potatoes", "time": "slow", "tags": [], "ingredients": ["chicken breast", "potatoes", "onions", "olive oil"] }
+]

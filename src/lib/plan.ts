@@ -8,6 +8,7 @@ import type { ListItem, Offer, Product, Store } from '../types';
 
 export interface PlanLine {
   itemId: string;
+  productId?: string;
   name: string;
   qty: number;
   price: number; // what you pay for this line
@@ -38,6 +39,7 @@ export function planForStore(items: ListItem[], store: Store, products: Product[
     const unitPrice = offer ? offer.price : regular;
     lines.push({
       itemId: item.id,
+      productId: product.id,
       name: `${product.name} ${product.unit}`,
       qty: item.qty,
       price: unitPrice * item.qty,

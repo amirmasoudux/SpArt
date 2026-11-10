@@ -2,8 +2,9 @@
 // whether the data comes from MongoDB or from the demo files in memory.
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { CategoryModel, OfferModel, ProductModel, StoreModel } from './models.js';
-import { Category, Offer, Product, Store } from './schemas.js';
+import { randomUUID } from 'node:crypto';
+import { CategoryModel, OfferModel, ProductModel, ReportModel, StoreModel } from './models.js';
+import { Category, Offer, Product, Store, type Report, type ReportRequest } from './schemas.js';
 import { endOfDay, weekdayToDate } from './lib/week.js';
 
 export interface Repo {
@@ -12,6 +13,7 @@ export interface Repo {
   products(): Promise<Product[]>;
   currentOffers(today?: Date): Promise<Offer[]>;
   replaceOffers(chain: Store['chain'], offers: Offer[]): Promise<void>;
+  addReport(report: ReportRequest): Promise<Report>;
 }
 
 const dataDir = fileURLToPath(new URL('../data/', import.meta.url));
@@ -38,6 +40,7 @@ const isCurrent = (o: Offer, today: Date) => o.validFrom <= today && today <= o.
 
 export function memoryRepo(): Repo {
   const data = loadDemoData();
+  const reports: Report[] = [];
   return {
     categories: async () => data.categories,
     stores: async () => data.stores,
@@ -45,6 +48,11 @@ export function memoryRepo(): Repo {
     currentOffers: async (today = new Date()) => data.offers.filter((o) => isCurrent(o, today)),
     replaceOffers: async (chain, offers) => {
       data.offers = [...data.offers.filter((o) => o.chain !== chain), ...offers];
+    },
+    addReport: async (report) => {
+      const saved = { ...report, id: randomUUID(), createdAt: new Date() };
+      reports.push(saved);
+      return saved;
     },
   };
 }
@@ -68,6 +76,11 @@ export function mongoRepo(): Repo {
     replaceOffers: async (chain, offers) => {
       await OfferModel.deleteMany({ chain });
       await OfferModel.insertMany(offers.map(({ id, ...o }) => ({ _id: id, ...o })));
+    },
+    addReport: async (report) => {
+      const id = randomUUID();
+      const doc = await ReportModel.create({ _id: id, ...report });
+      return { ...report, id, createdAt: doc.get('createdAt') as Date };
     },
   };
 }

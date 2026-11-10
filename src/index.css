@@ -1,13 +1,43 @@
 @import 'tailwindcss';
 
-/* Brand colors (first version, will be refined later) */
+/* SpArt design tokens: each color has one job. */
 @theme {
-  --color-brand: #5b3df5;
+  --font-sans: 'Manrope', system-ui, sans-serif;
+  --color-ink: #0e0f14;
   --color-muted: #6b6e7b;
+  --color-faint: #8a8d99;
+  --color-line: #e4e5eb;
+  --color-bg: #f6f6f9;
+  --color-brand: #5b3df5;
+  --color-brand-dark: #4326d9;
+  --color-brand-soft: #f1eeff;
+  --color-brand-ink: #3a22c9;
+  --color-save: #0fa968;
+  --color-save-ink: #0a7a4b;
+  --color-save-soft: #e3f7ee;
+  --color-warn-soft: #fff4e5;
+  --color-warn-ink: #7a3e00;
+  --color-danger: #c92a2a;
 }
 
+html,
 body {
-  background: #f6f6f9;
-  color: #0e0f14;
-  font-family: system-ui, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  -webkit-tap-highlight-color: transparent;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes sheet {
+  from { transform: translateY(100%); }
+  to { transform: none; }
+}
+.animate-rise { animation: rise 0.28s ease-out; }
+.animate-sheet { animation: sheet 0.3s ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }
