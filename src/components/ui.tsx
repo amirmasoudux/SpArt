@@ -48,9 +48,9 @@ export function PrimaryButton(props: { children: ReactNode; onClick?: () => void
   );
 }
 
-export function PrimaryLink({ to, children }: { to: string; children: ReactNode }) {
+export function PrimaryLink({ to, children, state }: { to: string; children: ReactNode; state?: unknown }) {
   return (
-    <Link to={to} className={primary}>
+    <Link to={to} state={state} className={primary}>
       {children}
     </Link>
   );

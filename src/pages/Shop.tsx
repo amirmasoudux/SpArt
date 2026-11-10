@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import { Navigate, useNavigate, useParams, useSearchParams } from 'react-router';
+import { useEffect, useState } from 'react';
+import { Navigate, useLocation, useNavigate, useParams, useSearchParams } from 'react-router';
 import { BottomAction, PrimaryButton, Screen, SectionLabel } from '../components/ui';
 import { IconCheck, IconClose } from '../components/icons';
 import { getCategories, getStores } from '../lib/dataSource';
 import { fetchPlan } from '../lib/api';
+import { euro, type PlanLine } from '../lib/plan';
 import { newId } from '../lib/parseList';
 import { getGuestId, getList, saveList, saveTrip } from '../lib/storage';
 import type { ShoppingList } from '../types';
@@ -14,8 +15,17 @@ export default function Shop() {
   const navigate = useNavigate();
   const [list, setList] = useState<ShoppingList | undefined>(() => getList(id));
 
+  const location = useLocation();
   const stores = getStores();
   const store = stores.find((s) => s.id === params.get('store')) ?? stores[0];
+  // Which items are on offer at this store: passed from the plan, or asked again after a reload.
+  const [lines, setLines] = useState<PlanLine[]>((location.state as PlanLine[] | null) ?? []);
+
+  useEffect(() => {
+    if (lines.length || !list) return;
+    fetchPlan(list.items).then(({ plans }) => setLines((plans.find((p) => p.store.id === store.id) ?? plans[0]).lines));
+  }, [lines.length, list, store.id]);
+  const offerFor = (itemId: string) => lines.find((l) => l.itemId === itemId && l.onOffer);
 
   if (!list) return <Navigate to="/lists" replace />;
 
@@ -86,7 +96,7 @@ export default function Shop() {
                   type="button"
                   aria-pressed={item.checked}
                   onClick={() => toggle(item.id)}
-                  className="flex min-h-[54px] w-full items-center gap-3.5 px-4 text-left"
+                  className="flex min-h-[54px] w-full items-center gap-3.5 px-4 py-2 text-left"
                 >
                   <span
                     className={`flex size-[26px] shrink-0 items-center justify-center rounded-[9px] transition ${
@@ -95,11 +105,19 @@ export default function Shop() {
                   >
                     {item.checked && <IconCheck className="size-3.5" />}
                   </span>
-                  <span className={`text-base font-bold ${item.checked ? 'text-faint line-through' : ''}`}>
-                    {item.name}
-                    {item.qty > 1 ? ` × ${item.qty}` : ''}
+                  <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                    <span className={`text-base font-bold ${item.checked ? 'text-faint line-through' : ''}`}>
+                      {item.name}
+                      {item.qty > 1 ? ` × ${item.qty}` : ''}
+                    </span>
+                    {offerFor(item.id) && (
+                      <span className="flex items-center gap-1.5 text-xs font-extrabold text-save-ink">
+                        <span className="rounded-full bg-save px-2 py-0.5 text-[11px] tracking-wide text-white uppercase">Offer</span>
+                        Prospekt price {euro(offerFor(item.id)!.price)}
+                      </span>
+                    )}
                   </span>
-                  {item.unit && <span className="ml-auto text-xs text-faint">{item.unit}</span>}
+                  {item.unit && <span className="shrink-0 text-xs text-faint">{item.unit}</span>}
                 </button>
               </li>
             ))}

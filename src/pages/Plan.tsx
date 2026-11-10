@@ -45,45 +45,47 @@ export default function Plan() {
             {euro(best.saved)}
           </span>
           <span className="text-[13px] text-muted">
-            {offerLines.length} {offerLines.length === 1 ? 'item is' : 'items are'} in the {best.store.name} Prospekt
+            {offerLines.length} of {best.lines.length} items are on offer at {best.store.name}
           </span>
         </div>
       </section>
 
-      {offerLines.length > 0 && (
-        <section className="flex flex-col gap-1.5" aria-label="On offer">
-          <SectionLabel>In the {best.store.name} Prospekt</SectionLabel>
-          <ul className="rounded-[24px] bg-white py-1.5">
-            {offerLines.map((l) => (
-              <li key={l.itemId} className="flex min-h-[52px] items-center justify-between gap-3 px-[18px] py-1.5">
-                <span className="flex min-w-0 flex-1 flex-col">
-                  <span className="text-[15px] font-bold">
-                    {l.name}
-                    {l.qty > 1 ? ` × ${l.qty}` : ''}
+      {/* Every item, so it is clear which ones are on offer. Offers first. */}
+      <section className="flex flex-col gap-1.5" aria-label={`Your list at ${best.store.name}`}>
+        <SectionLabel>Your list at {best.store.name}</SectionLabel>
+        <ul className="rounded-[24px] bg-white py-1.5">
+          {[...offerLines, ...otherLines].map((l) => (
+            <li key={l.itemId} className="flex min-h-[56px] items-center justify-between gap-3 px-[18px] py-2">
+              <span className="flex min-w-0 flex-1 flex-col gap-1">
+                <span className="text-[15px] font-bold">
+                  {l.name}
+                  {l.qty > 1 ? ` × ${l.qty}` : ''}
+                </span>
+                {l.onOffer ? (
+                  <span className="flex flex-wrap items-center gap-2">
+                    <span className="rounded-full bg-save px-2 py-0.5 text-[11px] font-extrabold tracking-wide text-white uppercase">Offer</span>
+                    <span className="text-xs font-extrabold text-save-ink">You save {euro(l.saving)}</span>
+                    <button
+                      type="button"
+                      onClick={() => setReporting(l)}
+                      aria-label={`Report a wrong price for ${l.name}`}
+                      className="text-xs font-bold text-faint underline"
+                    >
+                      Wrong price?
+                    </button>
                   </span>
-                  <button
-                    type="button"
-                    onClick={() => setReporting(l)}
-                    aria-label={`Report a wrong price for ${l.name}`}
-                    className="self-start text-xs font-bold text-faint underline"
-                  >
-                    Wrong price?
-                  </button>
-                </span>
-                <span className="flex shrink-0 items-center gap-2.5 whitespace-nowrap">
-                  <span className="text-xs font-extrabold text-save-ink">−{euro(l.saving)}</span>
-                  <span className="min-w-14 text-right text-[15px] font-extrabold">{euro(l.price)}</span>
-                </span>
-              </li>
-            ))}
-            {otherLines.length > 0 && (
-              <li className="px-[18px] pt-1.5 pb-2.5 text-[13px] font-bold text-brand">
-                + {otherLines.length} more {otherLines.length === 1 ? 'item' : 'items'} at the normal price (≈)
-              </li>
-            )}
-          </ul>
-        </section>
-      )}
+                ) : (
+                  <span className="text-xs font-bold text-faint">Normal price (≈)</span>
+                )}
+              </span>
+              <span className="flex shrink-0 flex-col items-end whitespace-nowrap">
+                <span className={`text-[15px] font-extrabold ${l.onOffer ? 'text-save-ink' : ''}`}>{euro(l.price)}</span>
+                {l.onOffer && <span className="text-xs text-faint line-through">{euro(l.price + l.saving)}</span>}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       {others.length > 0 && (
         <section className="flex flex-col gap-1.5" aria-label="Other stores">
@@ -114,7 +116,7 @@ export default function Plan() {
       </p>
 
       <BottomAction>
-        <PrimaryLink to={`/list/${list.id}/shop?store=${best.store.id}`}>Start shopping</PrimaryLink>
+        <PrimaryLink to={`/list/${list.id}/shop?store=${best.store.id}`} state={best.lines}>Start shopping</PrimaryLink>
       </BottomAction>
 
       {reporting && <ReportSheet line={reporting} store={best.store} onClose={() => setReporting(null)} />}
