@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { Navigate, useNavigate, useParams, useSearchParams } from 'react-router';
+import { useEffect, useState } from 'react';
+import { Navigate, useLocation, useNavigate, useParams, useSearchParams } from 'react-router';
 import { BackLink, Button, Screen } from '../components/ui';
 import { fetchPlan } from '../lib/api';
+import { euro, type PlanLine } from '../lib/plan';
 import { getCategories, getStores } from '../lib/dataSource';
 import { newId } from '../lib/parseList';
 import { getGuestId, getList, saveList, saveTrip } from '../lib/storage';
@@ -13,6 +14,14 @@ export default function Shop() {
   const navigate = useNavigate();
   const [list, setList] = useState<ShoppingList | undefined>(() => getList(id));
   const store = getStores().find((s) => s.id === params.get('store')) ?? getStores()[0];
+  const location = useLocation();
+  // Which items are on offer here: passed from the plan, or asked again after a reload.
+  const [lines, setLines] = useState<PlanLine[]>((location.state as PlanLine[] | null) ?? []);
+  useEffect(() => {
+    if (lines.length || !list) return;
+    fetchPlan(list.items).then(({ plans }) => setLines((plans.find((p) => p.store.id === store.id) ?? plans[0]).lines));
+  }, [lines.length, list, store.id]);
+  const offerFor = (itemId: string) => lines.find((l) => l.itemId === itemId && l.onOffer);
 
   if (!list) return <Navigate to="/lists" replace />;
 
@@ -67,6 +76,11 @@ export default function Shop() {
                   <span className={item.checked ? 'text-muted line-through' : ''}>
                     {item.name} {item.qty > 1 && `× ${item.qty}`}
                   </span>
+                  {offerFor(item.id) && (
+                    <span className="ml-auto rounded bg-green-700 px-1.5 py-0.5 text-xs font-bold text-white">
+                      OFFER {euro(offerFor(item.id)!.price)}
+                    </span>
+                  )}
                 </label>
               </li>
             ))}

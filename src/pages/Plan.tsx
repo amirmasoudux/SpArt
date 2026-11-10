@@ -32,23 +32,25 @@ export default function Plan() {
         <p className="mt-2 text-2xl font-bold text-green-700">You save {euro(best.saved)}</p>
       </div>
 
-      {offerLines.length > 0 && (
-        <section>
-          <h2 className="mb-1 text-sm font-bold text-muted uppercase">In the {best.store.name} Prospekt</h2>
-          <ul className="rounded-lg border bg-white">
-            {offerLines.map((l) => (
-              <li key={l.itemId} className="flex justify-between border-b p-2 last:border-b-0">
-                <span>
-                  {l.name} {l.qty > 1 && `× ${l.qty}`}
-                </span>
-                <span>
-                  {euro(l.price)} <span className="text-sm text-green-700">(−{euro(l.saving)})</span>
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )}
+      <section>
+        <h2 className="mb-1 text-sm font-bold text-muted uppercase">
+          Your list at {best.store.name} ({offerLines.length} of {best.lines.length} on offer)
+        </h2>
+        <ul className="rounded-lg border bg-white">
+          {[...offerLines, ...best.lines.filter((l) => !l.onOffer)].map((l) => (
+            <li key={l.itemId} className="flex items-center justify-between gap-2 border-b p-2 last:border-b-0">
+              <span>
+                {l.name} {l.qty > 1 && `× ${l.qty}`}
+                {l.onOffer && <span className="ml-2 rounded bg-green-700 px-1.5 py-0.5 text-xs font-bold text-white">OFFER</span>}
+              </span>
+              <span className="text-right">
+                {l.onOffer && <span className="mr-1 text-sm text-muted line-through">{euro(l.price + l.saving)}</span>}
+                <span className={l.onOffer ? 'font-bold text-green-700' : ''}>{euro(l.price)}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
 
       <section>
         <h2 className="mb-1 text-sm font-bold text-muted uppercase">Other stores</h2>
@@ -67,7 +69,7 @@ export default function Plan() {
         {result.offerCount} offers this week · {result.source === 'server' ? 'from the server' : 'demo data (server not running)'}
       </p>
 
-      <Link to={`/list/${list.id}/shop?store=${best.store.id}`} className="rounded-lg bg-brand p-3 text-center font-semibold text-white">
+      <Link to={`/list/${list.id}/shop?store=${best.store.id}`} state={best.lines} className="rounded-lg bg-brand p-3 text-center font-semibold text-white">
         Start shopping
       </Link>
     </Screen>
