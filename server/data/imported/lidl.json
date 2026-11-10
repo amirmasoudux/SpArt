@@ -1,0 +1,29 @@
+[
+  {
+    "id": "lidl-butter-250g-2026-11-08",
+    "chain": "lidl",
+    "productId": "butter-250g",
+    "price": 1.49,
+    "validFrom": "2026-11-08T23:00:00.000Z",
+    "validTo": "2026-11-14T22:59:59.999Z",
+    "source": "Lidl Prospekt (until 14.11.2026), Siegburg, read from kaufDA. Sizes worked out from the price per kg/l."
+  },
+  {
+    "id": "lidl-milk-1l-2026-11-08",
+    "chain": "lidl",
+    "productId": "milk-1l",
+    "price": 0.79,
+    "validFrom": "2026-11-08T23:00:00.000Z",
+    "validTo": "2026-11-14T22:59:59.999Z",
+    "source": "Lidl Prospekt (until 14.11.2026), Siegburg, read from kaufDA. Sizes worked out from the price per kg/l."
+  },
+  {
+    "id": "lidl-minced-beef-500g-2026-11-08",
+    "chain": "lidl",
+    "productId": "minced-beef-500g",
+    "price": 2.5,
+    "validFrom": "2026-11-08T23:00:00.000Z",
+    "validTo": "2026-11-14T22:59:59.999Z",
+    "source": "Lidl Prospekt (until 14.11.2026), Siegburg, read from kaufDA. Sizes worked out from the price per kg/l."
+  }
+]

@@ -8,6 +8,8 @@
 - Zod checks every request and all data from files, the database and the AI
 - Seed script for MongoDB
 - Prospekt import: AI reads flyer pages → Zod check → sizes made comparable → linked to our products → saved
+- **Real offers:** REWE and Lidl Prospekte for Siegburg (9.–14.11.2026), read from kaufDA and imported with `--out`. Aldi is not on kaufDA for Siegburg, so it stays on demo data.
+- Found and fixed wrong matches from the real import (Lauchzwiebeln ≠ onions, Milchreis ≠ rice)
 - Tests for the plan logic, the Prospekt import and the API
 
 **Frontend**
