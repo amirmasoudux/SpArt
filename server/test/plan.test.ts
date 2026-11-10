@@ -13,9 +13,9 @@ describe('rankStores', () => {
     const plans = rankStores(items, data.stores, data.products, data.offers);
     expect(plans[0].basketTotal).toBeLessThanOrEqual(plans[1].basketTotal);
     const rewe = plans.find((p) => p.store.chain === 'rewe')!;
-    // REWE offers: milk 1.09 (regular 1.29), gouda 2.49 (regular 3.29)
-    expect(rewe.basketTotal).toBe(4.67);
-    expect(rewe.saved).toBe(1.2);
+    // REWE: milk on offer 0.99 (regular 1.29), gouda no offer (3.29)
+    expect(rewe.basketTotal).toBe(5.27);
+    expect(rewe.saved).toBe(0.6);
   });
 
   it('counts items without a product as "no price"', () => {
