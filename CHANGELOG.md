@@ -15,6 +15,9 @@
 - 18 server tests, including the AI path with a fake AI answer
 - `render.yaml` for the backend on Render; frontend ready for Vercel (`VITE_API_URL`)
 
+**Real Lidl prices**
+- Lidl normal prices for milk, bananas, basmati rice, potatoes and cucumber now come from real Lidl Plus receipts (Lidl Siegburg, latest purchase of each item, 2025–2026)
+
 ## v0.2 · Week 2 (MVP)
 
 **Backend (new `server/` folder)**
