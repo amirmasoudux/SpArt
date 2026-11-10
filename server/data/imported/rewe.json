@@ -1,0 +1,29 @@
+[
+  {
+    "id": "rewe-potatoes-2kg-2026-11-08",
+    "chain": "rewe",
+    "productId": "potatoes-2kg",
+    "price": 1.33,
+    "validFrom": "2026-11-08T23:00:00.000Z",
+    "validTo": "2026-11-14T22:59:59.999Z",
+    "source": "REWE Prospekt KW 46 (9.-14.11.2026), Siegburg, read from kaufDA. Sizes worked out from the price per kg/l."
+  },
+  {
+    "id": "rewe-toilet-paper-8-2026-11-08",
+    "chain": "rewe",
+    "productId": "toilet-paper-8",
+    "price": 3.99,
+    "validFrom": "2026-11-08T23:00:00.000Z",
+    "validTo": "2026-11-14T22:59:59.999Z",
+    "source": "REWE Prospekt KW 46 (9.-14.11.2026), Siegburg, read from kaufDA. Sizes worked out from the price per kg/l."
+  },
+  {
+    "id": "rewe-sparkling-water-6x1-5l-2026-11-08",
+    "chain": "rewe",
+    "productId": "sparkling-water-6x1-5l",
+    "price": 2.99,
+    "validFrom": "2026-11-08T23:00:00.000Z",
+    "validTo": "2026-11-14T22:59:59.999Z",
+    "source": "REWE Prospekt KW 46 (9.-14.11.2026), Siegburg, read from kaufDA. Sizes worked out from the price per kg/l."
+  }
+]

@@ -7,8 +7,9 @@
 //   npm run import-flyer -- --chain rewe --from 2026-11-16 --to 2026-11-21 --sample scripts/sample-flyer-answer.json
 //
 // Add --dry-run to only print the result and save nothing.
+// Add --out to save the offers to data/imported/<chain>.json (used by the server without MongoDB).
 import 'dotenv/config';
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { extname } from 'node:path';
 import mongoose from 'mongoose';
 import { parseArgs } from 'node:util';
@@ -25,6 +26,7 @@ const { values, positionals } = parseArgs({
     to: { type: 'string' },
     sample: { type: 'string' },
     'dry-run': { type: 'boolean', default: false },
+    out: { type: 'boolean', default: false },
   },
 });
 
@@ -34,9 +36,12 @@ const week = { from: new Date(`${values.from}T00:00:00`), to: endOfDay(new Date(
 
 // 1) Get the raw offers: from the AI, or from a saved sample answer.
 let raw: unknown[] = [];
+let source = `${chain.toUpperCase()} Prospekt ${values.from}`;
 if (values.sample) {
-  raw = (JSON.parse(readFileSync(values.sample, 'utf8')) as { offers: unknown[] }).offers;
-  console.log(`Using sample answer: ${raw.length} rows`);
+  const file = JSON.parse(readFileSync(values.sample, 'utf8')) as { offers: unknown[]; source?: string };
+  raw = file.offers;
+  if (file.source) source = file.source;
+  console.log(`Using saved answer: ${raw.length} rows`);
 } else {
   if (positionals.length === 0) throw new Error('Give one or more page images (png/jpg/webp).');
   for (const file of positionals) {
@@ -51,7 +56,7 @@ if (values.sample) {
 
 // 2) Check, link to products, keep real savings.
 const { products } = loadDemoData();
-const result = toOffers(raw, chain, products, week, `${chain.toUpperCase()} Prospekt ${values.from}`);
+const result = toOffers(raw, chain, products, week, source);
 
 console.log(`\n✔ ${result.offers.length} offers ready`);
 for (const o of result.offers) console.log(`  ${o.productId.padEnd(24)} €${o.price.toFixed(2)}`);
@@ -64,6 +69,10 @@ if (result.invalid) console.log(`\n✘ ${result.invalid} rows rejected by Zod`);
 // 3) Save (replaces this chain's old offers).
 if (values['dry-run']) {
   console.log('\nDry run: nothing saved.');
+} else if (values.out) {
+  const file = new URL(`../data/imported/${chain}.json`, import.meta.url);
+  writeFileSync(file, JSON.stringify(result.offers, null, 2) + '\n');
+  console.log(`\nSaved ${result.offers.length} ${chain} offers to data/imported/${chain}.json`);
 } else if (!process.env.MONGO_URI) {
   console.log('\nNo MONGO_URI: nothing saved. Add it to server/.env to save offers.');
 } else {

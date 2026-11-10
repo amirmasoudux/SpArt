@@ -1,0 +1,27 @@
+{
+  "source": "REWE Prospekt KW 46 (9.-14.11.2026), Siegburg, read from kaufDA. Sizes worked out from the price per kg/l.",
+  "offers": [
+    { "product": "Rinder-Hackfleisch", "price": 3.49, "regularPrice": null, "unit": "250 g" },
+    { "product": "Speisekartoffeln", "price": 3.33, "regularPrice": null, "unit": "5 kg" },
+    { "product": "Griech. Joghurt", "price": 2.49, "regularPrice": null, "unit": "450 g" },
+    { "product": "Romatomaten", "price": 1.79, "regularPrice": null, "unit": "400 g" },
+    { "product": "Mini Cherry Rispentomaten", "price": 1.79, "regularPrice": null, "unit": "200 g" },
+    { "product": "Toilettenpapier", "price": 3.99, "regularPrice": null, "unit": null },
+    { "product": "Hähnchen-Brustfilet", "price": 11.99, "regularPrice": null, "unit": null },
+    { "product": "Puten-Brustfilet", "price": 1.59, "regularPrice": null, "unit": null },
+    { "product": "Reines Sonnenblumenöl", "price": 2.22, "regularPrice": null, "unit": "750 ml" },
+    { "product": "Pizza Margherita", "price": 3.69, "regularPrice": null, "unit": "410 g" },
+    { "product": "Mineralwasser", "price": 2.99, "regularPrice": null, "unit": null },
+    { "product": "Clementinen", "price": 1.89, "regularPrice": null, "unit": null },
+    { "product": "Saftorangen", "price": 2.99, "regularPrice": null, "unit": "1,5 kg" },
+    { "product": "Avocado", "price": 1.19, "regularPrice": null, "unit": null },
+    { "product": "Feldsalat", "price": 1.79, "regularPrice": null, "unit": "100 g" },
+    { "product": "Braune Champignons", "price": 1.69, "regularPrice": null, "unit": "250 g" },
+    { "product": "Spitzkohl", "price": 0.99, "regularPrice": null, "unit": null },
+    { "product": "Lauchzwiebeln", "price": 0.55, "regularPrice": null, "unit": null },
+    { "product": "Burger Buns", "price": 0.99, "regularPrice": null, "unit": "300 g" },
+    { "product": "Schafskäse Natur", "price": 1.99, "regularPrice": null, "unit": "180 g" },
+    { "product": "Maultaschen", "price": 1.69, "regularPrice": null, "unit": "360 g" },
+    { "product": "Colorwaschmittel Kraft-Gel", "price": 16.99, "regularPrice": null, "unit": null }
+  ]
+}

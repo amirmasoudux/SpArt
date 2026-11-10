@@ -24,6 +24,10 @@ describe('Prospekt import', () => {
     expect(matchProduct('Weihenstephan H-Milch 1,5%', products)?.id).toBe('milk-1l');
     expect(matchProduct('Rispentomaten', products)?.id).toBe('tomatoes-500g');
     expect(matchProduct('Lachsfilet', products)).toBeUndefined();
+    // Real mistakes found in the REWE and Lidl import of 9.11.2026:
+    expect(matchProduct('Lauchzwiebeln', products)).toBeUndefined();
+    expect(matchProduct('Milchreis', products)).toBeUndefined();
+    expect(matchProduct('Haltbare Vollmilch', products)?.id).toBe('milk-1l');
   });
 
   it('turns the sample AI answer into offers', () => {

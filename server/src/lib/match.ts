@@ -40,8 +40,14 @@ const ALIAS_LIST = Object.entries(ALIASES)
 // German flyers write "H-Milch", "Bio-Bananen": treat dashes and commas as spaces.
 const clean = (s: string) => ` ${s.toLowerCase().replace(/[-,.()%/]/g, ' ').replace(/\s+/g, ' ').trim()} `;
 
+// Compound words that END with a known word but are a different product.
+// "Lauchzwiebeln" are spring onions, not onions; "Milchreis" is rice pudding, not rice.
+// Found by checking real Prospekt imports by hand. The AI step can replace this list later.
+const NOT_THE_SAME = ['lauchzwiebel', 'frühlingszwiebel', 'milchreis', 'reiswaffel', 'milchschokolade', 'butterkeks', 'eierlikör', 'eiernudel', 'buttermilch', 'kokosmilch', 'tomatenmark'];
+
 export function matchProduct(name: string, products: Product[]): Product | undefined {
   const text = clean(name);
+  if (NOT_THE_SAME.some((word) => text.includes(word))) return undefined;
   const find = (test: (alias: string) => boolean) => {
     for (const [alias, productId] of ALIAS_LIST) {
       if (!test(alias)) continue;

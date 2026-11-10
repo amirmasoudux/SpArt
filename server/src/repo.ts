@@ -1,6 +1,6 @@
 // Data access. The routes only talk to this interface, so they don't care
 // whether the data comes from MongoDB or from the demo files in memory.
-import { readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { randomUUID } from 'node:crypto';
 import { CategoryModel, OfferModel, ProductModel, ReportModel, StoreModel } from './models.js';
@@ -20,7 +20,7 @@ const dataDir = fileURLToPath(new URL('../data/', import.meta.url));
 const readJson = (name: string): unknown => JSON.parse(readFileSync(dataDir + name, 'utf8'));
 
 // Demo data, checked with Zod so a typo in a JSON file fails loudly.
-export function loadDemoData(today = new Date()) {
+export function loadDemoData(today = new Date(), opts = { imported: true }) {
   const categories = Category.array().parse(readJson('categories.json'));
   const stores = Store.array().parse(readJson('stores.json'));
   const products = Product.array().parse(readJson('products.json'));
@@ -33,7 +33,21 @@ export function loadDemoData(today = new Date()) {
       source: 'Demo data',
     })),
   );
-  return { categories, stores, products, offers };
+  return { categories, stores, products, offers: opts.imported ? withImportedOffers(offers) : offers };
+}
+
+// Real offers from Prospekte (written by `npm run import-flyer -- ... --out`) replace
+// the demo offers of that chain. One file per chain in data/imported/.
+function withImportedOffers(demo: Offer[]): Offer[] {
+  const dir = dataDir + 'imported/';
+  if (!existsSync(dir)) return demo;
+  let offers = demo;
+  for (const file of readdirSync(dir).filter((f) => f.endsWith('.json'))) {
+    const imported = Offer.array().parse(JSON.parse(readFileSync(dir + file, 'utf8')));
+    const chains = new Set(imported.map((o) => o.chain));
+    offers = [...offers.filter((o) => !chains.has(o.chain)), ...imported];
+  }
+  return offers;
 }
 
 const isCurrent = (o: Offer, today: Date) => o.validFrom <= today && today <= o.validTo;

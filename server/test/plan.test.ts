@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { rankStores } from '../src/lib/plan.js';
 import { loadDemoData } from '../src/repo.js';
 
-const data = loadDemoData(new Date('2026-11-11T12:00:00')); // a Wednesday
+const data = loadDemoData(new Date('2026-11-11T12:00:00'), { imported: false }); // a Wednesday, demo offers only
 
 describe('rankStores', () => {
   it('puts the cheapest basket first and counts the offer saving', () => {

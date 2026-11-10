@@ -1,0 +1,23 @@
+{
+  "source": "Lidl Prospekt (until 14.11.2026), Siegburg, read from kaufDA. Sizes worked out from the price per kg/l.",
+  "offers": [
+    { "product": "Feine Butter", "price": 1.49, "regularPrice": 2.79, "unit": "250 g" },
+    { "product": "Haltbare Vollmilch", "price": 9.5, "regularPrice": 11.4, "unit": "12 l" },
+    { "product": "Frisches Hackfleisch, gemischt", "price": 5.99, "regularPrice": 6.99, "unit": "1,2 kg" },
+    { "product": "Emmentaler", "price": 2.79, "regularPrice": 3.49, "unit": "400 g" },
+    { "product": "Rote Paprika, lose", "price": 2.99, "regularPrice": null, "unit": null },
+    { "product": "Mandarinen/Clementinen", "price": 1.49, "regularPrice": null, "unit": null },
+    { "product": "Kiwi Gold, lose", "price": 0.49, "regularPrice": null, "unit": null },
+    { "product": "Birnen", "price": 0.99, "regularPrice": 1.59, "unit": null },
+    { "product": "Barista Haferdrink", "price": 1.69, "regularPrice": 2.55, "unit": null },
+    { "product": "Toilettenpapier XXL", "price": 7.39, "regularPrice": null, "unit": null },
+    { "product": "Frische Hähnchenschenkel", "price": 6.79, "regularPrice": 8.49, "unit": "2 kg" },
+    { "product": "Original 1-2-3 Frites", "price": 2.55, "regularPrice": 4.89, "unit": "1,5 kg" },
+    { "product": "Cappelletti", "price": 1.49, "regularPrice": 1.99, "unit": "250 g" },
+    { "product": "Mini Gnocchi", "price": 1.49, "regularPrice": 1.99, "unit": "500 g" },
+    { "product": "Pesto", "price": 1.49, "regularPrice": null, "unit": "190 g" },
+    { "product": "Milchreis", "price": 0.49, "regularPrice": 0.99, "unit": "200 g" },
+    { "product": "Nutella", "price": 5.79, "regularPrice": null, "unit": "825 g" },
+    { "product": "Waschmittel", "price": 17.99, "regularPrice": 27.99, "unit": null }
+  ]
+}
