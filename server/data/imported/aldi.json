@@ -1,0 +1,29 @@
+[
+  {
+    "id": "aldi-apples-1kg-2026-11-08",
+    "chain": "aldi",
+    "productId": "apples-1kg",
+    "price": 1,
+    "validFrom": "2026-11-08T23:00:00.000Z",
+    "validTo": "2026-11-14T22:59:59.999Z",
+    "source": "ALDI SÜD Wochenangebote (9.–14.11.2026), aldi-sued.de/angebote — same prices in every ALDI SÜD store"
+  },
+  {
+    "id": "aldi-onions-1kg-2026-11-08",
+    "chain": "aldi",
+    "productId": "onions-1kg",
+    "price": 0.93,
+    "validFrom": "2026-11-08T23:00:00.000Z",
+    "validTo": "2026-11-14T22:59:59.999Z",
+    "source": "ALDI SÜD Wochenangebote (9.–14.11.2026), aldi-sued.de/angebote — same prices in every ALDI SÜD store"
+  },
+  {
+    "id": "aldi-orange-juice-1l-2026-11-08",
+    "chain": "aldi",
+    "productId": "orange-juice-1l",
+    "price": 1.29,
+    "validFrom": "2026-11-08T23:00:00.000Z",
+    "validTo": "2026-11-14T22:59:59.999Z",
+    "source": "ALDI SÜD Wochenangebote (9.–14.11.2026), aldi-sued.de/angebote — same prices in every ALDI SÜD store"
+  }
+]

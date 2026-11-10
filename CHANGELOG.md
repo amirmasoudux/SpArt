@@ -19,6 +19,7 @@
 - Lidl normal prices for milk, bananas, basmati rice, potatoes and cucumber now come from real Lidl Plus receipts (Lidl Siegburg, latest purchase of each item, 2025–2026)
 - REWE normal prices for 23 products now come from the REWE online shop (PETZ REWE Siegburg, pickup prices, 10.11.2026)
 - Demo offers: every product is on offer in at least one store, valid every day
+- Real ALDI SÜD offers (9.–14.11.2026) from aldi-sued.de: apples, onions, orange juice; ALDI butter normal price 1.15 (permanent price)
 
 ## v0.2 · Week 2 (MVP)
 

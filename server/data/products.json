@@ -2,7 +2,7 @@
   { "id": "milk-1l", "name": "Milk", "unit": "1 L", "category": "dairy", "prices": { "rewe": 0.85, "lidl": 0.85, "aldi": 1.19 } },
   { "id": "gouda-400g", "name": "Gouda", "unit": "400 g", "category": "dairy", "prices": { "rewe": 2.45, "lidl": 2.89, "aldi": 2.89 } },
   { "id": "greek-yogurt-500g", "name": "Greek yogurt", "unit": "500 g", "category": "dairy", "prices": { "rewe": 1.39, "lidl": 1.99, "aldi": 1.99 } },
-  { "id": "butter-250g", "name": "Butter", "unit": "250 g", "category": "dairy", "prices": { "rewe": 1.15, "lidl": 2.39, "aldi": 2.39 } },
+  { "id": "butter-250g", "name": "Butter", "unit": "250 g", "category": "dairy", "prices": { "rewe": 1.15, "lidl": 2.39, "aldi": 1.15 } },
   { "id": "eggs-10", "name": "Eggs", "unit": "10 pcs", "category": "dairy", "prices": { "rewe": 2.49, "lidl": 2.99, "aldi": 2.99 } },
   { "id": "bananas-1kg", "name": "Bananas", "unit": "1 kg", "category": "produce", "prices": { "rewe": 1.3, "lidl": 1.29, "aldi": 1.69 } },
   { "id": "tomatoes-500g", "name": "Tomatoes", "unit": "500 g", "category": "produce", "prices": { "rewe": 1.35, "lidl": 1.79, "aldi": 1.79 } },
