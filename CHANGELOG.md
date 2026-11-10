@@ -18,6 +18,9 @@
 - Trip saved, plus a Savings tab
 - Uses the API, with demo data as a backup when the server is not running
 
+**Real Lidl prices**
+- Lidl normal prices for milk, bananas, basmati rice, potatoes and cucumber now come from real Lidl Plus receipts (Lidl Siegburg, latest purchase of each item, 2025–2026)
+
 ## v0.1 · Week 1
 
 - Project setup: Vite, React, TypeScript, Tailwind, React Router
