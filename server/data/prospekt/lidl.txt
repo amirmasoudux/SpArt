@@ -1,0 +1,20 @@
+# Lidl Prospekt, Siegburg, 9.–14.11.2026, read from kaufDA (selected rows only)
+# title | price | regular price | unit
+Feine Butter | 1.49 | 2.79 | 250 g
+Haltbare Vollmilch | 9.5 | 11.4 | 12 l
+Frisches Hackfleisch, gemischt | 5.99 | 6.99 | 1,2 kg
+Emmentaler | 2.79 | 3.49 | 400 g
+Rote Paprika, lose | 2.99 |  | 
+Mandarinen/Clementinen | 1.49 |  | 
+Kiwi Gold, lose | 0.49 |  | 
+Birnen | 0.99 | 1.59 | 
+Barista Haferdrink | 1.69 | 2.55 | 
+Toilettenpapier XXL | 7.39 |  | 
+Frische Hähnchenschenkel | 6.79 | 8.49 | 2 kg
+Original 1-2-3 Frites | 2.55 | 4.89 | 1,5 kg
+Cappelletti | 1.49 | 1.99 | 250 g
+Mini Gnocchi | 1.49 | 1.99 | 500 g
+Pesto | 1.49 |  | 190 g
+Milchreis | 0.49 | 0.99 | 200 g
+Nutella | 5.79 |  | 825 g
+Waschmittel | 17.99 | 27.99 | 

@@ -21,6 +21,8 @@
 - Demo offers: every product is on offer in at least one store, valid every day
 - Real ALDI SÜD offers (9.–14.11.2026) from aldi-sued.de: apples, onions, orange juice; ALDI butter normal price 1.15 (permanent price)
 - New stores: Kaufland, Penny and Netto (6 supermarkets now), with this week's Siegburg offers from their Prospekte; price sources in `server/data/PRICES.md`
+- All Prospekt offers: about 500 food and household offers from all six Prospekte (`server/data/prospekt/`). Anything on a list, also outside the 27-product price list ("Toffifee", "Lachs", "chocolate"), is searched in them; the plan shows where each item is on offer
+- Backend live on Render with MongoDB Atlas; it copies the Prospekt offers into MongoDB on every start
 
 ## v0.2 · Week 2 (MVP)
 

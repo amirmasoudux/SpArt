@@ -26,6 +26,14 @@ describe('API', () => {
     expect(res.body.plans).toHaveLength(6);
   });
 
+  it('POST /api/plan also returns Prospekt offers per item (also outside the catalog)', async () => {
+    const res = await request(app)
+      .post('/api/plan')
+      .send({ items: [{ id: '1', name: 'Toffifee', qty: 1, productId: null }] });
+    expect(res.status).toBe(200);
+    expect(Array.isArray(res.body.itemOffers)).toBe(true); // empty once this week's Prospekte expire
+  });
+
   it('POST /api/plan rejects bad input with 400', async () => {
     const res = await request(app).post('/api/plan').send({ items: [{ id: '1', qty: 0 }] });
     expect(res.status).toBe(400);

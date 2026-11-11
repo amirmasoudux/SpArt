@@ -2,15 +2,42 @@
 // If the backend is not running, the app uses the same logic with the local demo data,
 // so the app still works in a demo. The screens don't need to know which one answered.
 import { getCurrentOffers, getProducts, getStores } from './dataSource';
+import { ALIASES } from './parseList';
 import { rankStores, type StorePlan } from './plan';
+import { getProspektOffers } from './prospekt';
+import { findOffers } from './search';
 import type { ListItem } from '../types';
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:4000';
 
+// Where an item on the list is on offer this week, from the full Prospekte (also things outside our catalog).
+export interface ItemOffers {
+  itemId: string;
+  name: string;
+  offers: { chain: string; storeName: string; title: string; price: number; regularPrice: number | null; unitInfo: string | null }[];
+}
+
 export interface PlanResult {
   plans: StorePlan[];
   offerCount: number;
+  itemOffers?: ItemOffers[];
   source: 'server' | 'local';
+}
+
+function localItemOffers(items: ListItem[]): { itemOffers: ItemOffers[]; count: number } {
+  const prospekt = getProspektOffers();
+  const storeName = (chain: string) => getStores().find((s) => s.chain === chain)?.name ?? chain;
+  const itemOffers = items
+    .map((item) => ({
+      itemId: item.id,
+      name: item.name,
+      offers: findOffers(item.name, prospekt, item.productId ? ALIASES[item.productId] ?? [] : []).map((o) => ({
+        ...o,
+        storeName: storeName(o.chain),
+      })),
+    }))
+    .filter((i) => i.offers.length > 0);
+  return { itemOffers, count: prospekt.length };
 }
 
 export async function fetchPlan(items: ListItem[]): Promise<PlanResult> {
@@ -26,7 +53,13 @@ export async function fetchPlan(items: ListItem[]): Promise<PlanResult> {
     return { ...data, source: 'server' };
   } catch {
     const offers = getCurrentOffers();
-    return { plans: rankStores(items, getStores(), getProducts(), offers), offerCount: offers.length, source: 'local' };
+    const { itemOffers, count } = localItemOffers(items);
+    return {
+      plans: rankStores(items, getStores(), getProducts(), offers),
+      offerCount: offers.length + count,
+      itemOffers,
+      source: 'local',
+    };
   }
 }
 

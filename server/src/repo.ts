@@ -3,8 +3,9 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { randomUUID } from 'node:crypto';
-import { CategoryModel, OfferModel, ProductModel, ReportModel, StoreModel } from './models.js';
-import { Category, Offer, Product, Store, type Report, type ReportRequest } from './schemas.js';
+import { CategoryModel, OfferModel, ProductModel, ProspektOfferModel, ReportModel, StoreModel } from './models.js';
+import { Category, Offer, Product, ProspektOffer, Store, type Report, type ReportRequest } from './schemas.js';
+import { loadProspektOffers } from './lib/prospekt.js';
 import { endOfDay, weekdayToDate } from './lib/week.js';
 
 export interface Repo {
@@ -12,6 +13,8 @@ export interface Repo {
   stores(): Promise<Store[]>;
   products(): Promise<Product[]>;
   currentOffers(today?: Date): Promise<Offer[]>;
+  // Every offer of this week's Prospekte, also for things outside the catalog.
+  prospektOffers(today?: Date): Promise<ProspektOffer[]>;
   replaceOffers(chain: Store['chain'], offers: Offer[]): Promise<void>;
   addReport(report: ReportRequest): Promise<Report>;
 }
@@ -33,7 +36,8 @@ export function loadDemoData(today = new Date(), opts = { imported: true }) {
       source: 'Demo data',
     })),
   );
-  return { categories, stores, products, offers: opts.imported ? withImportedOffers(offers) : offers };
+  const prospekt = loadProspektOffers(dataDir + 'prospekt/');
+  return { categories, stores, products, offers: opts.imported ? withImportedOffers(offers) : offers, prospekt };
 }
 
 // Real offers from Prospekte (written by `npm run import-flyer -- ... --out`) replace
@@ -50,7 +54,7 @@ function withImportedOffers(demo: Offer[]): Offer[] {
   return offers;
 }
 
-const isCurrent = (o: Offer, today: Date) => o.validFrom <= today && today <= o.validTo;
+const isCurrent = (o: { validFrom: Date; validTo: Date }, today: Date) => o.validFrom <= today && today <= o.validTo;
 
 export function memoryRepo(): Repo {
   const data = loadDemoData();
@@ -60,6 +64,7 @@ export function memoryRepo(): Repo {
     stores: async () => data.stores,
     products: async () => data.products,
     currentOffers: async (today = new Date()) => data.offers.filter((o) => isCurrent(o, today)),
+    prospektOffers: async (today = new Date()) => data.prospekt.filter((o) => isCurrent(o, today)),
     replaceOffers: async (chain, offers) => {
       data.offers = [...data.offers.filter((o) => o.chain !== chain), ...offers];
     },
@@ -87,6 +92,10 @@ export function mongoRepo(): Repo {
       ),
     currentOffers: async (today = new Date()) =>
       Offer.array().parse((await OfferModel.find({ validFrom: { $lte: today }, validTo: { $gte: today } }).lean()).map(withId)),
+    prospektOffers: async (today = new Date()) =>
+      ProspektOffer.array().parse(
+        (await ProspektOfferModel.find({ validFrom: { $lte: today }, validTo: { $gte: today } }).lean()).map(withId),
+      ),
     replaceOffers: async (chain, offers) => {
       await OfferModel.deleteMany({ chain });
       await OfferModel.insertMany(offers.map(({ id, ...o }) => ({ _id: id, ...o })));

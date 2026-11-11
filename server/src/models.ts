@@ -50,6 +50,21 @@ export const OfferModel = model(
   ).index({ chain: 1, validFrom: 1, validTo: 1 }),
 );
 
+export const ProspektOfferModel = model(
+  'ProspektOffer',
+  new Schema({
+    _id: String,
+    chain: { type: String, enum: ['rewe', 'lidl', 'aldi', 'kaufland', 'penny', 'netto'], required: true },
+    title: { type: String, required: true },
+    price: { type: Number, required: true },
+    regularPrice: { type: Number, default: null },
+    unitInfo: { type: String, default: null },
+    validFrom: { type: Date, required: true },
+    validTo: { type: Date, required: true },
+    source: { type: String, required: true },
+  }).index({ validFrom: 1, validTo: 1 }),
+);
+
 export const ReportModel = model(
   'Report',
   new Schema(

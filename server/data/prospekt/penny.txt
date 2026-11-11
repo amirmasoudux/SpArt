@@ -1,0 +1,154 @@
+# Penny Prospekt "Wer günstig will, muss Penny.", Siegburg, 9.–15.11.2026, read from kaufDA (food, drinks, household)
+# title | price | regular price ("statt"/UVP, empty if none) | unit / price per kg
+Tafelkerzen | 2.99 | | ab
+Frische Hähnchen-Schenkel | 6.49 | | 1 kg = 3.25
+Frische Hähnchen-Innenbrustfilets | 8.49 | |
+Kaninchen | 9.99 | |
+Universal Pulver oder Color Kraft-Gel Waschmittel | 16.99 | | 1 kg = 3.43
+Ferrero Rocher | 5.55 | 7.59 | 1 kg = 14.80
+Windeln | 19.99 | | ab
+Zucchini | 1.29 | |
+Frisches Hähnchen Red Fire | 3.99 | |
+Fertiggericht | 4.79 | 6.99 | 1 kg = 5.99
+Erfrischungsgetränk | 0.99 | 1.69 | ab, 1 l = 0.79
+Rapsöl | 2.99 | 3.99 | 1 l = 3.99
+Frische Chicken-Wings | 1.99 | 2.79 | 1 kg = 3.98
+Dresdner Stollen | 9.99 | |
+Wodka | 6.49 | 9.79 | 1 l = 9.27
+Heidelbeeren | 2.99 | | 1 kg = 19.93
+Black Label Blended Scotch Whisky | 19.99 | 26.99 | 1 l = 28.56
+Kaffee Ganze Bohnen | 12.99 | 20.99 |
+Adventuros Nuggets Hundesnack | 2.99 | 3.29 |
+Bunter Möhren-Mix | 0.99 | | 1 kg = 1.32
+Frische Rinder-Beinscheiben | 6.99 | | 1 kg = 9.99
+Toffifee | 2.99 | 4.49 | 1 kg = 7.97
+XXL Fischstäbchen | 4.99 | | 1 kg = 5.54
+Tafelschokolade | 1.49 | 1.99 | 1 kg = 14.90
+Aufschnitt Hauchfein | 1.49 | | 1 kg = 18.63
+Zitronen | 1.19 | | 1 kg = 1.59
+Reis im Kochbeutel Basmati | 2.49 | | 1 kg = 4.98
+Hohes C Saft | 1.49 | 2.99 | ab
+Frisches Schweine-Hackfleisch | 3.79 | |
+Zahncreme | 2.99 | | ab
+Energy-Drink | 0.89 | 1.49 | ab
+Chiquita Bananen | 1.99 | | je kg
+XXL Gouda | 5.55 | | 1 kg = 7.93
+Schokolade | 2.79 | 4.99 |
+Activia XXL | 2.99 | 5.58 | 1 kg = 3.25
+Hähnchen Nuggets | 4.19 | | 1 kg = 6.98
+Amaretto | 4.89 | | 1 l = 6.99
+Spülmaschinentabs Power Classic oder Ultimate Plus | 12.99 | |
+Weihnachtskugeln Nougat | 2.99 | 4.49 |
+Apfeldreieck | 1.00 | 1.38 | je St. 0.69
+Schokodonut | 1.18 | 1.77 |
+XXL Pizza Margherita | 3.49 | | 1 kg = 2.91
+Veganer Aufschnitt | 1.11 | 1.59 | 1 kg = 13.88
+XXL Delikatess Käse-Wiener | 3.99 | | 1 kg = 6.65
+Berliner | 2.69 | | 1 kg = 5.98
+Actimel Drink | 2.99 | 5.23 | 1 kg = 2.49
+Coca-Cola Friendspack | 5.99 | 7.99 | 1 l = 1.82
+Lachgummi | 0.88 | 1.49 | ab
+Pasta | 0.79 | 1.99 | ab, 1 kg = 1.58
+Frisches Schweine-Geschnetzeltes | 2.99 | 3.79 | 1 kg = 5.98
+Joghurt mit der Ecke | 0.29 | 0.89 | ab
+Paprika edelsüß Gewürz | 1.15 | | 1 kg = 14.38
+Hähnchenbrustfilet Aufschnitt Classic | 0.99 | | 1 kg = 13.20
+Delikatess Sauce | 0.89 | | 1 l = 1.62
+Cheddarscheiben | 1.59 | 2.99 | 1 kg = 12.23
+Frische Schweine-Schnitzel | 3.99 | | ab, 1 kg = 6.65
+Duschgel | 1.99 | | 1 l = 3.98
+Frischkäsezubereitung | 1.11 | 1.89 | 1 kg = 5.55
+Saft | 1.49 | 2.99 | ab
+Kaffeepads | 2.22 | 3.69 | 1 kg = 17.76
+Chia-Weltmeisterbrötchen | 0.78 | 1.17 | 0.26 je Stück
+Frische Hamburger-Pattys vom Rind | 4.49 | 5.49 | 1 kg = 11.23
+Original Sauce | 2.49 | | 1 kg = 3.69
+Pasta Klassiker Maccaroni | 2.99 | | 1 kg = 5.34
+Vollkorn-Sonnenbatzen Brot | 1.69 | | 1 kg = 2.25
+Glühwein | 2.99 | 4.49 | 1 l = 3.99
+XXL Spaghetti | 1.19 | |
+Backmischung | 2.49 | 3.79 |
+Bio-Äpfel | 1.99 | |
+Brauner Roh-Rohrzucker | 1.29 | 1.49 | 1 kg = 2.58
+Honig | 4.99 | | 1 kg = 9.98
+Pfeffer-Leber-Pastete | 1.49 | | 1 kg = 11.92
+Müllbeutel | 0.99 | 1.15 |
+Pastasauce | 1.79 | | ab, 1 kg = 4.48
+Waschmittel Color | 9.99 | | 1 l = 3.70
+Premium Mini Muffins | 2.49 | | 1 kg = 11.86
+Mikrofasertücher | 2.29 | 2.59 | ab
+XXL Erdnüsse | 3.49 | |
+Chicken Nuggets | 6.99 | | 1 kg = 5.83
+Frisches Puten-Gulasch | 6.99 | | ab, 1 kg = 8.74
+XXL Premium Nuss-Mix | 5.99 | | ab, 1 kg = 11.98
+Kalifornische Pistazien | 3.69 | | 1 kg = 12.30
+Saftorangen | 1.79 | | ab, 1 kg = 1.19
+Maultaschen | 1.69 | 2.29 | 1 kg = 4.69
+Frischmilch | 0.99 | |
+Caffè Kaffee | 13.99 | 21.99 |
+Weizenbrötchen | 0.76 | | ab
+Steinofenpizza | 3.59 | | ab, 1 kg = 5.61
+Würstchen | 1.49 | | 1 kg = 5.96
+Stangensalami oder Ringsalami | 2.99 | | 1 kg = 11.96
+Wintertee Himmelszauber | 1.79 | 2.99 |
+Extra Maxi Konfitüre | 2.99 | 4.79 | ab
+Sekt | 2.99 | | 1 l = 3.99
+The Taste of Christmas Backmischung | 2.29 | 3.49 |
+Dallmayr Kaffee prodomo | 6.49 | 10.49 | 1 kg = 12.98
+Frische Puten-Medaillons | 3.99 | | ab, 1 kg = 9.98
+Geflügel Currybockwurst | 3.33 | | 1 kg = 6.17
+Kabanos | 2.99 | | 1 kg = 11.96
+XXL Delikatess Hinterschinken | 1.99 | | 1 kg = 5.69
+Raspelschokolade | 0.99 | 1.59 | 1 kg = 9.90
+Delikatess Edelsalami | 0.99 | | ab
+Kuchen | 1.69 | | 1 kg = 4.23
+Feuchte Allzwecktücher | 0.99 | 1.49 |
+Schafkäse | 1.99 | 3.99 | 1 kg = 11.06
+Kaiserbrötchen | 0.69 | 0.79 |
+Sahnejoghurt | 0.39 | 0.99 | ab
+Hörnchen | 1.39 | 1.49 | 1 kg = 5.79
+Mozzarella | 1.39 | | ab, 1 kg = 5.56
+Delikatess Lachs-Schinken | 1.69 | 2.39 | 1 kg = 11.27
+Waschmittel | 2.49 | | 1 l = 2.47
+Frische Kasseler-Minutensteaks | 2.99 | 3.99 | ab
+Delikatess Teewurst | 0.99 | | ab
+Airfryer Snack Pulled Pork | 1.79 | 2.19 | 1 kg = 9.94
+Moscato oder Primitivo Wein | 4.99 | 7.99 | 1 l = 6.65
+Fruchtaufstrich | 2.49 | 3.29 | 1 kg = 7.55
+Family Cappuccino | 2.79 | 4.89 | 1 kg = 5.58
+Knusper Fisch | 0.44 | | ab
+Klarspüler oder Maschinenpfleger | 3.99 | | 1 l = 3.47
+Frische Hähnchen-Minutenschnitzel | 4.99 | | 1 kg = 12.48
+Giotto Zimtstern | 3.65 | |
+Crunchips XXL | 1.79 | 2.89 | 1 kg = 8.14
+XXL Yogurette oder Kinder Schokolade | 4.99 | | 1 kg = 12.48
+NicNac's | 1.99 | |
+Paprika Peanut Cracks | 0.99 | |
+Rote Paprika | 1.99 | | 1 kg = 3.98
+Deutsche Markenbutter | 1.15 | 1.19 | 1 kg = 4.60
+Küsschen Klassik | 2.49 | 3.99 | ab
+Blechkuchen Mandel Bienenstich | 2.99 | 3.49 |
+Rucola | 0.69 | 0.89 | 1 kg = 5.52
+Frischei Waffeln | 1.49 | 1.59 |
+Hefe | 0.49 | 0.69 |
+Milch Brötchen | 1.49 | | ab
+Allzweck- und Gefrierbeutel | 1.29 | 1.49 |
+Rosenkohl | 1.11 | | 1 kg = 1.48
+Halbfettmargarine | 1.19 | 2.29 | 1 kg = 2.64
+Trinkmahlzeit | 3.33 | | 1 l = 6.66
+Soft Cake | 1.59 | 2.49 |
+Natives Olivenöl | 5.99 | | 1 l = 11.98
+XXL Kondensmilch | 0.79 | | 1 kg = 1.58
+XXL Delikatess Salami | 1.59 | | 1 kg = 6.36
+Salami-Sticks | 2.99 | | 1 kg = 14.95
+Smoothie | 2.29 | 2.89 |
+Burrata | 2.79 | | 1 kg = 13.95
+Kekse | 1.29 | 1.89 |
+Einfach Kochen Sauce | 1.99 | | 1 l = 2.65
+Fruchtgummi | 3.49 | 4.99 | ab
+Premium Pils | 0.79 | 0.99 | 1 l = 1.39
+XXL Räucherlachs | 4.19 | | 1 kg = 19.05
+Delikatess Zungen-Rotwurst | 1.29 | 1.69 |
+Rostbratwurst | 2.79 | 3.79 | ab
+XXL Eintopf | 3.49 | | 1 kg = 2.91
+Bacon | 1.99 | 2.59 | 1 kg = 7.96

@@ -1,0 +1,124 @@
+# Netto Marken-Discount Prospekt, Siegburg, 9.–14.11.2026, read from kaufDA (food, drinks, household)
+# title | price | regular price ("statt"/UVP, empty if none) | unit / price per kg
+Döner Box | 6.99 | 7.99 | 1 kg = 10.75
+Speisekartoffeln + Zwiebeln | 7.00 | | ab
+Bio Miesmuscheln | 3.99 | 4.99 |
+Coca-Cola | 1.11 | 1.69 | ab, 1 l = 0.89
+Baby Dry Windeln | 27.99 | 40.99 |
+Toilettenpapier | 5.99 | 8.99 |
+Fettarme H-Milch | 0.85 | | ab
+Jacobs Krönung Kaffee | 5.99 | 9.99 | ab, 1 kg = 10.98
+Energy Drink | 34.99 | 39.99 | 1 l = 5.83
+Feine Butter | 0.99 | 2.79 | 1 kg = 3.96
+Waschmittel | 19.99 | 27.99 | 0.18–0.24 je WL
+Auberginen | 0.77 | 0.99 |
+Doublemint Kaugummi | 0.99 | |
+Fertiggerichte | 2.49 | 4.79 | ab
+Italienische Salami mit Pistazien | 9.99 | 12.99 | 1 kg = 15.61
+Neuseeländische Lammkeule | 1.29 | 1.79 | 1 kg = 12.90
+Bayerische Puten-Oberkeule | 5.59 | 5.99 |
+Hähnchen-Brustfilet | 7.99 | 9.99 |
+Kaffee Pads | 5.55 | 9.49 | 1 kg = 16.67
+Mineralwasser | 4.79 | 6.54 |
+Weichspüler | 1.29 | 2.45 | ab
+Kölsch | 12.99 | 16.49 | 1 l = 1.30
+Tafelspitz | 1.49 | 1.89 | 1 kg = 14.90
+Lust auf Kuchen | 3.79 | 4.99 |
+Nescafé Classic | 5.99 | 8.99 | 1 kg = 29.95
+Rinder Hackfleisch | 4.99 | 5.79 | 1 kg = 9.98
+Cabernet Sauvignon | 3.99 | | 1 l = 5.32
+Saft oder Nektar | 1.24 | 2.49 | -50%
+Spezi | 0.59 | 0.95 | ab
+Hähnchen-Oberkeulensteaks | 2.99 | 3.79 | 1 kg = 7.48
+Merci | 2.99 | 4.59 |
+Taste of Christmas Knusperhäuschen | 6.99 | 7.99 |
+Haselnusskerne | 5.00 | | ab, 1 kg = 12.50
+Lauchzwiebeln | 0.49 | 0.79 |
+Better Cakez | 2.99 | 3.49 |
+Heidelbeeren | 3.99 | 4.79 | 1 kg = 13.30
+Mandeln | 4.50 | 5.00 | 1 kg = 11.20
+Fruchtgummi | 0.66 | 1.19 |
+Schweine-Bauch | 3.99 | 7.99 |
+Bananen | 1.99 | 2.49 |
+Schweine-Schälrippen | 3.99 | 4.99 |
+Mars, Milky Way, Snickers oder Bounty | 1.99 | 2.99 |
+Fertiggericht | 3.49 | 4.99 | ab
+Almighurt | 0.29 | 0.89 |
+Primitivo Puglia IGT | 3.99 | 4.99 | 1 l = 5.32
+Wurst Aufschnitt | 1.29 | 1.49 |
+Toffifee | 1.99 | 2.49 | ab
+Himbeeren | 2.99 | | 1 kg = 14.95
+Pils | 10.99 | 16.99 | 1 l = 1.10
+Classic Mineralwasser | 3.99 | 4.99 | 1 l = 0.33
+Chicken Tender | 5.99 | 8.99 | 1 kg = 9.98
+Börekstick | 0.35 | 0.69 |
+Schweine-Minutensteaks | 2.39 | 2.99 | 1 kg = 5.98
+Minipflaumen Tomaten | 3.99 | 4.99 |
+Rahm-Spinat XXL | 2.49 | 3.99 |
+Beinscheiben vom Rind | 6.99 | 7.99 | 1 kg = 9.99
+Mandeln | 2.49 | 4.99 | ab, 1 kg = 12.45
+Schweine-Rücken | 3.99 | 4.99 |
+Italienische Tagliatelle | 1.29 | | 1 kg = 2.58
+Fischstäbchen | 2.99 | 4.89 |
+Bio Dressing | 1.29 | | 1 l = 6.45
+Kaiser-, Mohn- oder Sesambrötchen | 1.00 | | ab, 0.14 pro Stück
+Premium Pils | 7.79 | 17.99 | ab
+Kaki | 2.49 | 2.99 |
+Sekt oder Fruchtsecco | 2.99 | 4.99 | 1 l = 3.99
+Schweine-Nacken | 5.49 | 8.79 |
+Puten-Hälse | 2.99 | 3.49 |
+Käsescheiben | 1.99 | 2.45 | 1 kg = 4.98
+Gurken | 0.88 | 1.19 |
+Compliments Pralinen | 3.99 | 4.99 |
+Hähnchen-Schenkel | 3.99 | 5.29 | 1 kg = 3.63
+Berliner | 0.99 | |
+Orangen | 3.99 | | 1 kg = 1.33
+Bianco oder Rose Wein | 2.99 | | 1 l = 3.99
+Frischhaltefolie | 0.79 | 1.19 |
+Toilettenpapier Klassik | 3.75 | 3.85 |
+Butter | 1.15 | 1.19 | 1 kg = 4.60
+Numero Uno Pizza | 2.79 | 3.79 |
+Hähnchen-Geschnetzeltes | 3.79 | 4.99 | 1 kg = 9.48
+Pesto | 0.99 | | 1 kg = 5.21
+Kasselerbraten | 5.99 | 7.99 | pro kg
+Ofenkäse XXL | 2.99 | | 1 kg = 9.34
+Fertiggerichte | 1.79 | | 1 kg = 4.77–6.75
+Kokosraspel | 2.00 | 2.38 | 1 kg = 5.00
+Rosenkohl | 1.49 | 1.99 |
+Kartoffeltaschen | 1.89 | 2.19 | 1 kg = 3.15
+Champignons braun | 1.79 | 2.19 | 1 kg = 4.48
+Schokobons | 2.99 | 3.99 |
+Pure Care Handseife | 0.69 | | 1 l = 1.73
+Spülmittel | 1.39 | 1.75 |
+Biere | 2.29 | 2.49 | 1 l = 0.76
+Plätzchenteig | 1.99 | 2.79 | 1 kg = 6.63
+Weine | 2.79 | 4.49 | ab
+Konfitüre Winter-Edition | 1.79 | | 1 kg = 6.28
+Buldak Ramen Instant-Nudeln | 1.99 | 2.29 |
+Milchschnitte oder Pingui | 2.49 | 3.29 |
+Gran Reserva Rotwein | 7.99 | | 1 l = 10.65
+Weizenmehl Type 405 | 0.99 | 1.29 |
+Hähnchenbrustfiletroulade | 1.79 | 1.99 | 1 kg = 11.93
+Frische Weidemilch | 1.39 | 2.59 | ab
+Bodymilk | 1.19 | | 1 l = 2.38
+American Burger Patties | 6.99 | 10.99 | 1 kg = 13.98
+Handcreme | 0.70 | |
+Räucherlachs | 3.99 | | 1 kg = 39.90
+Bockwurst | 2.49 | 2.79 | 1 kg = 6.23
+Santino weiss Wein | 5.99 | 6.99 |
+Spätlese Wein | 3.49 | 4.99 |
+Wisch & Weg Küchentücher | 2.19 | 3.19 | ab
+Crema d'Oro Kaffee | 12.88 | 19.99 |
+Reinigungsmilch | 0.99 | |
+Geschnetzeltes Gyros Art | 4.49 | 5.99 | 1 kg = 5.61
+Helles Bier | 14.99 | 18.99 | 1 l = 1.50
+Mini-Rispentomaten | 2.99 | 3.49 | 1 kg = 7.48
+Reserva Rotwein | 4.99 | 6.99 |
+Duschgel | 1.95 | |
+Franzbrötchen | 0.75 | 0.79 |
+Zugband Müllsack | 1.15 | 1.75 |
+Vita Cola | 1.11 | | 1 l = 0.63
+XXL Schweineschnitzel | 2.69 | 2.99 | 1 kg = 10.76
+Strudel | 2.79 | 3.29 |
+Tomato Ketchup | 1.99 | 2.79 | 1 l = 4.98
+After Eight | 1.99 | 3.99 |

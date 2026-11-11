@@ -5,7 +5,7 @@
 import type { ListItem, Product } from '../types';
 
 // Extra words people use for each product (lower case).
-const ALIASES: Record<string, string[]> = {
+export const ALIASES: Record<string, string[]> = {
   'milk-1l': ['milk', 'milch'],
   'gouda-400g': ['gouda', 'gauda', 'cheese', 'käse', 'kaese'],
   'greek-yogurt-500g': ['greek yogurt', 'yogurt', 'yoghurt', 'joghurt'],

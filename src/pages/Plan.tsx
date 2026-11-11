@@ -15,6 +15,7 @@ export default function Plan() {
   // The Analyze screen passes the result along. After a reload, ask again.
   const [result, setResult] = useState<PlanResult | undefined>(location.state as PlanResult | undefined);
   const [reporting, setReporting] = useState<PlanLine | null>(null);
+  const [openItems, setOpenItems] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     if (!result && list) fetchPlan(list.items).then(setResult);
@@ -28,6 +29,15 @@ export default function Plan() {
   const offerLines = best.lines.filter((l) => l.onOffer);
   const otherLines = best.lines.filter((l) => !l.onOffer);
   const chainNames = stores.map((s) => s.name).join(', ');
+  const itemOffers = result.itemOffers ?? [];
+  const pricedIds = new Set(best.lines.map((l) => l.itemId));
+  const toggle = (itemId: string) =>
+    setOpenItems((prev) => {
+      const next = new Set(prev);
+      if (next.has(itemId)) next.delete(itemId);
+      else next.add(itemId);
+      return next;
+    });
 
   return (
     <Screen>
@@ -87,6 +97,56 @@ export default function Plan() {
         </ul>
       </section>
 
+      {/* Every item searched in the full Prospekte of all stores, also things outside our price list. */}
+      {itemOffers.length > 0 && (
+        <section className="flex flex-col gap-1.5" aria-label="In this week's Prospekte">
+          <SectionLabel>In this week’s Prospekte</SectionLabel>
+          <ul className="flex flex-col gap-2">
+            {itemOffers.map((item) => {
+              const open = openItems.has(item.itemId);
+              const shown = open ? item.offers : item.offers.slice(0, 3);
+              return (
+                <li key={item.itemId} className="rounded-[24px] bg-white px-[18px] py-3.5">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <span className="text-[15px] font-extrabold">{item.name}</span>
+                    {!pricedIds.has(item.itemId) && <span className="text-xs font-bold text-faint">Not in our price list</span>}
+                  </div>
+                  <ul className="mt-2 flex flex-col gap-2">
+                    {shown.map((o, i) => (
+                      <li key={`${o.chain}-${o.title}-${i}`} className="flex items-center justify-between gap-3">
+                        <span className="flex min-w-0 items-center gap-2">
+                          <span className="shrink-0 rounded-full bg-save-soft px-2 py-0.5 text-[11px] font-extrabold text-save-ink">
+                            {o.storeName}
+                          </span>
+                          <span className="truncate text-[13px] text-muted">
+                            {o.title}
+                            {o.unitInfo ? ` · ${o.unitInfo}` : ''}
+                          </span>
+                        </span>
+                        <span className="flex shrink-0 items-baseline gap-1.5 whitespace-nowrap">
+                          {o.regularPrice && <span className="text-xs text-faint line-through">{euro(o.regularPrice)}</span>}
+                          <span className="text-[15px] font-extrabold text-save-ink">{euro(o.price)}</span>
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                  {item.offers.length > 3 && (
+                    <button
+                      type="button"
+                      onClick={() => toggle(item.itemId)}
+                      aria-expanded={open}
+                      className="mt-2 min-h-8 text-[13px] font-bold text-brand"
+                    >
+                      {open ? 'Show less' : `Show all ${item.offers.length}`}
+                    </button>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )}
+
       {others.length > 0 && (
         <section className="flex flex-col gap-1.5" aria-label="Other stores">
           <SectionLabel>Other stores</SectionLabel>
@@ -104,7 +164,8 @@ export default function Plan() {
       {best.noPriceCount > 0 && (
         <p className="flex items-start gap-2 px-1.5 text-[13px] text-muted">
           <IconInfo className="mt-0.5 size-4 shrink-0" />
-          {best.noPriceCount} {best.noPriceCount === 1 ? 'item is' : 'items are'} not in our price list yet, so not counted.
+          {best.noPriceCount} {best.noPriceCount === 1 ? 'item is' : 'items are'} not in our price list yet, so not counted in the store total.{' '}
+          {itemOffers.some((i) => !pricedIds.has(i.itemId)) && 'You can still see above where they are on offer.'}
         </p>
       )}
 

@@ -1,0 +1,155 @@
+# Kaufland Prospekt "Hier bin ich richtig", Siegburg, 9.–14.11.2026, read from kaufDA (food, drinks, household)
+# title | price | regular price ("statt", empty if none) | unit / price per kg
+Nuss-Nugat-Creme | 4.99 | | ab
+Home Barista Caffè Crema Dolce | 10.99 | 18.49 |
+Zero Sugar Cola | 0.99 | 1.69 | 1 l = 0.80
+Bio-Hafermastgans | 17.99 | | 20% Rabatt
+Filegro Fisch | 2.49 | | ab, 1 kg = 5.54–10.38
+Spezi | 0.59 | 0.95 | 1 l = 1.79
+Lust auf Kuchen | 2.99 | 4.99 | ab
+Pils | 10.99 | | 1 l = 1.10
+Naturelle Mineralwasser | 3.30 | | 1 l = 1.10
+High Protein | 3.99 | 5.99 | ab
+Cabernet Sauvignon | 4.44 | 5.99 | 1 l = 5.92
+Feinwaschmittel | 4.99 | | pro Anwendung 0.19
+Energy Drink | 0.79 | 1.59 | 1 l = 1.58
+Bio-Gurke | 0.99 | 1.29 |
+Frites 1-2-3 | 1.59 | 2.79 | ab
+Soft-Datteln | 1.49 | 1.79 | 1 kg = 7.45
+Müllermilch Erdbeer-Geschmack | 0.59 | | 1 l = 1.48
+Zwiebelmettwurst | 0.99 | |
+Pesto | 1.69 | | ab, 1 kg = 8.45–8.90
+Mineralwasser | 6.99 | 9.49 | 1 l = 0.78
+Universal Pulver Waschmittel | 15.99 | |
+Deodorant Bodyspray | 3.33 | 3.75 | ab
+Wacholder-Bauch | 4.44 | 5.49 | 1 kg = 14.80
+Paranusskerne | 2.99 | | 1 kg = 14.95
+Colorwaschmittel | 9.99 | 11.95 |
+Kreatin-Monohydrat | 7.49 | | 1 kg = 29.96
+Tassimo Kaffee-Kapseln | 3.88 | 6.99 |
+Toffifee | 3.99 | 4.79 | 1 kg = 9.98
+Geschirrreiniger XXL Tabs | 6.99 | |
+Salatkerne-Mix | 1.69 | | 1 kg = 9.66
+Pistazienkerne | 2.99 | | 1 kg = 29.90
+Saft-Getränk | 0.99 | |
+Junge Pute | 4.99 | 6.79 |
+Hähnchenpaket | 3.49 | | pro kg
+Miesmuscheln | 2.49 | 2.99 |
+Kanadische Wald-Heidelbeeren | 1.99 | 2.49 | 1 kg = 9.22
+Eisbergsalat | 0.79 | 1.11 |
+Grünländer Käse Scheiben | 1.39 | | 1 kg = 9.93
+Corny Müsli-Riegel | 1.49 | |
+Alkoholisches Mixgetränk | 1.79 | | ab
+Vodka | 8.99 | | 1 l = 12.85
+Knusper-Ente | 3.99 | 5.49 | 1 kg = 12.47
+KitKat Minis | 2.29 | |
+Pasta-Sauce | 1.79 | 2.49 | 1 kg = 4.48
+Helles Bier | 13.99 | | 1 l = 2.12
+Flotte Biene Obstblütenhonig | 2.49 | 3.49 | 1 kg = 9.96
+Pro Aqua Zero | 0.29 | | 1 l = 0.58
+Knoppers | 1.49 | 2.49 |
+Cremedusche | 1.69 | | 1 l = 6.76
+Erfrischungsgetränk | 7.99 | 11.49 | 1 l = 0.67
+Hamburger vom Rind XXL | 6.49 | | 1 kg = 10.82
+Bauernrollbraten | 5.99 | |
+Mundspülung | 3.49 | 4.95 | ab
+Wagner Die Backfrische Pizza | 1.66 | 3.69 | ab
+Piccolinis | 1.66 | 3.69 | ab
+Blumenkohl | 1.49 | 1.99 |
+Studentenfutter Klassik | 1.49 | | 1 kg = 7.45
+Sonnen Bassermann Eintopf | 1.59 | | 1 kg = 1.99
+Weihnachtsmann Milchcreme | 2.19 | |
+Weihnachts-Schokolade | 2.99 | 3.99 |
+Nuts Royal | 2.39 | |
+Mini-Romatomaten | 1.79 | 2.49 | 1 kg = 3.58
+Knusperlen | 2.29 | 2.99 |
+Ergiebige Kaffee-Milch | 0.99 | |
+Kräuterlikör | 10.99 | 14.99 | 1 l = 15.70
+Polpa Tomaten | 1.11 | |
+Italienische Haselnusskerne | 2.99 | | 1 kg = 14.95
+Protein Iced Coffee | 17.99 | |
+Triple Malt Whiskey | 19.99 | | 1 l = 28.56
+High Protein Pudding | 1.99 | | 1 kg = 4.98
+Sammy's Super-Sandwich Toast | 1.79 | | ab
+Pizza Margherita | 0.79 | |
+Puderzucker | 0.39 | 0.49 | 1 kg = 1.56
+Krustenbrot | 1.39 | |
+Avocados | 1.79 | 2.49 |
+Hot-Dog-Brötchen | 0.69 | 0.89 |
+Rindergulasch | 1.49 | 1.89 |
+Kokosnuss | 0.99 | 1.19 |
+Pflaumen | 1.99 | 2.99 |
+Kalifornische Pistazien | 2.49 | | ab
+Schweinefilet | 8.39 | |
+Mortadella | 1.11 | 1.29 | 1 kg = 5.55
+Hähnchen-Schnitte Cordon Bleu XXL | 6.49 | | 1 kg = 8.66
+Teewurst fein | 0.99 | |
+Lammvorderviertel | 1.29 | 1.49 |
+Shampoo | 2.99 | 3.95 | ab
+Hähnchenbraten | 1.69 | 2.39 | 1 kg = 16.90
+Cashewkerne | 1.99 | | 1 kg = 9.95
+Landliebe Sahnepudding | 0.39 | |
+Französischer Schnittkäse | 1.39 | |
+Mozartkugeln | 2.99 | |
+Feuchte Allzwecktücher | 1.99 | |
+Cremefine | 0.99 | |
+Granatapfel | 0.99 | 1.49 |
+Pils Kasten | 9.99 | | -20%
+Helles Pülleken | 13.99 | | 1 l = 1.77
+Chick'n Toast | 2.79 | |
+Räucherlachs | 3.33 | 3.99 |
+Kakao | 1.11 | 1.99 | ab
+Hähnchenschenkel XXL | 7.99 | | 1 kg = 3.20
+Guten Appetit! Suppe | 0.69 | |
+Mayonnaise die Cremige | 1.49 | | 1 l = 5.96
+Glühwein rot | 2.99 | |
+Choco Wafer | 3.49 | 4.99 |
+Dicke Sauerländer Bockwurst | 3.33 | 4.69 | 1 kg = 8.33
+M&M's Schokolinsen peanut | 1.49 | |
+Leckere-NRW-Fritten Pommes | 2.99 | 5.99 | 1 kg = 1.20
+Katzennahrung | 2.69 | |
+Domestos Power 5 | 0.99 | 1.59 |
+Aperol Aperitivo | 8.88 | | 1 l = 12.69
+Bonduelle Goldmais | 0.99 | |
+Beyond Burger | 2.99 | 3.99 |
+Vollmilchschokoladen-Figur | 1.59 | 2.29 | ab
+Blaubeeren | 1.99 | |
+Kokosfett | 1.11 | 1.69 | 1 kg = 4.44
+Konfitüre | 1.69 | | 1 kg = 8.45
+Mandeln | 1.99 | 2.49 | 1 kg = 9.95
+Back-Oblaten | 0.69 | 1.19 |
+Lindt Excellence Creme | 5.55 | 6.95 |
+Eis | 3.49 | | ab
+Pizzakäse | 1.49 | | 1 kg = 9.94
+Teewurst | 1.49 | | 1 kg = 11.92
+Fruchtgummis | 0.65 | 1.19 |
+Weichspüler | 1.99 | |
+Speisekartoffeln | 1.99 | 2.49 | 1 kg = 1.33
+Pampers Baby Dry Windeln | 7.49 | 8.95 | ab
+Kultur-Heidelbeeren | 3.33 | 4.99 | 1 kg = 11.10
+Walnusskerne | 1.99 | | 1 kg = 9.95
+Küchentücher | 7.99 | |
+Pingui | 2.22 | | ab
+Salami | 1.19 | 2.29 | ab
+Kabanossi | 1.29 | | 1 kg = 10.75
+Idee Kaffee | 6.49 | 8.99 | 1 kg = 12.98
+London Dry Gin | 5.55 | | 1 l = 7.93
+Viktoriabarschfilet | 1.79 | 2.69 |
+Himbeeren | 5.99 | 7.49 | 1 kg = 7.99
+Mandarin-Orangen Dose | 0.75 | 0.89 |
+Bio-Zitronen | 1.49 | 1.99 | 1 kg = 2.98
+Flusskrebssalat Calvados | 1.99 | 2.99 |
+Sonnenblumenkerne | 0.99 | | 1 kg = 2.48
+Pustertaler Brot | 1.79 | 2.49 |
+Kokoslikör | 9.99 | | 1 l = 14.28
+Geflügelrolle | 0.99 | 1.29 |
+Bio-Chiasamen | 1.49 | | 1 kg = 4.97
+Single Malt Scotch Whisky | 10.99 | 14.99 |
+Premium Lager | 14.99 | | 1 l = 2.15
+Frischwurst-Aufschnitt | 0.79 | |
+Rote Bete gekocht | 0.99 | 1.29 | 1 kg = 1.98
+Lower Carb Brötchen zum Aufbacken | 2.22 | 2.99 |
+Kaki | 2.99 | 3.99 |
+Ültje Erdnüsse | 1.39 | 2.49 |
+Reinert Bärchen-Wurst | 1.19 | |
+Juliska Ungarische Salami | 3.69 | |

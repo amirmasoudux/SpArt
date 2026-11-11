@@ -1,0 +1,24 @@
+# REWE Prospekt, Siegburg, 9.–14.11.2026, read from kaufDA (selected rows only)
+# title | price | regular price | unit
+Rinder-Hackfleisch | 3.49 |  | 250 g
+Speisekartoffeln | 3.33 |  | 5 kg
+Griech. Joghurt | 2.49 |  | 450 g
+Romatomaten | 1.79 |  | 400 g
+Mini Cherry Rispentomaten | 1.79 |  | 200 g
+Toilettenpapier | 3.99 |  | 
+Hähnchen-Brustfilet | 11.99 |  | 
+Puten-Brustfilet | 1.59 |  | 
+Reines Sonnenblumenöl | 2.22 |  | 750 ml
+Pizza Margherita | 3.69 |  | 410 g
+Mineralwasser | 2.99 |  | 
+Clementinen | 1.89 |  | 
+Saftorangen | 2.99 |  | 1,5 kg
+Avocado | 1.19 |  | 
+Feldsalat | 1.79 |  | 100 g
+Braune Champignons | 1.69 |  | 250 g
+Spitzkohl | 0.99 |  | 
+Lauchzwiebeln | 0.55 |  | 
+Burger Buns | 0.99 |  | 300 g
+Schafskäse Natur | 1.99 |  | 180 g
+Maultaschen | 1.69 |  | 360 g
+Colorwaschmittel Kraft-Gel | 16.99 |  | 

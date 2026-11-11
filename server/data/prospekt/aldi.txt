@@ -1,0 +1,26 @@
+# ALDI SÜD Angebote, aldi-sued.de/angebote, 9.–14.11.2026 (same prices in every ALDI SÜD store)
+# title | price | regular price ("statt", empty if none) | unit / price per kg
+Äpfel Krumme Dinger | 1.99 | 2.29 | 2 kg
+Datteltomaten | 1.89 | | 500 g
+Spitzpaprika rot | 1.79 | | 500 g
+Orangen | 2.49 | | 2 kg
+Bio Snackmöhren | 0.99 | | 200 g
+Speisezwiebeln gelb | 1.39 | | 1,5 kg
+Valensina Orangensaft | 1.29 | | 1 l, + Pfand
+Norwegisches Lachsfilet | 4.49 | 5.79 | 300 g
+Bio-Hackfleisch vom Rind | 4.69 | 6.29 | 400 g
+Rotkohl lose | 0.88 | | je kg
+Gurke | 0.75 | |
+Zespri Kiwi Sungold | 0.59 | | Stück
+Weißer Riese Waschmittel XXL Color | 11.99 | | 90 WL, ab 13.11.
+Danone Joghurt Cerealien | 2.88 | | 8 x 115 g, ab 13.11.
+Tiefkühl-Himbeeren XXL | 7.99 | | 1 kg, ab 13.11.
+Dr. Oetker Mohn Back | 2.29 | | 250 g, ab 13.11.
+Lachsforellenfiletseite | 13.99 | | ca. 1 kg, ab 13.11.
+Mandeln natur XXL | 4.49 | | 500 g, ab 13.11.
+Zott Sahnejoghurt Bratapfel | 0.39 | | 140 g, ab 13.11.
+Deutsche Markenbutter Milsani | 1.15 | 1.19 | 250 g, dauerhaft
+Pizza-Snack Margherita | 0.89 | 0.99 | dauerhaft
+Paniermehl | 1.49 | 1.69 | 1 kg, dauerhaft
+Französische Schokobrötchen | 1.79 | 1.99 | 360 g, dauerhaft
+Butter-Laugenecke | 0.79 | 0.85 | dauerhaft

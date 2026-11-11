@@ -40,6 +40,21 @@ export const Offer = z.object({
 });
 export type Offer = z.infer<typeof Offer>;
 
+// Any offer from a Prospekt, also for things that are not in our product catalog
+// ("Toffifee", "Lachsfilet"). The app searches these by name for every item on a list.
+export const ProspektOffer = z.object({
+  id: z.string(),
+  chain: Chain,
+  title: z.string().min(1),
+  price: z.number().positive(),
+  regularPrice: z.number().positive().nullable(),
+  unitInfo: z.string().nullable(), // e.g. "1 kg = 7.45", "ab", "500 g"
+  validFrom: z.coerce.date(),
+  validTo: z.coerce.date(),
+  source: z.string(),
+});
+export type ProspektOffer = z.infer<typeof ProspektOffer>;
+
 // What the app sends to get a plan.
 export const PlanRequest = z.object({
   items: z

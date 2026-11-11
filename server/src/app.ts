@@ -5,7 +5,9 @@ import { ZodError } from 'zod';
 import { aiConfigured } from './ai.js';
 import { matchWithAi } from './lib/aiMatch.js';
 import { makeMealPlan } from './lib/meals.js';
+import { ALIASES } from './lib/match.js';
 import { rankStores } from './lib/plan.js';
+import { findOffers } from './lib/search.js';
 import type { Repo } from './repo.js';
 import { MatchRequest, MealPlanRequest, PlanRequest, ReportRequest } from './schemas.js';
 
@@ -39,8 +41,43 @@ export function createApp(repo: Repo, clientUrl = '*') {
   app.post('/api/plan', async (req, res, next) => {
     try {
       const { items } = PlanRequest.parse(req.body);
-      const [stores, products, offers] = await Promise.all([repo.stores(), repo.products(), repo.currentOffers()]);
-      res.json({ plans: rankStores(items, stores, products, offers), offerCount: offers.length });
+      const [stores, products, offers, prospekt] = await Promise.all([
+        repo.stores(),
+        repo.products(),
+        repo.currentOffers(),
+        repo.prospektOffers(),
+      ]);
+      const storeName = (chain: string) => stores.find((s) => s.chain === chain)?.name ?? chain;
+      // For every item: all Prospekt offers that match its name, also outside our catalog.
+      const itemOffers = items
+        .map((item) => ({
+          itemId: item.id,
+          name: item.name,
+          offers: findOffers(item.name, prospekt, item.productId ? ALIASES[item.productId] ?? [] : []).map((o) => ({
+            chain: o.chain,
+            storeName: storeName(o.chain),
+            title: o.title,
+            price: o.price,
+            regularPrice: o.regularPrice,
+            unitInfo: o.unitInfo,
+          })),
+        }))
+        .filter((i) => i.offers.length > 0);
+      res.json({
+        plans: rankStores(items, stores, products, offers),
+        offerCount: offers.length + prospekt.length,
+        itemOffers,
+      });
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  // Search this week's Prospekte by name: /api/prospekt/search?q=toffifee
+  app.get('/api/prospekt/search', async (req, res, next) => {
+    try {
+      const q = String(req.query.q ?? '').slice(0, 60);
+      res.json({ offers: findOffers(q, await repo.prospektOffers(), [], 20) });
     } catch (err) {
       next(err);
     }
