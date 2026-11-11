@@ -1,0 +1,11 @@
+{
+  "source": "Penny Prospekt \"Wer günstig will, muss Penny.\" (9.–15.11.2026), Siegburg, read from kaufDA",
+  "offers": [
+    { "product": "Deutsche Markenbutter", "price": 1.15, "regularPrice": 1.19, "unit": "250 g" },
+    { "product": "Pasta", "price": 0.79, "regularPrice": 1.99, "unit": "500 g" },
+    { "product": "Rote Paprika", "price": 1.99, "regularPrice": null, "unit": "500 g" },
+    { "product": "Zitronen", "price": 1.19, "regularPrice": null, "unit": "750 g" },
+    { "product": "Rucola", "price": 0.69, "regularPrice": 0.89, "unit": "125 g" },
+    { "product": "Zucchini", "price": 1.29, "regularPrice": null, "unit": null }
+  ]
+}

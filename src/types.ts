@@ -1,7 +1,7 @@
 // Shared types for the whole app.
 // They match the data model in the proposal, so the backend can reuse them later.
 
-export type Chain = 'rewe' | 'lidl' | 'aldi';
+export type Chain = 'rewe' | 'lidl' | 'aldi' | 'kaufland' | 'penny' | 'netto';
 
 export interface Category {
   id: string;

@@ -2,7 +2,7 @@
 // They check everything that comes from outside: requests, the AI, the database seed.
 import { z } from 'zod';
 
-export const Chain = z.enum(['rewe', 'lidl', 'aldi']);
+export const Chain = z.enum(['rewe', 'lidl', 'aldi', 'kaufland', 'penny', 'netto']);
 export type Chain = z.infer<typeof Chain>;
 
 export const Category = z.object({

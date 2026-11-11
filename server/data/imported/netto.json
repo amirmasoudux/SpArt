@@ -1,0 +1,29 @@
+[
+  {
+    "id": "netto-butter-250g-2026-11-08",
+    "chain": "netto",
+    "productId": "butter-250g",
+    "price": 0.99,
+    "validFrom": "2026-11-08T23:00:00.000Z",
+    "validTo": "2026-11-14T22:59:59.999Z",
+    "source": "Netto Marken-Discount Prospekt (9.–14.11.2026), Siegburg, read from kaufDA"
+  },
+  {
+    "id": "netto-minced-beef-500g-2026-11-08",
+    "chain": "netto",
+    "productId": "minced-beef-500g",
+    "price": 4.99,
+    "validFrom": "2026-11-08T23:00:00.000Z",
+    "validTo": "2026-11-14T22:59:59.999Z",
+    "source": "Netto Marken-Discount Prospekt (9.–14.11.2026), Siegburg, read from kaufDA"
+  },
+  {
+    "id": "netto-cucumber-2026-11-08",
+    "chain": "netto",
+    "productId": "cucumber",
+    "price": 0.88,
+    "validFrom": "2026-11-08T23:00:00.000Z",
+    "validTo": "2026-11-14T22:59:59.999Z",
+    "source": "Netto Marken-Discount Prospekt (9.–14.11.2026), Siegburg, read from kaufDA"
+  }
+]

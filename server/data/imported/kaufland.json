@@ -1,0 +1,38 @@
+[
+  {
+    "id": "kaufland-cucumber-2026-11-08",
+    "chain": "kaufland",
+    "productId": "cucumber",
+    "price": 0.99,
+    "validFrom": "2026-11-08T23:00:00.000Z",
+    "validTo": "2026-11-14T22:59:59.999Z",
+    "source": "Kaufland Prospekt \"Hier bin ich richtig\" (9.–14.11.2026), Siegburg, read from kaufDA"
+  },
+  {
+    "id": "kaufland-tomatoes-500g-2026-11-08",
+    "chain": "kaufland",
+    "productId": "tomatoes-500g",
+    "price": 1.79,
+    "validFrom": "2026-11-08T23:00:00.000Z",
+    "validTo": "2026-11-14T22:59:59.999Z",
+    "source": "Kaufland Prospekt \"Hier bin ich richtig\" (9.–14.11.2026), Siegburg, read from kaufDA"
+  },
+  {
+    "id": "kaufland-potatoes-2kg-2026-11-08",
+    "chain": "kaufland",
+    "productId": "potatoes-2kg",
+    "price": 2.65,
+    "validFrom": "2026-11-08T23:00:00.000Z",
+    "validTo": "2026-11-14T22:59:59.999Z",
+    "source": "Kaufland Prospekt \"Hier bin ich richtig\" (9.–14.11.2026), Siegburg, read from kaufDA"
+  },
+  {
+    "id": "kaufland-frozen-pizza-2026-11-08",
+    "chain": "kaufland",
+    "productId": "frozen-pizza",
+    "price": 0.79,
+    "validFrom": "2026-11-08T23:00:00.000Z",
+    "validTo": "2026-11-14T22:59:59.999Z",
+    "source": "Kaufland Prospekt \"Hier bin ich richtig\" (9.–14.11.2026), Siegburg, read from kaufDA"
+  }
+]
