@@ -73,10 +73,10 @@ if (values['dry-run']) {
   const file = new URL(`../data/imported/${chain}.json`, import.meta.url);
   writeFileSync(file, JSON.stringify(result.offers, null, 2) + '\n');
   console.log(`\nSaved ${result.offers.length} ${chain} offers to data/imported/${chain}.json`);
-} else if (!process.env.MONGO_URI) {
+} else if (!(process.env.MONGO_URI ?? process.env.MONGODB_URI)) {
   console.log('\nNo MONGO_URI: nothing saved. Add it to server/.env to save offers.');
 } else {
-  await mongoose.connect(process.env.MONGO_URI);
+  await mongoose.connect((process.env.MONGO_URI ?? process.env.MONGODB_URI)!, { dbName: 'spart' });
   await mongoRepo().replaceOffers(chain, result.offers);
   await mongoose.disconnect();
   console.log(`\nSaved ${result.offers.length} ${chain} offers to MongoDB.`);

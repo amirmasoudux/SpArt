@@ -5,12 +5,13 @@ import { createApp } from './app.js';
 import { memoryRepo, mongoRepo } from './repo.js';
 
 const port = Number(process.env.PORT ?? 4000);
-const mongoUri = process.env.MONGO_URI;
+// MONGO_URI is our name; MONGODB_URI is the name in the .env file Atlas lets you download.
+const mongoUri = process.env.MONGO_URI ?? process.env.MONGODB_URI;
 
 async function start() {
   let repo;
   if (mongoUri) {
-    await mongoose.connect(mongoUri);
+    await mongoose.connect(mongoUri, { dbName: 'spart' });
     console.log('Connected to MongoDB');
     repo = mongoRepo();
   } else {
