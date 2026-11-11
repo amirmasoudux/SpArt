@@ -12,7 +12,7 @@ export const ALIASES: Record<string, string[]> = {
   'bananas-1kg': ['bananas', 'banana', 'bananen', 'banane'],
   'canned-tomatoes-400g': ['canned tomatoes', 'tomato can', 'dosentomaten', 'passata'],
   'tomatoes-500g': ['tomatoes', 'tomato', 'tomaten', 'tomate'],
-  'cucumber': ['cucumber', 'gurke'],
+  'cucumber': ['cucumber', 'gurke', 'gurken'],
   'onions-1kg': ['onions', 'onion', 'zwiebeln', 'zwiebel'],
   'apples-1kg': ['apples', 'apple', 'äpfel', 'apfel'],
   'potatoes-2kg': ['potatoes', 'potato', 'kartoffeln', 'kartoffel'],

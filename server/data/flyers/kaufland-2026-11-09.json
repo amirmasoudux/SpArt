@@ -1,0 +1,13 @@
+{
+  "source": "Kaufland Prospekt \"Hier bin ich richtig\" (9.–14.11.2026), Siegburg, read from kaufDA",
+  "offers": [
+    { "product": "Bio-Gurke", "price": 0.99, "regularPrice": 1.29, "unit": null },
+    { "product": "Mini-Romatomaten", "price": 1.79, "regularPrice": 2.49, "unit": "500 g" },
+    { "product": "Speisekartoffeln", "price": 1.99, "regularPrice": 2.49, "unit": "1,5 kg" },
+    { "product": "Pizza Margherita", "price": 0.79, "regularPrice": null, "unit": null },
+    { "product": "Eisbergsalat", "price": 0.79, "regularPrice": 1.11, "unit": null },
+    { "product": "Avocados", "price": 1.79, "regularPrice": 2.49, "unit": null },
+    { "product": "Blumenkohl", "price": 1.49, "regularPrice": 1.99, "unit": null },
+    { "product": "Rindergulasch", "price": 1.49, "regularPrice": 1.89, "unit": null }
+  ]
+}

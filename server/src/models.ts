@@ -17,7 +17,7 @@ export const StoreModel = model(
   'Store',
   new Schema({
     _id: String,
-    chain: { type: String, enum: ['rewe', 'lidl', 'aldi'], required: true },
+    chain: { type: String, enum: ['rewe', 'lidl', 'aldi', 'kaufland', 'penny', 'netto'], required: true },
     name: { type: String, required: true },
     takesGlassBottles: { type: Boolean, default: false },
   }),
@@ -39,7 +39,7 @@ export const OfferModel = model(
   new Schema(
     {
       _id: String,
-      chain: { type: String, enum: ['rewe', 'lidl', 'aldi'], required: true },
+      chain: { type: String, enum: ['rewe', 'lidl', 'aldi', 'kaufland', 'penny', 'netto'], required: true },
       productId: { type: String, ref: 'Product', required: true },
       price: { type: Number, required: true },
       validFrom: { type: Date, required: true },

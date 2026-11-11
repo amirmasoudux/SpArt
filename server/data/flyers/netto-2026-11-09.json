@@ -1,0 +1,12 @@
+{
+  "source": "Netto Marken-Discount Prospekt (9.–14.11.2026), Siegburg, read from kaufDA",
+  "offers": [
+    { "product": "Feine Butter", "price": 0.99, "regularPrice": 2.79, "unit": "250 g" },
+    { "product": "Rinder Hackfleisch", "price": 4.99, "regularPrice": 5.79, "unit": "500 g" },
+    { "product": "Gurken", "price": 0.88, "regularPrice": 1.19, "unit": null },
+    { "product": "Lauchzwiebeln", "price": 0.49, "regularPrice": 0.79, "unit": null },
+    { "product": "Auberginen", "price": 0.77, "regularPrice": 0.99, "unit": null },
+    { "product": "Champignon braun", "price": 1.79, "regularPrice": 2.19, "unit": "400 g" },
+    { "product": "Rosenkohl", "price": 1.49, "regularPrice": 1.99, "unit": null }
+  ]
+}

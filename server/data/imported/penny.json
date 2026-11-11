@@ -1,0 +1,20 @@
+[
+  {
+    "id": "penny-butter-250g-2026-11-08",
+    "chain": "penny",
+    "productId": "butter-250g",
+    "price": 1.15,
+    "validFrom": "2026-11-08T23:00:00.000Z",
+    "validTo": "2026-11-15T22:59:59.999Z",
+    "source": "Penny Prospekt \"Wer günstig will, muss Penny.\" (9.–15.11.2026), Siegburg, read from kaufDA"
+  },
+  {
+    "id": "penny-pasta-500g-2026-11-08",
+    "chain": "penny",
+    "productId": "pasta-500g",
+    "price": 0.79,
+    "validFrom": "2026-11-08T23:00:00.000Z",
+    "validTo": "2026-11-15T22:59:59.999Z",
+    "source": "Penny Prospekt \"Wer günstig will, muss Penny.\" (9.–15.11.2026), Siegburg, read from kaufDA"
+  }
+]
