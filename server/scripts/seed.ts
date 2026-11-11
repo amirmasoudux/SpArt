@@ -4,14 +4,14 @@ import mongoose from 'mongoose';
 import { CategoryModel, OfferModel, ProductModel, StoreModel } from '../src/models.js';
 import { loadDemoData } from '../src/repo.js';
 
-const uri = process.env.MONGO_URI;
+const uri = process.env.MONGO_URI ?? process.env.MONGODB_URI;
 if (!uri) {
   console.error('Set MONGO_URI in server/.env first.');
   process.exit(1);
 }
 
 const { categories, stores, products, offers } = loadDemoData();
-await mongoose.connect(uri);
+await mongoose.connect(uri, { dbName: 'spart' });
 
 const toDocs = <T extends { id: string }>(rows: T[]) => rows.map(({ id, ...rest }) => ({ _id: id, ...rest }));
 
