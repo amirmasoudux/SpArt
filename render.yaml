@@ -3,6 +3,7 @@ services:
   - type: web
     name: spart-api
     runtime: node
+    plan: free # the free instance; it sleeps after 15 min without visits
     rootDir: server
     buildCommand: npm install
     startCommand: npm start
@@ -11,8 +12,8 @@ services:
       - key: MONGO_URI
         sync: false # set it in the Render dashboard
       - key: CLIENT_URL
-        sync: false # e.g. https://spart.vercel.app
+        sync: false # e.g. https://spart.vercel.app (leave empty to allow any site)
       - key: AI_API_KEY
-        sync: false
+        sync: false # optional; without it the app uses its own recipes and word list
       - key: AI_MODEL
         value: gpt-4o-mini

@@ -18,7 +18,7 @@ async function start() {
     console.log('No MONGO_URI set: using demo data in memory');
     repo = memoryRepo();
   }
-  createApp(repo, process.env.CLIENT_URL ?? '*').listen(port, () => console.log(`SpArt API on http://localhost:${port}`));
+  createApp(repo, process.env.CLIENT_URL || '*').listen(port, () => console.log(`SpArt API on http://localhost:${port}`));
 }
 
 start().catch((err) => {
