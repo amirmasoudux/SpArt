@@ -6,7 +6,7 @@ import { newId, parseList } from '../lib/parseList';
 import { improveUnknownItems } from '../lib/api';
 import { getGuestId, getList, saveList } from '../lib/storage';
 
-const EXAMPLES = ['2 milk', 'eggs', 'some gouda', 'bananas', 'pasta', 'coffee'];
+const EXAMPLES = ['2 potatoes', '2 toilet paper', 'cucumber', '2 milk', 'eggs', 'apples'];
 
 function defaultTitle(): string {
   return 'List of ' + new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
@@ -53,7 +53,7 @@ export default function WriteList() {
           id="list-text"
           value={text}
           onChange={(e) => setText(e.target.value)}
-          placeholder="2 milk, eggs, some gouda, bananas…"
+          placeholder="2 potatoes, 2 toilet paper, cucumber, 2 milk…"
           rows={7}
           autoFocus
           className="w-full resize-none rounded-[24px] border-2 border-transparent bg-white p-5 text-[17px] leading-relaxed outline-none placeholder:text-faint focus:border-brand"
