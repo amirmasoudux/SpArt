@@ -50,3 +50,4 @@ body {
   transition: none !important;
 }
 .bg-white { border: 1px solid #d4d4d8; }
+.animate-spin { animation: spin 0.8s linear infinite !important; border-radius: 9999px !important; }
