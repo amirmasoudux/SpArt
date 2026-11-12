@@ -4,6 +4,12 @@ Type your shopping list. SpArt checks this week's Prospekte and tells you the ch
 
 WBS Coding School final project (3 weeks).
 
+## Live
+
+- App (frontend, Vercel): https://spart.vercel.app
+- API (backend, Render): https://spart-api.onrender.com/api/health — free plan, wakes up in about 50 seconds after a quiet time
+- Database: MongoDB Atlas (free M0, Frankfurt)
+
 ## Versions
 
 | Version | Branch | What it has |
