@@ -8,6 +8,9 @@ import { fetchPlan, type PlanResult } from '../lib/api';
 import { euro, type PlanLine } from '../lib/plan';
 import { getList } from '../lib/storage';
 
+// "In this week's Prospekte" (all ~500 offers per item) is hidden until Demo Day. Set to true to show it again.
+const SHOW_ALL_OFFERS = false;
+
 export default function Plan() {
   const { id = '' } = useParams();
   const location = useLocation();
@@ -29,7 +32,7 @@ export default function Plan() {
   const offerLines = best.lines.filter((l) => l.onOffer);
   const otherLines = best.lines.filter((l) => !l.onOffer);
   const chainNames = stores.map((s) => s.name).join(', ');
-  const itemOffers = result.itemOffers ?? [];
+  const itemOffers = SHOW_ALL_OFFERS ? (result.itemOffers ?? []) : [];
   const pricedIds = new Set(best.lines.map((l) => l.itemId));
   const toggle = (itemId: string) =>
     setOpenItems((prev) => {
