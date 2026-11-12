@@ -9,7 +9,7 @@ import { euro, type PlanLine } from '../lib/plan';
 import { getList } from '../lib/storage';
 
 // "In this week's Prospekte" (all ~500 offers per item) is hidden until Demo Day. Set to true to show it again.
-const SHOW_ALL_OFFERS = false;
+const SHOW_ALL_OFFERS = true;
 
 export default function Plan() {
   const { id = '' } = useParams();
