@@ -2,19 +2,19 @@
 
 /* SpArt design tokens: each color has one job. */
 @theme {
-  --font-sans: 'Manrope', system-ui, sans-serif;
+  --font-sans: Arial, Helvetica, sans-serif;
   --color-ink: #0e0f14;
   --color-muted: #6b6e7b;
   --color-faint: #8a8d99;
   --color-line: #e4e5eb;
-  --color-bg: #f6f6f9;
-  --color-brand: #5b3df5;
-  --color-brand-dark: #4326d9;
-  --color-brand-soft: #f1eeff;
-  --color-brand-ink: #3a22c9;
-  --color-save: #0fa968;
+  --color-bg: #ffffff;
+  --color-brand: #2563eb;
+  --color-brand-dark: #1d4ed8;
+  --color-brand-soft: #eef2ff;
+  --color-brand-ink: #1e40af;
+  --color-save: #15803d;
   --color-save-ink: #0a7a4b;
-  --color-save-soft: #e3f7ee;
+  --color-save-soft: #f0fdf4;
   --color-warn-soft: #fff4e5;
   --color-warn-ink: #7a3e00;
   --color-danger: #c92a2a;
@@ -41,3 +41,12 @@ body {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* Simple version (branch "simple"): plain look, same features. */
+*, *::before, *::after {
+  border-radius: 4px !important;
+  box-shadow: none !important;
+  animation: none !important;
+  transition: none !important;
+}
+.bg-white { border: 1px solid #d4d4d8; }
