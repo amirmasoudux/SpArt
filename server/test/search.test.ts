@@ -12,7 +12,7 @@ describe('Prospekt search', () => {
 
   it('finds things outside the catalog, cheapest first', () => {
     const toffifee = findOffers('Toffifee', prospekt);
-    expect(toffifee.map((o) => o.chain).sort()).toEqual(['kaufland', 'netto', 'penny']);
+    expect(toffifee.map((o) => o.chain).sort()).toEqual(['kaufland', 'netto', 'penny', 'rewe']);
     expect(toffifee[0].price).toBeLessThanOrEqual(toffifee[1].price);
   });
 

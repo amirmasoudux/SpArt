@@ -1,24 +1,172 @@
-# REWE Prospekt, Siegburg, 9.–14.11.2026, read from kaufDA (selected rows only)
-# title | price | regular price | unit
-Rinder-Hackfleisch | 3.49 |  | 250 g
-Speisekartoffeln | 3.33 |  | 5 kg
-Griech. Joghurt | 2.49 |  | 450 g
-Romatomaten | 1.79 |  | 400 g
-Mini Cherry Rispentomaten | 1.79 |  | 200 g
-Toilettenpapier | 3.99 |  | 
-Hähnchen-Brustfilet | 11.99 |  | 
-Puten-Brustfilet | 1.59 |  | 
-Reines Sonnenblumenöl | 2.22 |  | 750 ml
-Pizza Margherita | 3.69 |  | 410 g
-Mineralwasser | 2.99 |  | 
+# REWE Prospekt "Dein Markt" (PETZ REWE), Siegburg, 9.–14.11.2026, read from kaufDA (food, drinks, household; all rows)
+# title | price | regular price (empty: kaufDA shows none for REWE) | unit / price per kg
+Rahm Geschnetzeltes | 2.22 |  | 1 kg = 5.92
+Frankfurter Mettwurst | 1.49 |  | 
+Plätzchenteig Herzli | 1.99 |  | 1 kg = 6.63
+Coca-Cola | 11.99 |  | 1 l = 1.00
+Tafelspitz | 1.99 |  | 
+Schweine-Nacken | 0.88 |  | 
+Tellerspieß | 0.99 |  | 
+Irisches Butterschmalz | 2.49 |  | 1 kg = 9.96
+Kümmelbraten | 2.29 |  | 
+Bio Austernpilze | 1.99 |  | 1 kg = 9.95
+Focaccia Trüffelsalami | 3.29 |  | 1 kg = 19.35
+Hirtenkäse | 1.79 |  | 1 kg = 8.95
+Eiscreme Sticks Cookie Dough | 3.79 |  | 1 l = 14.58
+Reines Sonnenblumenöl | 2.22 |  | 1 l = 2.96
+Kohlroulade | 1.09 |  | 
+Pils | 6.99 |  | 1 l = 0.70
 Clementinen | 1.89 |  | 
-Saftorangen | 2.99 |  | 1,5 kg
-Avocado | 1.19 |  | 
-Feldsalat | 1.79 |  | 100 g
-Braune Champignons | 1.69 |  | 250 g
+Natur-Radler 0.0% | 3.99 |  | 1 l = 2.02
+Nürnberger Christkindles Markt-Glühwein | 2.99 |  | 
+Schokolade | 0.99 |  | 1 kg = 11.00
+Kürbiskernbrot | 1.59 |  | 1 kg = 2.12
+Bio Kräuterseitlinge | 2.49 |  | 1 kg = 19.92
+Mon Chéri | 2.79 |  | 1 kg = 17.77
+Kalbs-Braten | 2.49 |  | 
+Mineralwasser | 2.99 |  | 1 l = 0.44
+Räucherkäse Schinken | 0.99 |  | 
+Stilfser | 1.79 |  | 
 Spitzkohl | 0.99 |  | 
+Matjesfilets | 2.49 |  | 1 kg = 12.45
+Glühwein | 1.49 |  | 
+Rinder-Hüftsteak | 52.99 |  | 
+Aspik-Aufschnitt | 1.29 |  | 
+Jahrgangssekt Rosé Dry | 3.99 |  | 1 l = 5.32
+Braune Champignons | 1.69 |  | 1 kg = 6.76
+Marzipan Kartoffeln | 4.49 |  | 1 kg = 8.98
+Holla die Waldfee | 3.99 |  | 1 l = 5.70
+Hähnchen-Brustfilet | 11.99 |  | 
+Fix Air Fryer Hähnchen Döner Style | 0.44 |  | 1 kg = 14.67
+Samt Fruchtaufstrich Himbeere | 2.29 |  | 1 kg = 8.48
+Lauch-Käse Hackfleisch Suppe | 2.29 |  | 1 l = 5.33
+Pepsi | 0.88 |  | 1 l = 0.70
+Wild-Preiselbeeren | 2.49 |  | 1 kg = 6.38
+Fruchtaufstrich Williamsbirne | 2.29 |  | 1 kg = 7.16
+Spritzgebäck | 2.29 |  | 1 kg = 11.45
+Bella Crema Speciale | 12.99 |  | 
+Maultaschen | 1.69 |  | 1 kg = 4.69
+Schokolade Biscoff | 3.99 |  | 1 kg = 24.94
+Toffifee White Chocolate | 0.99 |  | 1 kg = 7.92
+Cremissimo Schokolade | 1.99 |  | 1 l = 2.41
+Mineralwasser | 7.49 |  | 1 l = 0.83
+Toilettenpapier | 3.99 |  | 
+Avocado | 1.19 |  | 
+Mineralwasser | 2.99 |  | 1 l = 0.25
+Kirschtomate Rucola | 1.99 |  | 1 kg = 14.74
+Kaffee-Milch Ergiebige | 0.99 |  | 1 kg = 2.91
+Kartoffel Hähnchen Bowl | 3.99 |  | 1 kg = 10.64
+Kräuter-Tube Vegan | 1.49 |  | 1 l = 18.63
+Saftorangen | 2.99 |  | 1 kg = 1.99
+Mini Pralines | 3.99 |  | 1 kg = 44.33
+Minis Partybecher | 9.99 |  | 1 l = 18.50
+Puten-Brustfilet | 1.59 |  | 
+Kölsch | 13.99 |  | 1 l = 1.40/1.77
+Pils | 10.99 |  | 1 l = 1.10
+Karottini | 0.99 |  | 1 kg = 3.96
+Rinder-Filet | 5.29 |  | 
+Angus Irish Beef Burger Patties | 3.99 |  | 1 kg = 17.35
+XXL Coooky | 1.99 |  | 1 kg = 14.74
+Duschcreme | 0.99 |  | 1 l = 3.96
+Grapefruit | 0.55 |  | 
+Milchreis | 1.99 |  | 1 kg = 5.31
+Dry Gin | 27.99 |  | 1 l = 55.98
+White Choc Mocca | 1.99 |  | 1 l = 9.05
+Pikanter Schweinebauch | 3.59 |  | 1 kg = 14.36
+Der Große Bauer Stracciatella | 0.49 |  | 1 kg = 2.18
+Goldmais | 1.11 |  | 1 kg = 3.89
+7 Sterne | 12.99 |  | 1 l = 18.56
+Burger Buns | 0.99 |  | 1 kg = 3.30
+Fleischkäse-Aufschnitt | 1.11 |  | 
+Pralinés | 5.99 |  | 1 kg = 47.92
+Guarana | 8.99 |  | 1 l = 1.07
+La Mia Grande Margherita | 3.49 |  | 1 kg = 9.69
+Chunky Burger Sauce | 1.49 |  | 1 l = 5.96
+Mini Cherry Rispentomaten | 1.79 |  | 1 kg = 8.95
+Martin Schongauer Qualitätswein | 3.49 |  | 1 l = 4.65
+Kräuter der Provence | 1.29 |  | 
+Hähnchen Tomate Sandwich | 2.79 |  | 1 kg = 16.41
+Pfefferminze | 1.59 |  | 1 kg = 35.33
+Schweinefilet | 3.99 |  | 1 kg = 7.99
+Beinschinken | 1.79 |  | 
+Mais Erdnuss Crispies | 2.29 |  | 
+Rinder-Hackfleisch | 3.49 |  | 1 kg = 13.96
+Barista Caffè Crema | 13.99 |  | 
+Sauerkraut Kimchi Style | 1.79 |  | 1 kg = 4.65
+Citrus Mix | 1.89 |  | 1 kg = 12.60
+Pasta Pot | 0.99 |  | 1 kg = 15.97
+Feldsalat | 1.79 |  | 1 kg = 17.90
+Winterpunsch | 1.29 |  | 
+Glühwein | 1.29 |  | 
+Near Water | 0.59 |  | 1 l = 0.79
+SunGold Kiwi | 0.59 |  | 
+Bananen Schokoquarkcreme | 1.99 |  | 1 kg = 8.29
+Romatomaten | 1.79 |  | 1 kg = 4.48
+Original Ice Cream | 2.29 |  | 1 l = 9.11
+Delikatess Soße | 0.88 |  | 
+Hühner Brühe | 1.59 |  | 
+Bella Vita Bianco | 5.99 |  | 1 l = 7.98
+Chaumes | 1.79 |  | 
+Total Care | 3.99 |  | 1 l = 7.98
+Zitrone | 0.59 |  | 
+Schüttel Mich Weihnachtsmann | 2.99 |  | 1 kg = 28.48
+Griech. Joghurt | 2.49 |  | 1 kg = 5.53
+Lecker Fritten Backofen/Airfryer | 1.69 |  | 1 kg = 2.82
+Ingwer Shot | 1.19 |  | 1 l = 19.83
+Smoothie Apfel Mango Maracuja | 0.99 |  | 1 l = 3.96
+à la Carte Wildlachs & Garnelen | 4.49 |  | 1 kg = 9.98
+Veganes Steak | 2.99 |  | 1 kg = 19.93
+Kinder-Punsch | 1.99 |  | 
 Lauchzwiebeln | 0.55 |  | 
-Burger Buns | 0.99 |  | 300 g
-Schafskäse Natur | 1.99 |  | 180 g
-Maultaschen | 1.69 |  | 360 g
-Colorwaschmittel Kraft-Gel | 16.99 |  | 
+Schafskäse Natur | 1.99 |  | 1 kg = 11.06
+Le Sweet Filou | 2.99 |  | 1 l = 3.99
+Hähnchen-Schenkel natur | 6.66 |  | 1 kg = 3.33
+Cheddar Käse Scheiben oder Cheddar gerieben | 1.59 |  | 1 kg = 12.23
+Saft | 1.69 |  | 
+Mini Berner Würstchen | 2.39 |  | 1 kg = 12.92
+Virginia Pfefferschinken | 2.49 |  | 
+Quark Genuss Erdbeere | 1.49 |  | 1 kg = 2.98
+1,5% Fett | 1.19 |  | 
+Scheuermilch | 1.59 |  | 1 l = 3.18
+Colorwaschmittel Kraft-Gel | 16.99 |  | 1 WL = 0.17
+Aufstrich Gurke & Knoblauch | 1.49 |  | 1 kg = 9.93
+Miracel Whip Balance | 1.79 |  | 1 l = 3.58
+Nuts & Nougat | 7.49 |  | 1 l = 10.70
+Grüne Tafelbirnen | 2.69 |  | 
+Knusperbrot Goldweizen | 0.99 |  | 1 kg = 7.92
+Trinkmahlzeit Cookie Geschmack | 2.49 |  | 1 l = 4.98
+La Pistache | 2.99 |  | 1 l = 11.07
+Mini Babybel 10er | 3.33 |  | 1 kg = 16.65
+Wisch & Weg Original | 2.49 |  | 
+Mozzarella Sticks | 2.49 |  | 1 kg = 16.60
+Dippi | 1.99 |  | 1 kg = 18.95
+Speisekartoffeln | 3.33 |  | 1 kg = 0.67
+Frühstücksmüsli Beeren High Protein | 1.59 |  | 1 kg = 6.24
+Protein Ice Tea | 1.59 |  | 1 l = 3.18
+Onigiri Thunfisch Mayonnaise | 2.19 |  | 1 kg = 16.85
+Premium Rum | 6.99 |  | 1 l = 9.99
+Vodka | 9.99 |  | 1 l = 14.27
+Tamnavulin Speyside Sherry | 19.99 |  | 1 l = 28.56
+Fruchtpunsch Holunder | 1.99 |  | 1 l = 2.65
+Hell | 14.99 |  | 1 l = 1.50
+Snack Nüsse | 2.99 |  | 1 kg = 10.87
+Premium | 15.99 |  | 1 l = 2.28
+Geflügel Bratwurst | 3.49 |  | 1 kg = 17.45
+Pizza Margherita | 3.69 |  | 1 kg = 9.00
+Mein Ofenkäse fein-würzig | 2.49 |  | 1 kg = 13.83
+Gyros | 2.49 |  | 1 kg = 13.83
+Joghurt mit der Ecke | 0.39 |  | 1 kg = 2.60
+Wild Berry | 17.90 |  | 1 l = 2.39
+Theo Black Forest Whisky | 15.99 |  | 1 l = 22.84
+Baguette Kräuterbutter | 1.11 |  | 1 kg = 6.94
+High Protein Salatbowl Tuna | 2.79 |  | 1 kg = 8.58
+Sushi Box Yuriko | 6.49 |  | 1 kg = 18.03
+Blanc de Noirs | 3.99 |  | 1 l = 5.32
+Rinder-Kophaut | 4.99 |  | 1 kg = 24.95
+Mojito Bier | 1.79 |  | 1 l = 3.58
+Vorgebackener Pinsa Teig | 2.79 |  | 1 kg = 12.13
+Gabelröllchen | 1.69 |  | 1 kg = 13.52
+Nacho Cheese | 1.11 |  | 1 kg = 10.09
+Weiss Meisterklasse Feine Oblatenlebkuchen | 1.79 |  | 1 kg = 8.95
+Barista Edition Hafer | 1.88 |  | 
+Weizen | 3.99 |  | 1 l = 2.02
