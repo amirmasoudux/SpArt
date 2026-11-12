@@ -4,6 +4,9 @@ import { IconPen, IconSpark } from '../components/icons';
 import { getLists, getTrips } from '../lib/storage';
 import { euro } from '../lib/plan';
 
+// "Tell me what to buy" (meal plan) is hidden this week. Set to true to show it again; the /meals routes still exist.
+const SHOW_MEAL_PLAN = false;
+
 function greeting(): string {
   const h = new Date().getHours();
   if (h < 12) return 'Good morning';
@@ -35,6 +38,7 @@ export default function Home() {
         </span>
       </Link>
 
+      {SHOW_MEAL_PLAN && (
       <Link to="/meals" className="flex items-center gap-4 rounded-[28px] bg-white px-6 py-5 transition hover:shadow-md">
         <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-brand-soft text-brand">
           <IconSpark className="size-6" />
@@ -44,6 +48,7 @@ export default function Home() {
           <span className="text-sm text-muted">4 questions → meal plan → list</span>
         </span>
       </Link>
+      )}
 
       {lastList && (
         <Link
