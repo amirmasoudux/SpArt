@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link, Navigate, useLocation, useParams } from 'react-router';
 import { BottomAction, PrimaryLink, Screen, SectionLabel, TopBar } from '../components/ui';
-import ReportSheet from '../components/ReportSheet';
 import { IconInfo } from '../components/icons';
 import { getStores } from '../lib/dataSource';
 import { fetchPlan, type PlanResult } from '../lib/api';
-import { euro, type PlanLine } from '../lib/plan';
+import { euro } from '../lib/plan';
 import { getList } from '../lib/storage';
 
 // "In this week's Prospekte" (all ~500 offers per item) is hidden until Demo Day. Set to true to show it again.
@@ -17,7 +16,6 @@ export default function Plan() {
   const list = getList(id);
   // The Analyze screen passes the result along. After a reload, ask again.
   const [result, setResult] = useState<PlanResult | undefined>(location.state as PlanResult | undefined);
-  const [reporting, setReporting] = useState<PlanLine | null>(null);
   const [openItems, setOpenItems] = useState<Set<string>>(new Set());
 
   useEffect(() => {
@@ -78,14 +76,6 @@ export default function Plan() {
                   <span className="flex flex-wrap items-center gap-2">
                     <span className="rounded-full bg-save px-2 py-0.5 text-[11px] font-extrabold tracking-wide text-white uppercase">Offer</span>
                     <span className="text-xs font-extrabold text-save-ink">You save {euro(l.saving)}</span>
-                    <button
-                      type="button"
-                      onClick={() => setReporting(l)}
-                      aria-label={`Report a wrong price for ${l.name}`}
-                      className="text-xs font-bold text-faint underline"
-                    >
-                      Wrong price?
-                    </button>
                   </span>
                 ) : (
                   <span className="text-xs font-bold text-faint">Normal price (≈)</span>
@@ -182,8 +172,6 @@ export default function Plan() {
       <BottomAction>
         <PrimaryLink to={`/list/${list.id}/shop?store=${best.store.id}`} state={best.lines}>Start shopping</PrimaryLink>
       </BottomAction>
-
-      {reporting && <ReportSheet line={reporting} store={best.store} onClose={() => setReporting(null)} />}
     </Screen>
   );
 }

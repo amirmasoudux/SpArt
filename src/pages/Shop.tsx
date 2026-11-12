@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Navigate, useLocation, useNavigate, useParams, useSearchParams } from 'react-router';
 import { BottomAction, PrimaryButton, Screen, SectionLabel } from '../components/ui';
+import ReportSheet from '../components/ReportSheet';
 import { IconCheck, IconClose } from '../components/icons';
 import { getCategories, getStores } from '../lib/dataSource';
 import { fetchPlan } from '../lib/api';
@@ -25,7 +26,8 @@ export default function Shop() {
     if (lines.length || !list) return;
     fetchPlan(list.items).then(({ plans }) => setLines((plans.find((p) => p.store.id === store.id) ?? plans[0]).lines));
   }, [lines.length, list, store.id]);
-  const offerFor = (itemId: string) => lines.find((l) => l.itemId === itemId && l.onOffer);
+  const lineFor = (itemId: string) => lines.find((l) => l.itemId === itemId);
+  const [reporting, setReporting] = useState<PlanLine | null>(null);
 
   if (!list) return <Navigate to="/lists" replace />;
 
@@ -91,12 +93,12 @@ export default function Shop() {
           <SectionLabel>{g.label}</SectionLabel>
           <ul className="rounded-[24px] bg-white py-1">
             {g.items.map((item) => (
-              <li key={item.id}>
+              <li key={item.id} className="flex items-center gap-2 pr-4">
                 <button
                   type="button"
                   aria-pressed={item.checked}
                   onClick={() => toggle(item.id)}
-                  className="flex min-h-[54px] w-full items-center gap-3.5 px-4 py-2 text-left"
+                  className="flex min-h-[54px] min-w-0 flex-1 items-center gap-3.5 px-4 py-2 text-left"
                 >
                   <span
                     className={`flex size-[26px] shrink-0 items-center justify-center rounded-[9px] transition ${
@@ -110,20 +112,38 @@ export default function Shop() {
                       {item.name}
                       {item.qty > 1 ? ` × ${item.qty}` : ''}
                     </span>
-                    {offerFor(item.id) && (
-                      <span className="flex items-center gap-1.5 text-xs font-extrabold text-save-ink">
-                        <span className="rounded-full bg-save px-2 py-0.5 text-[11px] tracking-wide text-white uppercase">Offer</span>
-                        Prospekt price {euro(offerFor(item.id)!.price)}
-                      </span>
+                    <span className="flex items-center gap-1.5 text-xs text-faint">
+                      {lineFor(item.id)?.onOffer && (
+                        <span className="rounded-full bg-save px-2 py-0.5 text-[11px] font-extrabold tracking-wide text-white uppercase">Offer</span>
+                      )}
+                      {item.unit}
+                    </span>
+                  </span>
+                </button>
+                {lineFor(item.id) && (
+                  <span className="flex shrink-0 flex-col items-end gap-0.5">
+                    <span className={`text-[15px] font-extrabold ${lineFor(item.id)!.onOffer ? 'text-save-ink' : ''}`}>
+                      {euro(lineFor(item.id)!.price)}
+                    </span>
+                    {lineFor(item.id)!.productId && (
+                      <button
+                        type="button"
+                        onClick={() => setReporting(lineFor(item.id)!)}
+                        aria-label={`Report a wrong price for ${item.name}`}
+                        className="text-xs font-bold text-faint underline"
+                      >
+                        Wrong price?
+                      </button>
                     )}
                   </span>
-                  {item.unit && <span className="shrink-0 text-xs text-faint">{item.unit}</span>}
-                </button>
+                )}
               </li>
             ))}
           </ul>
         </section>
       ))}
+
+      {reporting && <ReportSheet line={reporting} store={store} onClose={() => setReporting(null)} />}
 
       <BottomAction>
         <PrimaryButton onClick={finish} disabled={done === 0}>
