@@ -10,6 +10,9 @@ import { newId } from '../lib/parseList';
 import { getGuestId, getList, saveList, saveTrip } from '../lib/storage';
 import type { ShoppingList } from '../types';
 
+// "Wrong price?" on the shopping list is hidden for today's presentation. Set to true to show it again.
+const SHOW_WRONG_PRICE = false;
+
 export default function Shop() {
   const { id = '' } = useParams();
   const [params] = useSearchParams();
@@ -125,7 +128,7 @@ export default function Shop() {
                     <span className={`text-[15px] font-extrabold ${lineFor(item.id)!.onOffer ? 'text-save-ink' : ''}`}>
                       {euro(lineFor(item.id)!.price)}
                     </span>
-                    {lineFor(item.id)!.productId && (
+                    {SHOW_WRONG_PRICE && lineFor(item.id)!.productId && (
                       <button
                         type="button"
                         onClick={() => setReporting(lineFor(item.id)!)}
