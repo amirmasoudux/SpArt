@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Link, Navigate, useParams } from 'react-router';
 import { IconCheck } from '../components/icons';
 import { euro } from '../lib/plan';
@@ -8,25 +7,6 @@ export default function Done() {
   const { id = '' } = useParams();
   const trip = getTrip(id);
   const target = Math.max(0, trip?.saved ?? 0);
-  const [shown, setShown] = useState(0);
-
-  // Count the saving up, for a small moment of joy.
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setShown(target);
-      return;
-    }
-    const start = performance.now();
-    let frame = 0;
-    const tick = (t: number) => {
-      const p = Math.min(1, (t - start) / 900);
-      setShown(target * p);
-      if (p < 1) frame = requestAnimationFrame(tick);
-    };
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [target]);
-
   if (!trip) return <Navigate to="/" replace />;
 
   return (
@@ -37,7 +17,7 @@ export default function Done() {
         </span>
         <p className="text-[17px] font-bold text-white/85">Trip done. You saved</p>
         <p className="text-[76px] leading-none font-extrabold tracking-tighter" aria-live="polite">
-          {euro(shown)}
+          {euro(target)}
         </p>
         <p className="text-[15px] leading-relaxed text-white/85">
           At {trip.storeName} · {trip.itemCount} items · {euro(trip.total)} · thanks to this week’s Prospekt offers.
