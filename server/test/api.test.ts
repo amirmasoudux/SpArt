@@ -53,13 +53,6 @@ describe('API week 3', () => {
     expect(res.status).toBe(400);
   });
 
-  it('POST /api/meal-plan works without AI (uses our recipes)', async () => {
-    const res = await request(app).post('/api/meal-plan').send({ days: 3, mealsPerDay: 1, cook: 'quick', avoid: ['meat'] });
-    expect(res.status).toBe(200);
-    expect(res.body.source).toBe('recipes');
-    expect(res.body.plan.meals).toHaveLength(3);
-  });
-
   it('POST /api/items/match answers null for all without AI', async () => {
     const res = await request(app).post('/api/items/match').send({ names: ['Haferdrink'] });
     expect(res.body).toEqual({ matches: [{ name: 'Haferdrink', productId: null }], aiUsed: false });

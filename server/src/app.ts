@@ -4,12 +4,11 @@ import express, { type NextFunction, type Request, type Response } from 'express
 import { ZodError } from 'zod';
 import { aiConfigured } from './ai.js';
 import { matchWithAi } from './lib/aiMatch.js';
-import { makeMealPlan } from './lib/meals.js';
 import { ALIASES } from './lib/match.js';
 import { rankStores } from './lib/plan.js';
 import { findOffers } from './lib/search.js';
 import type { Repo } from './repo.js';
-import { MatchRequest, MealPlanRequest, PlanRequest, ReportRequest } from './schemas.js';
+import { MatchRequest, PlanRequest, ReportRequest } from './schemas.js';
 
 export function createApp(repo: Repo, clientUrl = '*') {
   const app = express();
@@ -89,16 +88,6 @@ export function createApp(repo: Repo, clientUrl = '*') {
       const { names } = MatchRequest.parse(req.body);
       const matches = await matchWithAi(names, await repo.products());
       res.json({ matches, aiUsed: aiConfigured() });
-    } catch (err) {
-      next(err);
-    }
-  });
-
-  // "Tell me what to buy": 4 answers → meal plan with ingredients.
-  app.post('/api/meal-plan', async (req, res, next) => {
-    try {
-      const answers = MealPlanRequest.parse(req.body);
-      res.json(await makeMealPlan(answers, await repo.products()));
     } catch (err) {
       next(err);
     }

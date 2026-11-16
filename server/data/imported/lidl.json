@@ -1,14 +1,5 @@
 [
   {
-    "id": "lidl-butter-250g-2026-11-15",
-    "chain": "lidl",
-    "productId": "butter-250g",
-    "price": 1.69,
-    "validFrom": "2026-11-15T23:00:00.000Z",
-    "validTo": "2026-11-21T22:59:59.999Z",
-    "source": "Lidl Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Butter 250 g (1 kg = 6.76). Sizes worked out from the price per kg/l where the pack differs."
-  },
-  {
     "id": "lidl-pasta-500g-2026-11-15",
     "chain": "lidl",
     "productId": "pasta-500g",

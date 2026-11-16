@@ -101,15 +101,3 @@ export const MatchAnswer = z.object({
   matches: z.array(z.object({ name: z.string(), productId: z.string().nullable() })),
 });
 
-// "Tell me what to buy": the 4 questions.
-export const MealPlanRequest = z.object({
-  days: z.number().int().min(1).max(7),
-  mealsPerDay: z.number().int().min(1).max(3),
-  cook: z.enum(['quick', 'normal', 'love']),
-  avoid: z.array(z.enum(['meat', 'pork', 'fish', 'dairy'])).default([]),
-});
-export type MealPlanRequest = z.infer<typeof MealPlanRequest>;
-export const MealPlan = z.object({
-  meals: z.array(z.object({ day: z.string(), name: z.string(), ingredients: z.array(z.string()).min(1) })).min(1),
-});
-export type MealPlan = z.infer<typeof MealPlan>;

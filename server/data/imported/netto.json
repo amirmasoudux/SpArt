@@ -9,15 +9,6 @@
     "source": "Netto Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Butter 250 g (1 kg = 3.96). Sizes worked out from the price per kg/l where the pack differs."
   },
   {
-    "id": "netto-tomatoes-500g-2026-11-15",
-    "chain": "netto",
-    "productId": "tomatoes-500g",
-    "price": 1.49,
-    "validFrom": "2026-11-15T23:00:00.000Z",
-    "validTo": "2026-11-21T22:59:59.999Z",
-    "source": "Netto Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Tomaten 500 g (1 kg = 2.98). Sizes worked out from the price per kg/l where the pack differs."
-  },
-  {
     "id": "netto-bananas-1kg-2026-11-15",
     "chain": "netto",
     "productId": "bananas-1kg",
@@ -25,14 +16,5 @@
     "validFrom": "2026-11-15T23:00:00.000Z",
     "validTo": "2026-11-21T22:59:59.999Z",
     "source": "Netto Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Bananen. Sizes worked out from the price per kg/l where the pack differs."
-  },
-  {
-    "id": "netto-olive-oil-750ml-2026-11-15",
-    "chain": "netto",
-    "productId": "olive-oil-750ml",
-    "price": 6.95,
-    "validFrom": "2026-11-15T23:00:00.000Z",
-    "validTo": "2026-11-21T22:59:59.999Z",
-    "source": "Netto Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Bio Natives Olivenöl 750 ml (1 l = 9.27). Sizes worked out from the price per kg/l where the pack differs."
   }
 ]

@@ -1,5 +1,5 @@
 // Talking to the backend (Express).
-// If the backend is not running, the app uses the same logic with the local demo data,
+// If the backend is not running, the app uses the same logic with the built-in data files,
 // so the app still works in a demo. The screens don't need to know which one answered.
 import { getCurrentOffers, getProducts, getStores } from './dataSource';
 import { ALIASES } from './parseList';
@@ -111,23 +111,3 @@ export async function sendReport(report: ReportInput): Promise<boolean> {
   }
 }
 
-export interface MealAnswers {
-  days: number;
-  mealsPerDay: number;
-  cook: 'quick' | 'normal' | 'love';
-  avoid: ('meat' | 'pork' | 'fish' | 'dairy')[];
-}
-export interface Meal {
-  day: string;
-  name: string;
-  ingredients: string[];
-}
-
-export async function fetchMealPlan(answers: MealAnswers): Promise<{ meals: Meal[]; source: 'ai' | 'recipes' } | null> {
-  try {
-    const { plan, source } = await post<{ plan: { meals: Meal[] }; source: 'ai' | 'recipes' }>('/api/meal-plan', answers, 20000);
-    return { meals: plan.meals, source };
-  } catch {
-    return null;
-  }
-}

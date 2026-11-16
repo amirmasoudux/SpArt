@@ -30,11 +30,12 @@ export function planForStore(items: ListItem[], store: Store, products: Product[
 
   for (const item of items) {
     const product = products.find((p) => p.id === item.productId);
-    if (!product) {
+    const regular = product?.prices[store.chain];
+    // No product or no real normal price for it: not counted in the store total.
+    if (!product || regular === undefined) {
       noPriceCount++;
       continue;
     }
-    const regular = product.prices[store.chain];
     const offer = offers.find((o) => o.chain === store.chain && o.productId === product.id);
     const unitPrice = offer ? offer.price : regular;
     lines.push({

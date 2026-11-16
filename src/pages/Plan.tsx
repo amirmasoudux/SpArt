@@ -163,7 +163,7 @@ export default function Plan() {
       )}
 
       <p className="px-1.5 text-xs text-faint">
-        Based on this week’s Prospekte from {chainNames}. Regular prices are estimates (≈). {result.offerCount} offers this week{result.source === 'local' ? ' (demo data, server offline)' : ''}.{' '}
+        Based on this week’s Prospekte from {chainNames}. Regular prices are estimates (≈) from REWE’s prices in Siegburg. {result.offerCount} offers this week{result.source === 'local' ? ' (built-in data, server offline)' : ''}.{' '}
         <Link to={`/list/${list.id}/analyze`} className="font-bold text-brand underline">
           Check again
         </Link>

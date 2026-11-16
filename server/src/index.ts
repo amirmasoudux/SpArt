@@ -1,4 +1,4 @@
-// Starts the server. With MONGO_URI it uses MongoDB, without it the demo data in memory.
+// Starts the server. With MONGO_URI it uses MongoDB, without it the data files in memory.
 import 'dotenv/config';
 import mongoose from 'mongoose';
 import { createApp } from './app.js';
@@ -25,7 +25,7 @@ async function start() {
     console.log(`Loaded ${prospekt.length} Prospekt offers and ${offers.length} matched offers into MongoDB`);
     repo = mongoRepo();
   } else {
-    console.log('No MONGO_URI set: using demo data in memory');
+    console.log('No MONGO_URI set: using the data files in memory');
     repo = memoryRepo();
   }
   createApp(repo, process.env.CLIENT_URL || '*').listen(port, () => console.log(`SpArt API on http://localhost:${port}`));

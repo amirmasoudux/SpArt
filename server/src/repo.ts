@@ -6,7 +6,6 @@ import { randomUUID } from 'node:crypto';
 import { CategoryModel, OfferModel, ProductModel, ProspektOfferModel, ReportModel, StoreModel } from './models.js';
 import { Category, Offer, Product, ProspektOffer, Store, type Report, type ReportRequest } from './schemas.js';
 import { loadProspektOffers } from './lib/prospekt.js';
-import { endOfDay, weekdayToDate } from './lib/week.js';
 
 export interface Repo {
   categories(): Promise<Category[]>;
@@ -22,36 +21,24 @@ export interface Repo {
 const dataDir = fileURLToPath(new URL('../data/', import.meta.url));
 const readJson = (name: string): unknown => JSON.parse(readFileSync(dataDir + name, 'utf8'));
 
-// Demo data, checked with Zod so a typo in a JSON file fails loudly.
-export function loadDemoData(today = new Date(), opts = { imported: true }) {
+// The data files, checked with Zod so a typo in a JSON file fails loudly.
+// Offers are only real ones: this week's Prospekt offers matched to our products (data/imported/).
+export function loadDemoData(_today = new Date(), opts = { imported: true }) {
   const categories = Category.array().parse(readJson('categories.json'));
   const stores = Store.array().parse(readJson('stores.json'));
   const products = Product.array().parse(readJson('products.json'));
-  const rawOffers = readJson('offers.json') as { validFrom: string; validTo: string }[];
-  const offers = Offer.array().parse(
-    rawOffers.map((o) => ({
-      ...o,
-      validFrom: weekdayToDate(o.validFrom, today),
-      validTo: endOfDay(weekdayToDate(o.validTo, today)),
-      source: 'Demo data',
-    })),
-  );
+  const offers = opts.imported ? loadImportedOffers() : [];
   const prospekt = loadProspektOffers(dataDir + 'prospekt/');
-  return { categories, stores, products, offers: opts.imported ? withImportedOffers(offers) : offers, prospekt };
+  return { categories, stores, products, offers, prospekt };
 }
 
-// Real offers from Prospekte (written by `npm run import-flyer -- ... --out`) replace
-// the demo offers of that chain. One file per chain in data/imported/.
-function withImportedOffers(demo: Offer[]): Offer[] {
+// One file per chain in data/imported/, replaced every week.
+function loadImportedOffers(): Offer[] {
   const dir = dataDir + 'imported/';
-  if (!existsSync(dir)) return demo;
-  let offers = demo;
-  for (const file of readdirSync(dir).filter((f) => f.endsWith('.json'))) {
-    const imported = Offer.array().parse(JSON.parse(readFileSync(dir + file, 'utf8')));
-    const chains = new Set(imported.map((o) => o.chain));
-    offers = [...offers.filter((o) => !chains.has(o.chain)), ...imported];
-  }
-  return offers;
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
+    .filter((f) => f.endsWith('.json'))
+    .flatMap((file) => Offer.array().parse(JSON.parse(readFileSync(dir + file, 'utf8'))));
 }
 
 const isCurrent = (o: { validFrom: Date; validTo: Date }, today: Date) => o.validFrom <= today && today <= o.validTo;

@@ -19,7 +19,7 @@ export interface ProspektOffer {
 const FILES: Record<Chain, string> = { rewe, lidl, aldi, kaufland, penny, netto };
 
 // Same dates as server/src/lib/prospekt.ts.
-const WEEK: Record<Chain, { from: string; to: string }> = {
+export const WEEK: Record<Chain, { from: string; to: string }> = {
   rewe: { from: '2026-11-16', to: '2026-11-21' },
   lidl: { from: '2026-11-16', to: '2026-11-21' },
   aldi: { from: '2026-11-16', to: '2026-11-21' },

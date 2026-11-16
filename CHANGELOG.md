@@ -1,5 +1,13 @@
 # Changelog
 
+## Real data only · before Demo Day
+- No made-up data any more: the 41 demo offers are deleted (server and app); the app's built-in fallback uses this week's real offers
+- Normal prices: the real REWE online-shop price (Siegburg) is the estimate for all six stores, so the best offers decide the winner. Frozen spinach and toilet paper have no real price, so they show as "not in our price list"
+- Matched offers re-checked against these prices: 11 this week
+- The "Checking this week's Prospekte" screen counts this week's real offers
+- Removed "Tell me what to buy" (meal plan) — not part of this version
+- Fix: items without a price no longer break the basket total in the app's own calculation
+
 ## Weekly data update · KW 47 (16.–21.11.2026)
 - New Prospekt offers for Siegburg, read from kaufDA (ALDI SÜD from aldi-sued.de): 700 offers — REWE 144, Kaufland 181, Penny 131, Netto 124, Lidl 65, ALDI 55
 - 17 offers matched to our 27 products (data/imported/)

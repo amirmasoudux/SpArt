@@ -1,17 +1,21 @@
 # Where the prices come from
 
-Normal prices (`products.json`) and offers (`imported/*.json`) are for **Siegburg** for now
-(the app does not ask for a location yet).
+All data is real and for **Siegburg** (the app does not ask for a location yet). There is no made-up data.
 
-| Chain | Normal prices | Offers this week |
-|---|---|---|
-| REWE | REWE online shop, PETZ REWE Siegburg, pickup prices (10.11.2026) — 23 of 27 products | REWE Prospekt via kaufDA |
-| Lidl | Lidl Plus receipts (5 products); the rest are demo values | Lidl Prospekt via kaufDA |
-| Aldi | aldi-sued.de (butter); the rest are demo values | aldi-sued.de/angebote (same in every ALDI SÜD store) |
-| Kaufland | Receipts and Prospekt "statt" prices (6 products) | Kaufland Prospekt via kaufDA |
-| Penny | Prospekt "statt" price (butter) | Penny Prospekt via kaufDA |
-| Netto | Prospekt "statt" prices (butter, minced beef, cucumber) | Netto Prospekt via kaufDA |
+## Normal prices (`products.json`)
+- Source: the **REWE online shop**, PETZ REWE Barbarastraße 4, Siegburg (pickup prices, checked 10.11.2026).
+- The same REWE price is used as the **estimated normal price for all six stores** — the app shows it with "≈".
+  So the store that wins is the one with the best offers for your list.
+- Greek yogurt: REWE sells 4 × 150 g = 600 g for 1.39 €, scaled to 500 g (1.16 €).
+- **No normal price:** frozen spinach and toilet paper (not in the REWE online shop). They are shown as
+  "not in our price list"; their Prospekt offers still show up.
 
-**Estimates:** where we have no real price for Kaufland, Penny or Netto, the normal price is the
-cheaper of Lidl and Aldi for that product. Discounter own-brand basics usually cost the same
-everywhere, so this is a fair guess, but it is a guess. The app shows normal prices with "≈".
+## Offers
+- `prospekt/*.txt`: every food, drink and household offer of this week's Prospekte, read from kaufDA
+  (ALDI SÜD from aldi-sued.de/angebote — kaufDA has no ALDI SÜD Prospekt for Siegburg). Replaced every week.
+- `imported/*.json`: the offers that are clearly one of our 27 products and cheaper than the normal price.
+  Replaced every week; last week's are deleted from MongoDB when the server starts.
+
+## Receipts
+Amir's own receipts (Lidl Plus, REWE eBon, Kaufland) are in a separate SQLite database outside git.
+They were used to check prices; they are not part of the app data.

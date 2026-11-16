@@ -4,6 +4,7 @@ import { IconCheck } from '../components/icons';
 import { getCurrentOffers, getStores } from '../lib/dataSource';
 import { fetchPlan, type PlanResult } from '../lib/api';
 import { getList } from '../lib/storage';
+import { getProspektOffers, WEEK } from '../lib/prospekt';
 
 // The "working on it" moment between the list and the plan.
 // It shows the user WHERE the answer comes from: this week's Prospekte.
@@ -20,7 +21,8 @@ export default function Analyze() {
   const navigate = useNavigate();
   const list = getList(id);
   const stores = getStores();
-  const offers = getCurrentOffers();
+  // This week's real offers: every Prospekt offer plus the ones matched to our products.
+  const offers = [...getProspektOffers(), ...getCurrentOffers()];
 
   // Steps: one per store Prospekt, then "match items", then "compare".
   const totalSteps = stores.length + 2;
@@ -48,8 +50,9 @@ export default function Analyze() {
 
   if (!list) return <Navigate to="/lists" replace />;
 
-  const from = offers.length ? new Date(Math.min(...offers.map((o) => o.validFrom.getTime()))) : null;
-  const to = offers.length ? new Date(Math.max(...offers.map((o) => o.validTo.getTime()))) : null;
+  const weeks = Object.values(WEEK);
+  const from = offers.length ? new Date(`${weeks.map((w) => w.from).sort()[0]}T00:00:00`) : null;
+  const to = offers.length ? new Date(`${weeks.map((w) => w.to).sort().at(-1)}T00:00:00`) : null;
   const count = list.items.filter((i) => i.productId).length;
   const matchDone = step > stores.length;
   const compareDone = step > stores.length + 1;
