@@ -1,29 +1,29 @@
 [
   {
-    "id": "lidl-butter-250g-2026-11-08",
+    "id": "lidl-butter-250g-2026-11-15",
     "chain": "lidl",
     "productId": "butter-250g",
-    "price": 1.49,
-    "validFrom": "2026-11-08T23:00:00.000Z",
-    "validTo": "2026-11-14T22:59:59.999Z",
-    "source": "Lidl Prospekt (until 14.11.2026), Siegburg, read from kaufDA. Sizes worked out from the price per kg/l."
+    "price": 1.69,
+    "validFrom": "2026-11-15T23:00:00.000Z",
+    "validTo": "2026-11-21T22:59:59.999Z",
+    "source": "Lidl Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Butter 250 g (1 kg = 6.76). Sizes worked out from the price per kg/l where the pack differs."
   },
   {
-    "id": "lidl-milk-1l-2026-11-08",
+    "id": "lidl-pasta-500g-2026-11-15",
     "chain": "lidl",
-    "productId": "milk-1l",
-    "price": 0.79,
-    "validFrom": "2026-11-08T23:00:00.000Z",
-    "validTo": "2026-11-14T22:59:59.999Z",
-    "source": "Lidl Prospekt (until 14.11.2026), Siegburg, read from kaufDA. Sizes worked out from the price per kg/l."
+    "productId": "pasta-500g",
+    "price": 0.34,
+    "validFrom": "2026-11-15T23:00:00.000Z",
+    "validTo": "2026-11-21T22:59:59.999Z",
+    "source": "Lidl Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Fusilli 500 g (1 kg = 0.68). Sizes worked out from the price per kg/l where the pack differs."
   },
   {
-    "id": "lidl-minced-beef-500g-2026-11-08",
+    "id": "lidl-cucumber-2026-11-15",
     "chain": "lidl",
-    "productId": "minced-beef-500g",
-    "price": 2.5,
-    "validFrom": "2026-11-08T23:00:00.000Z",
-    "validTo": "2026-11-14T22:59:59.999Z",
-    "source": "Lidl Prospekt (until 14.11.2026), Siegburg, read from kaufDA. Sizes worked out from the price per kg/l."
+    "productId": "cucumber",
+    "price": 0.75,
+    "validFrom": "2026-11-15T23:00:00.000Z",
+    "validTo": "2026-11-21T22:59:59.999Z",
+    "source": "Lidl Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Gurken. Sizes worked out from the price per kg/l where the pack differs."
   }
 ]

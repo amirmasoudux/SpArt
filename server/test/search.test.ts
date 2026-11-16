@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { loadDemoData } from '../src/repo.js';
 import { findOffers, titleMatches } from '../src/lib/search.js';
+import { PROSPEKT_WEEK } from '../src/lib/prospekt.js';
 
-const { prospekt } = loadDemoData(new Date('2026-11-11T12:00:00'), { imported: false });
+// A day inside the current Prospekt week, so the test keeps working after each weekly update.
+const { prospekt } = loadDemoData(new Date(`${PROSPEKT_WEEK.rewe.from}T12:00:00`), { imported: false });
 
 describe('Prospekt search', () => {
   it('loads all Prospekt offers', () => {
@@ -11,9 +13,9 @@ describe('Prospekt search', () => {
   });
 
   it('finds things outside the catalog, cheapest first', () => {
-    const toffifee = findOffers('Toffifee', prospekt);
-    expect(toffifee.map((o) => o.chain).sort()).toEqual(['kaufland', 'netto', 'penny', 'rewe']);
-    expect(toffifee[0].price).toBeLessThanOrEqual(toffifee[1].price);
+    const bananas = findOffers('bananas', prospekt);
+    expect(new Set(bananas.map((o) => o.chain)).size).toBeGreaterThan(1);
+    expect(bananas[0].price).toBeLessThanOrEqual(bananas[1].price);
   });
 
   it('understands English words and German compound words', () => {

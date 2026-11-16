@@ -1,26 +1,57 @@
-# ALDI SÜD Angebote, aldi-sued.de/angebote, 9.–14.11.2026 (same prices in every ALDI SÜD store)
-# title | price | regular price ("statt", empty if none) | unit / price per kg
-Äpfel Krumme Dinger | 1.99 | 2.29 | 2 kg
-Datteltomaten | 1.89 | | 500 g
-Spitzpaprika rot | 1.79 | | 500 g
-Orangen | 2.49 | | 2 kg
-Bio Snackmöhren | 0.99 | | 200 g
-Speisezwiebeln gelb | 1.39 | | 1,5 kg
-Valensina Orangensaft | 1.29 | | 1 l, + Pfand
-Norwegisches Lachsfilet | 4.49 | 5.79 | 300 g
-Bio-Hackfleisch vom Rind | 4.69 | 6.29 | 400 g
-Rotkohl lose | 0.88 | | je kg
-Gurke | 0.75 | |
-Zespri Kiwi Sungold | 0.59 | | Stück
-Weißer Riese Waschmittel XXL Color | 11.99 | | 90 WL, ab 13.11.
-Danone Joghurt Cerealien | 2.88 | | 8 x 115 g, ab 13.11.
-Tiefkühl-Himbeeren XXL | 7.99 | | 1 kg, ab 13.11.
-Dr. Oetker Mohn Back | 2.29 | | 250 g, ab 13.11.
-Lachsforellenfiletseite | 13.99 | | ca. 1 kg, ab 13.11.
-Mandeln natur XXL | 4.49 | | 500 g, ab 13.11.
-Zott Sahnejoghurt Bratapfel | 0.39 | | 140 g, ab 13.11.
-Deutsche Markenbutter Milsani | 1.15 | 1.19 | 250 g, dauerhaft
-Pizza-Snack Margherita | 0.89 | 0.99 | dauerhaft
-Paniermehl | 1.49 | 1.69 | 1 kg, dauerhaft
-Französische Schokobrötchen | 1.79 | 1.99 | 360 g, dauerhaft
-Butter-Laugenecke | 0.79 | 0.85 | dauerhaft
+# ALDI SÜD offers from aldi-sued.de/angebote (food, drinks, household), 16.–21.11.2026; Friday offers start 20.11. kaufDA has no ALDI SÜD Prospekt for Siegburg.
+# title | price | regular price (empty if none) | unit / price per kg
+Zimtsterne 175 g | 2.99 |  | 1 kg = 17.09
+Walnuss-Pralinen 125 g | 1.99 |  | 1 kg = 15.92
+Jamaica Rumkugeln 200 g | 1.39 |  | 1 kg = 6.95
+Lebkuchen Pfeffernüsse 600 g | 2.99 |  | 1 kg = 4.98
+Lebkuchen Magenbrot 600 g | 2.99 |  | 1 kg = 4.98
+Früchte-Lebkuchen 500 g | 2.99 |  | 1 kg = 5.98
+Lebkuchen Allerlei 600 g | 2.99 |  | 1 kg = 4.98
+Mini-Panettone 100 g | 1.29 |  | 1 kg = 12.90
+Premium Elisen Lebkuchen 275 g | 5.99 |  | 1 kg = 21.78
+Keksdose 0,6 kg | 3.99 |  | 1 kg = 6.65
+Milka Schoko-Weihnachtsmann 45 g | 1.49 |  | 1 kg = 33.11
+Winter Schokoriegel 200 g | 1.99 |  | 1 kg = 9.95
+Weihnachtsfiguren Schokolade 100 g | 1.69 |  | 1 kg = 16.90
+Weihnachtsparade 63 g | 1.49 |  | 1 kg = 23.84
+Milka Feine Kugeln 82 g | 1.99 |  | 1 kg = 24.27
+Dänische Butterkekse 750 g | 4.79 |  | 1 kg = 6.39
+Bärenmarke Frische Milch 1 l | 0.88 |  | 1 l = 0.88
+Camembert Creme 125 g | 1.49 |  | 1 kg = 11.92
+Ramazzotti Amaro 0,7 l | 9.99 |  | 1 l = 14.27
+Wagner Die Backfrische Pizza 320 g | 1.99 |  | 1 kg = 6.22
+Tante Fanny Flammkuchenböden 520 g | 2.99 |  | 1 kg = 5.75
+Kinder Duo 150 g | 2.29 |  | 1 kg = 15.27
+Bio-Almbutter 250 g | 2.99 |  | 1 kg = 11.96
+Bio-Joghurt 500 g | 1.29 |  | 1 kg = 2.58
+Ferrero Crunchy Cookies 136 g | 2.29 |  | 1 kg = 16.84
+Schweine-Single-Cut-Ribs 600 g | 4.99 |  | 1 kg = 8.32
+Tillman's Toasty 280 g | 2.79 |  | 1 kg = 9.96
+Nori Blätter 26 g | 1.99 |  | 1 kg = 76.54
+Sushi Reis 500 g | 1.29 |  | 1 kg = 2.58
+Premium Sojasauce 200 ml | 1.59 |  | 1 l = 7.95
+Wasabi Paste 43 g | 1.29 |  | 1 kg = 30.00
+Sushi Ingwer 280 g | 1.59 |  | 1 kg = 5.68
+Reisessig 250 ml | 1.29 |  | 1 l = 5.16
+Kalbsschnitzel 240 g | 6.49 |  | 1 kg = 27.04
+Bio-Milchreis 500 g | 1.19 |  | 1 kg = 2.38
+Alpro Drink 1 l | 1.49 |  | 1 l = 1.49
+Prosecco DOC Treviso Brut 0,75 l | 6.49 |  | 1 l = 8.65
+Prosecco 0,0% Alkoholfrei 0,75 l | 6.49 |  | 1 l = 8.65
+Bio-Gefriergetrocknete Früchte 25 g | 2.99 |  | 1 kg = 119.60
+Bio-Kokosnussmilch 200 ml | 0.89 |  | 1 l = 4.45
+Bergbauern-Käse 250 g | 2.99 |  | 1 kg = 11.96
+Aperitivo 500 ml | 6.49 |  | 1 l = 12.98
+Haribo Kiddies Big Box 900 g | 4.29 |  | 1 kg = 4.77
+Messmer Früchtetee | 1.49 |  | 
+Lebkuchen-Bausatz | 6.99 |  | 
+Bio-Servietten-Knödel 390 g | 2.99 |  | 1 kg = 7.67
+Sriracha Sauce 250 ml | 1.99 |  | 1 l = 7.96
+Mini Babybel 200 g | 2.89 |  | 1 kg = 14.45
+Kerrygold Reibekäse XXL 230 g | 2.79 |  | 1 kg = 12.13
+Dr. Beckmann Aktiv Weiss 3 in 1 | 2.75 |  | 0.18 pro Blatt
+Dr. Beckmann Fleckenspray 250 ml | 1.85 |  | 1 l = 7.40
+Lenor Waschmittelpods | 16.99 |  | 
+Lenor Waschmittel flüssig 100 WL | 16.99 |  | 0.17 pro WL
+Persil Waschmittel 50–100 WL | 15.99 |  | 0.16–0.32 pro WL
+Küchentücher 360 Blatt | 4.49 |  | 1.25 pro 100 Blatt

@@ -1,29 +1,38 @@
 [
   {
-    "id": "netto-butter-250g-2026-11-08",
+    "id": "netto-butter-250g-2026-11-15",
     "chain": "netto",
     "productId": "butter-250g",
     "price": 0.99,
-    "validFrom": "2026-11-08T23:00:00.000Z",
-    "validTo": "2026-11-14T22:59:59.999Z",
-    "source": "Netto Marken-Discount Prospekt (9.–14.11.2026), Siegburg, read from kaufDA"
+    "validFrom": "2026-11-15T23:00:00.000Z",
+    "validTo": "2026-11-21T22:59:59.999Z",
+    "source": "Netto Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Butter 250 g (1 kg = 3.96). Sizes worked out from the price per kg/l where the pack differs."
   },
   {
-    "id": "netto-minced-beef-500g-2026-11-08",
+    "id": "netto-tomatoes-500g-2026-11-15",
     "chain": "netto",
-    "productId": "minced-beef-500g",
-    "price": 4.99,
-    "validFrom": "2026-11-08T23:00:00.000Z",
-    "validTo": "2026-11-14T22:59:59.999Z",
-    "source": "Netto Marken-Discount Prospekt (9.–14.11.2026), Siegburg, read from kaufDA"
+    "productId": "tomatoes-500g",
+    "price": 1.49,
+    "validFrom": "2026-11-15T23:00:00.000Z",
+    "validTo": "2026-11-21T22:59:59.999Z",
+    "source": "Netto Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Tomaten 500 g (1 kg = 2.98). Sizes worked out from the price per kg/l where the pack differs."
   },
   {
-    "id": "netto-cucumber-2026-11-08",
+    "id": "netto-bananas-1kg-2026-11-15",
     "chain": "netto",
-    "productId": "cucumber",
-    "price": 0.88,
-    "validFrom": "2026-11-08T23:00:00.000Z",
-    "validTo": "2026-11-14T22:59:59.999Z",
-    "source": "Netto Marken-Discount Prospekt (9.–14.11.2026), Siegburg, read from kaufDA"
+    "productId": "bananas-1kg",
+    "price": 1.11,
+    "validFrom": "2026-11-15T23:00:00.000Z",
+    "validTo": "2026-11-21T22:59:59.999Z",
+    "source": "Netto Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Bananen. Sizes worked out from the price per kg/l where the pack differs."
+  },
+  {
+    "id": "netto-olive-oil-750ml-2026-11-15",
+    "chain": "netto",
+    "productId": "olive-oil-750ml",
+    "price": 6.95,
+    "validFrom": "2026-11-15T23:00:00.000Z",
+    "validTo": "2026-11-21T22:59:59.999Z",
+    "source": "Netto Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Bio Natives Olivenöl 750 ml (1 l = 9.27). Sizes worked out from the price per kg/l where the pack differs."
   }
 ]

@@ -1,38 +1,56 @@
 [
   {
-    "id": "kaufland-cucumber-2026-11-08",
+    "id": "kaufland-bananas-1kg-2026-11-15",
     "chain": "kaufland",
-    "productId": "cucumber",
-    "price": 0.99,
-    "validFrom": "2026-11-08T23:00:00.000Z",
-    "validTo": "2026-11-14T22:59:59.999Z",
-    "source": "Kaufland Prospekt \"Hier bin ich richtig\" (9.–14.11.2026), Siegburg, read from kaufDA"
+    "productId": "bananas-1kg",
+    "price": 0.88,
+    "validFrom": "2026-11-15T23:00:00.000Z",
+    "validTo": "2026-11-21T22:59:59.999Z",
+    "source": "Kaufland Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Bananen, lose (1 kg = 0.88). Sizes worked out from the price per kg/l where the pack differs."
   },
   {
-    "id": "kaufland-tomatoes-500g-2026-11-08",
+    "id": "kaufland-tomatoes-500g-2026-11-15",
     "chain": "kaufland",
     "productId": "tomatoes-500g",
-    "price": 1.79,
-    "validFrom": "2026-11-08T23:00:00.000Z",
-    "validTo": "2026-11-14T22:59:59.999Z",
-    "source": "Kaufland Prospekt \"Hier bin ich richtig\" (9.–14.11.2026), Siegburg, read from kaufDA"
+    "price": 0.49,
+    "validFrom": "2026-11-15T23:00:00.000Z",
+    "validTo": "2026-11-21T22:59:59.999Z",
+    "source": "Kaufland Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Tomaten (1 kg = 0.98). Sizes worked out from the price per kg/l where the pack differs."
   },
   {
-    "id": "kaufland-potatoes-2kg-2026-11-08",
+    "id": "kaufland-potatoes-2kg-2026-11-15",
     "chain": "kaufland",
     "productId": "potatoes-2kg",
-    "price": 2.65,
-    "validFrom": "2026-11-08T23:00:00.000Z",
-    "validTo": "2026-11-14T22:59:59.999Z",
-    "source": "Kaufland Prospekt \"Hier bin ich richtig\" (9.–14.11.2026), Siegburg, read from kaufDA"
+    "price": 2.66,
+    "validFrom": "2026-11-15T23:00:00.000Z",
+    "validTo": "2026-11-21T22:59:59.999Z",
+    "source": "Kaufland Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Dtsch. Speisekartoffeln 1,5 kg (1 kg = 1.33). Sizes worked out from the price per kg/l where the pack differs."
   },
   {
-    "id": "kaufland-frozen-pizza-2026-11-08",
+    "id": "kaufland-minced-beef-500g-2026-11-15",
+    "chain": "kaufland",
+    "productId": "minced-beef-500g",
+    "price": 4.49,
+    "validFrom": "2026-11-15T23:00:00.000Z",
+    "validTo": "2026-11-21T22:59:59.999Z",
+    "source": "Kaufland Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Rinderhackfleisch 500 g (1 kg = 8.98). Sizes worked out from the price per kg/l where the pack differs."
+  },
+  {
+    "id": "kaufland-chicken-breast-600g-2026-11-15",
+    "chain": "kaufland",
+    "productId": "chicken-breast-600g",
+    "price": 5.19,
+    "validFrom": "2026-11-15T23:00:00.000Z",
+    "validTo": "2026-11-21T22:59:59.999Z",
+    "source": "Kaufland Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Hähnchenbrustfilet-Teilstücke 600 g (1 kg = 8.65). Sizes worked out from the price per kg/l where the pack differs."
+  },
+  {
+    "id": "kaufland-frozen-pizza-2026-11-15",
     "chain": "kaufland",
     "productId": "frozen-pizza",
-    "price": 0.79,
-    "validFrom": "2026-11-08T23:00:00.000Z",
-    "validTo": "2026-11-14T22:59:59.999Z",
-    "source": "Kaufland Prospekt \"Hier bin ich richtig\" (9.–14.11.2026), Siegburg, read from kaufDA"
+    "price": 1.49,
+    "validFrom": "2026-11-15T23:00:00.000Z",
+    "validTo": "2026-11-21T22:59:59.999Z",
+    "source": "Kaufland Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Steinofen-Pizza. Sizes worked out from the price per kg/l where the pack differs."
   }
 ]

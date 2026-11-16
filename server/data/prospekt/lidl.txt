@@ -1,108 +1,67 @@
-# Lidl Prospekt "LIDL LOHNT SICH", Siegburg, 9.–14.11.2026, read from kaufDA (food, drinks, household; all rows)
+# Lidl Prospekt "LIDL LOHNT SICH", Siegburg, 16.–21.11.2026, read from kaufDA (food, drinks, household; all rows)
 # title | price | regular price ("statt"/UVP, empty if none) | unit / price per kg
-COCA-COLA/FANTA | 7.99 |  | 1 l = 1.35
-Intermezzo | 12.88 | 19.99 | ab
-Garnelen | 8.99 |  | 1 kg = 9.98
-Magnum | 2.99 |  | ab, 1 l = 5.16/4.98
-Frisches Hackfleisch, gemischt | 5.99 | 6.99 | 1 kg = 4.99
-Touch/Tee | 1.19 | 1.89 | 1 l = 0.79
-Tafelspritz | 11.99 |  | 
-Birnen | 0.99 | 1.59 | ab
-Schlemmer Filet | 2.49 | 4.89 | 1 kg = 6.55
-Premium-Gemüse | 1.99 |  | 1 kg = 2.65/1.33
-Kiwi Gold, lose | 0.49 |  | 
-Frische Hähnchenschenkel | 6.79 | 8.49 | 1 kg = 3.40
-Mandarinen/Clementinen | 1.49 |  | 
-Cappelletti | 1.49 | 1.99 | 1 kg = 5.96
-JÄGERMEISTER | 12.49 | 14.99 | 1 l = 17.84
-Gemüsezwiebeln | 1.11 | 1.49 | ab, 1 kg = 1.48
-Frisches Schlachtpaket | 4.49 |  | 
-Frikadellen/Mini Frikadellen | 2.49 |  | ab, 1 kg = 5.53/4.98
-ASC White Tiger Garnelen | 9.99 |  | 1 kg = 13.88
-Bistro Baguette | 2.79 |  | ab, 1 kg = 5.58
-Backkäse | 2.49 | 2.99 | 1 kg = 8.30/7.11
-Joy | 3.29 | 3.99 | 1 kg = 54.83
-Buko Frischkäse | 1.49 | 2.85 | 1 kg = 4.97
-Schokolade | 0.99 | 1.99 | ab, 1 kg = ab 9.90
-WODKA XXL | 8.99 | 13.49 | 
-Argentinische Rotgarnelen | 22.99 |  | 1 kg = 11.50
-NUTELLA | 5.79 |  | 1 kg = 7.02
-Schollenfilet | 3.99 | 4.79 | 1 kg = 15.96
-Berliner mit Pistaziencremefüllung | 0.99 |  | 
-Frische gefüllte Eierteigware | 1.99 |  | 1 kg = 7.96
-Pistazien Torte | 3.99 |  | 1 kg = 9.98
-Weihnachtseis | 1.99 |  | 1 l = 4.98/4.68/3.90
-Schweinefilet | 4.64 |  | kg-Preis = 7.99
-Italienische Wurstspezialität | 1.99 | 2.99 | 1 kg = 19.90
-Erdnüsse EXTRA ROAST | 1.69 | 2.49 | 1 kg = 9.39
-Bio Feldsalat | 1.11 | 1.49 | ab, 1 kg = 11.11
-Fix | 0.49 |  | ab, 1 kg = ab 10.21
-Weihnachtsgebäck | 2.79 | 3.99 | 1 kg = 4.65
-Weizen Tortilla Wraps XXL | 1.79 |  | 1 kg = 2.42
-Energy Drink | 0.99 | 1.49 | 1 l = 3.96
-White Tiger Garnelen | 3.19 | 3.79 | 1 kg = 14.50
-Frischer Schweinerücken | 3.49 |  | 
-Lachs in Blätterteig | 7.99 |  | 1 kg = 11.41
-Dessert | 2.49 |  | 1 kg = 19.92
-Mandeln/ Edelnüsse | 1.99 | 2.49 | 1 kg = 13.27
-Schokoladenküchlein | 1.99 |  | 1 kg = 11.06
-Pistazien Sahnelikör | 6.99 |  | 1 l = 13.98
-Marzipankartoffeln | 0.89 | 1.49 | 1 kg = 7.12
-Salami-Trio | 5.99 |  | 1 kg = 16.64
-Camembert Creme | 1.99 | 2.29 | 1 kg = 13.27
-Steirische Käsespezialitäten | 3.49 |  | 1 kg = 13.96/12.69
-Pesto | 1.49 |  | 1 kg = 7.84
-Haltbare Vollmilch | 9.50 | 11.40 | 1 l = 0.80
-Sekt | 2.49 | 4.79 | ab, 1 l = 3.45
-Norwegische Lachsseite | 13.29 |  | 
-Kartoffelgratin Mozzarella & Tomate | 2.49 | 2.99 | 1 kg = 6.23
-Fruchtgummi XXL | 1.79 |  | 1 kg = 5.11
-Dunkle Pflaumen | 1.99 |  | 
-Garnelenring | 4.99 |  | 1 kg = 18.48
-Raki Fresh Grapes | 13.99 | 18.99 | 1 l = 19.99
-Medaillons vom Salzwiesenlamm | 4.78 |  | kg-Preis = 19.99
-Frische Maishähnchenschenkel | 8.99 |  | 1 kg = 3.60
-Schwarzwald Spirituosen | 12.99 |  | 1 l = 18.55
-Mini Streichwurst | 1.11 |  | ab, 1 kg = 8.54
-Mini Gnocchi | 1.49 | 1.99 | 1 kg = 2.98
-Knusperente | 5.99 |  | 1 kg = 18.72
-Rote Paprika, lose | 2.99 |  | 
-Feine Butter | 1.49 | 2.79 | 1 kg = 5.96
-Orangen | 1.89 |  | 1 kg = 1.26
-Primitivo Salento IGP, Rotwein | 4.89 | 6.99 | 1 l = 6.52
-Kentucky Straight Bourbon Whiskey | 19.99 | 29.99 | 1 l = 13.33
-Ofen Raclette | 4.49 | 4.99 | 1 kg = 16.04
-Hirtenkäse | 1.79 |  | 1 kg = 8.95
-Meistertorte | 6.49 | 8.99 | 1 kg = 8.11/10.82/5.90
-Traumprinz, Roséwein, halbtrocken | 3.99 |  | ab, 1 l = 5.32
-Müllermilch | 0.79 | 1.49 | 1 l = 1.58
-Bueno | 4.59 |  | 1 kg = 17.79
-Schoko Donut mit Schokostreusel | 1.18 | 1.77 | 0.40 pro Stück
-Snickers/ Mars/Twix Ice Cream | 5.29 | 7.39 | 1 l = 10.23/8.91/8.76
-Tee | 1.49 | 2.19 | 1 kg = ab 21.29
-Lyoner | 0.79 |  | ab, 1 kg = 3.95
-Grappa Amarone Barrique | 8.99 |  | 1 l = 17.98
-Yogurette | 1.29 |  | ab, 1 kg = 12.90
-Rama | 1.79 |  | 1 kg = 2.47
-MIKADO | 1.49 | 1.99 | 1 kg = 19.87
-Hauchzart Kochschinken | 1.49 | 1.79 | ab, 1 kg = 14.90
-Ice Tea XXL | 1.29 | 2.19 | ab, 1 l = 0.74
-Cashewkerne | 1.89 | 2.49 | 1 kg = 9.45
-Original 1-2-3 Frites | 2.55 | 4.89 | 1 kg = 1.70
-Zitronen | 0.99 |  | 1 kg = 1.98
-Jamón Serrano Gran Reserva | 1.69 | 1.99 | 1 kg = 24.14
-Aspik Wurstsortiment | 1.79 |  | ab, 1 kg = 8.95
-Milchreis | 0.49 | 0.99 | 1 kg = 2.45
-PEPSI | 0.88 | 1.49 | 1 l = 0.70
-Juicy | 1.29 | 1.89 | 
-Delikatess Wiener Würstchen | 5.49 | 6.49 | 
-Barista Haferdrink | 1.69 | 2.55 | 
-Käsescheiben XXL | 2.89 |  | 1 kg = 13.76/12.04
-Fertiggericht | 2.99 | 3.99 | 1 kg = 6.64/7.04
-Beanz | 3.99 | 6.99 | 1 kg = 2.40
-Speyside Single Malt Scotch | 69.99 | 89.99 | 1 l = 99.99
-Highland Single Grain Scotch Whisky | 44.99 | 69.99 | 1 l = 64.27
-Weichspüler | 4.99 |  | 1,064 l
-Zahnbürsten | 2.49 | 2.99 | 
-Toilettenpapier XXL | 7.39 |  | 
-Spülmittel | 1.49 |  | 1 l = 1.99
+Fusilli | 0.34 | 0.69 | 1 kg = 0.68
+Cacao Intense | 3.99 |  | 1 kg = 11.40
+Australische Lammkeule | 13.99 |  | 
+JÄGERMEISTER | 31.99 | 34.99 | 1 l = 18.28
+Bester Backshop | 2.49 |  | 1 kg = 4.98
+Himbeer Törtchen | 4.99 |  | 1 kg = 45.36
+Dubai Style Crunch Dessert Salted-Caramel | 2.49 |  | 1 kg = 19.15
+Gurken | 0.75 |  | 
+Dessert | 1.99 |  | ab, 1 kg = 15.92
+Eintopf | 1.88 | 3.29 | ab, 1 l = 2.51
+Feine Käseplatte | 6.99 |  | 1 kg = 23.30
+PEPSI | 0.99 | 1.79 | 1 l = 0.57
+Celebration Mix Tortenstücke | 7.77 | 9.99 | 1 kg = 13.58
+COCA-COLA | 1.19 |  | 1 l = 0.79
+Käseauswahl | 9.99 |  | 1 kg = 27.00
+Tessiner Senfsauce | 2.49 | 2.99 | 1 l = 41.50
+Spekulatius Creme | 1.99 |  | 1 kg = 4.98
+Weihnachtsmann | 1.79 |  | 1 kg = 8.95
+Möhren | 1.49 |  | 1 kg = 0.50
+Mini Lebkuchen-Männchen | 1.99 |  | 1 kg = 9.95
+Glühwein | 1.99 |  | 
+Frischer Schweinebauch | 3.99 |  | kg-Preis
+Schweine-Nackenbraten | 2.99 |  | kg-Preis = 4.99
+Der Große Joghurt | 0.39 | 0.99 | 1 kg = 1.56
+Frisches Rinder-Hackfleisch | 8.99 |  | ab
+Energy | 8.88 |  | 1 l = 1.78
+Barista | 11.99 | 21.49 | 
+Nussöl | 3.49 |  | 1 l = 13.96
+Kalinka Kefir/ Ayran | 0.89 |  | ab, 1 kg = 1.78
+DORITOS | 1.11 | 1.99 | 1 kg = 8.41
+Auslese | 5.99 |  | ab, 1 kg = 11.98
+Crèmeux de Normandie | 2.69 |  | 1 kg = 17.93
+Kaki | 0.49 |  | 
+PICK UP! | 1.79 | 3.29 | 1 kg = 12.79
+Activia Ballaststoffe XXL | 2.99 |  | 1 kg = 3.25
+Haltbare Milch | 0.99 | 1.49 | 
+Birnen | 1.29 |  | ab
+Frische Maispoularde | 4.29 | 5.49 | 
+Raspberries | 2.79 |  | 1 kg = 21.46
+Frische Hähnchenbrustfilets | 12.99 |  | 1 kg = 8.66
+Weißkohl | 0.75 | 0.89 | 
+Coffee Pads XXL | 6.49 | 9.49 | 1 kg = 19.49
+Rinderbeinscheiben | 8.99 |  | 
+Lebkuchen Knusperhäuschen | 6.99 |  | 1 kg = 7.77
+Rösti-Sterne | 1.99 |  | 1 kg = 3.32
+Herzoginkartoffeln | 1.69 |  | 1 kg = 2.82
+MSC Miesmuscheln | 2.39 |  | ab
+Mandeln | 1.99 | 2.99 | 1 kg = 9.95
+Feingefüllte Kugeln | 1.79 |  | 1 kg = 17.90
+Milchschnitte | 3.29 |  | 1 kg = 12.65
+Gebäck-Kugeln Tiramisu Style | 4.99 |  | 1 kg = 35.64
+Kuchensnack/ Kleine Kuchen | 1.99 | 2.99 | 1 kg = 16.58
+Joghurt mit der Ecke | 0.39 | 0.89 | 1 kg = 3.45/2.79/2.60
+Tiramisu | 2.99 |  | 1 kg = 5.98
+Mix Weihnachtsteller | 4.99 |  | 1 kg = 34.90
+Butter/Extra | 1.69 | 3.29 | 1 kg = 6.76
+Dry Jahrgangssekt | 3.99 | 6.49 | 1 l = 5.32
+Type 405 XXL | 2.39 | 3.09 | 1 kg = 0.96
+Dinkel Hafer Müsli Früchte-Feige | 3.29 |  | 1 kg = 6.58
+Bio Gewürze | 1.29 |  | 1 kg = 28.67/25.80/21.5
+Waschmittel | 14.99 | 20.99 | 
+Küchentücher XXL | 4.49 |  | 
+Fructis Shampoo XXL | 6.99 |  | 
+Zahnpasta | 4.99 | 7.29 | 1 l = 22.18
+Weichspüler Sommerwind | 2.99 |  | 1 l = 1.51

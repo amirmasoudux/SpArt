@@ -3,7 +3,7 @@ import 'dotenv/config';
 import mongoose from 'mongoose';
 import { createApp } from './app.js';
 import { loadDemoData, memoryRepo, mongoRepo } from './repo.js';
-import { ProspektOfferModel } from './models.js';
+import { OfferModel, ProspektOfferModel } from './models.js';
 
 const port = Number(process.env.PORT ?? 4000);
 // MONGO_URI is our name; MONGODB_URI is the name in the .env file Atlas lets you download.
@@ -14,12 +14,15 @@ async function start() {
   if (mongoUri) {
     await mongoose.connect(mongoUri, { dbName: 'spart' });
     console.log('Connected to MongoDB');
-    // The Prospekt files in data/prospekt/ are the source for this week's full offer lists:
-    // copy them into MongoDB on every start, so a new deploy brings the new week.
-    const { prospekt } = loadDemoData();
+    // The files in data/prospekt/ and data/imported/ are the source for this week's offers:
+    // on every start, last week's offers are deleted and this week's are copied in,
+    // so a new deploy brings the new week.
+    const { prospekt, offers } = loadDemoData();
     await ProspektOfferModel.deleteMany({});
     await ProspektOfferModel.insertMany(prospekt.map(({ id, ...o }) => ({ _id: id, ...o })));
-    console.log(`Loaded ${prospekt.length} Prospekt offers into MongoDB`);
+    await OfferModel.deleteMany({});
+    await OfferModel.insertMany(offers.map(({ id, ...o }) => ({ _id: id, ...o })));
+    console.log(`Loaded ${prospekt.length} Prospekt offers and ${offers.length} matched offers into MongoDB`);
     repo = mongoRepo();
   } else {
     console.log('No MONGO_URI set: using demo data in memory');

@@ -1,29 +1,20 @@
 [
   {
-    "id": "aldi-apples-1kg-2026-11-08",
+    "id": "aldi-milk-1l-2026-11-15",
     "chain": "aldi",
-    "productId": "apples-1kg",
-    "price": 1,
-    "validFrom": "2026-11-08T23:00:00.000Z",
-    "validTo": "2026-11-14T22:59:59.999Z",
-    "source": "ALDI SÜD Wochenangebote (9.–14.11.2026), aldi-sued.de/angebote — same prices in every ALDI SÜD store"
+    "productId": "milk-1l",
+    "price": 0.88,
+    "validFrom": "2026-11-19T23:00:00.000Z",
+    "validTo": "2026-11-21T22:59:59.999Z",
+    "source": "ALDI SÜD offers from 20.11.2026, aldi-sued.de/angebote. Offer: Bärenmarke Frische Milch 1 l. Sizes worked out from the price per kg/l where the pack differs."
   },
   {
-    "id": "aldi-onions-1kg-2026-11-08",
+    "id": "aldi-frozen-pizza-2026-11-15",
     "chain": "aldi",
-    "productId": "onions-1kg",
-    "price": 0.93,
-    "validFrom": "2026-11-08T23:00:00.000Z",
-    "validTo": "2026-11-14T22:59:59.999Z",
-    "source": "ALDI SÜD Wochenangebote (9.–14.11.2026), aldi-sued.de/angebote — same prices in every ALDI SÜD store"
-  },
-  {
-    "id": "aldi-orange-juice-1l-2026-11-08",
-    "chain": "aldi",
-    "productId": "orange-juice-1l",
-    "price": 1.29,
-    "validFrom": "2026-11-08T23:00:00.000Z",
-    "validTo": "2026-11-14T22:59:59.999Z",
-    "source": "ALDI SÜD Wochenangebote (9.–14.11.2026), aldi-sued.de/angebote — same prices in every ALDI SÜD store"
+    "productId": "frozen-pizza",
+    "price": 1.99,
+    "validFrom": "2026-11-19T23:00:00.000Z",
+    "validTo": "2026-11-21T22:59:59.999Z",
+    "source": "ALDI SÜD offers from 20.11.2026, aldi-sued.de/angebote. Offer: Wagner Die Backfrische 320 g. Sizes worked out from the price per kg/l where the pack differs."
   }
 ]
