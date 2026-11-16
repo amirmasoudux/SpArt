@@ -55,7 +55,7 @@ export default function Analyze() {
   const weeks = Object.values(WEEK);
   const from = offers.length ? new Date(`${weeks.map((w) => w.from).sort()[0]}T00:00:00`) : null;
   const to = offers.length ? new Date(`${weeks.map((w) => w.to).sort().at(-1)}T00:00:00`) : null;
-  const count = list.items.filter((i) => i.productId).length;
+  const count = list.items.length;
   const matchDone = step > stores.length;
   const compareDone = step > stores.length + 1;
 
@@ -87,7 +87,7 @@ export default function Analyze() {
       <div className="rounded-[28px] bg-white p-6">
         <ul className="flex flex-col gap-5">
           {stores.map((s, i) => row(`${s.name} Prospekt`, step > i, step === i))}
-          {row(`Matching your ${count} ${count === 1 ? 'item' : 'items'}`, matchDone, step === stores.length)}
+          {row(`Searching your ${count} ${count === 1 ? 'item' : 'items'}`, matchDone, step === stores.length)}
           {row('Finding the best price for each item', compareDone, step === stores.length + 1)}
         </ul>
       </div>

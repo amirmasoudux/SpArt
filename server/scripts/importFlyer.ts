@@ -1,42 +1,34 @@
-// Weekly job: turn Prospekt pages into offers in the database.
+// Weekly job with AI: read Prospekt page images and write the offers to data/prospekt/<chain>.txt
+// (the same file the kaufDA lists go to). The server loads it into MongoDB on the next start.
 //
-// Real run (needs AI_API_KEY, and MONGO_URI to save):
-//   npm run import-flyer -- --chain rewe --from 2026-11-16 --to 2026-11-21 page1.png page2.png
+// Real run (needs AI_API_KEY):
+//   npm run import-flyer -- --chain rewe page1.png page2.png
 //
 // Practice run without AI (uses a saved AI answer):
-//   npm run import-flyer -- --chain rewe --from 2026-11-16 --to 2026-11-21 --sample scripts/sample-flyer-answer.json
+//   npm run import-flyer -- --chain rewe --sample scripts/sample-flyer-answer.json
 //
 // Add --dry-run to only print the result and save nothing.
-// Add --out to save the offers to data/imported/<chain>.json (used by the server without MongoDB).
 import 'dotenv/config';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { extname } from 'node:path';
-import mongoose from 'mongoose';
 import { parseArgs } from 'node:util';
-import { readFlyerPage, toOffers } from '../src/lib/flyer.js';
-import { endOfDay } from '../src/lib/week.js';
-import { loadDemoData, mongoRepo } from '../src/repo.js';
+import { readFlyerPage, toProspektLines } from '../src/lib/flyer.js';
 import { Chain } from '../src/schemas.js';
 
 const { values, positionals } = parseArgs({
   allowPositionals: true,
   options: {
     chain: { type: 'string' },
-    from: { type: 'string' },
-    to: { type: 'string' },
     sample: { type: 'string' },
     'dry-run': { type: 'boolean', default: false },
-    out: { type: 'boolean', default: false },
   },
 });
 
 const chain = Chain.parse(values.chain);
-if (!values.from || !values.to) throw new Error('Give --from and --to dates, e.g. --from 2026-11-16 --to 2026-11-21');
-const week = { from: new Date(`${values.from}T00:00:00`), to: endOfDay(new Date(`${values.to}T00:00:00`)) };
 
 // 1) Get the raw offers: from the AI, or from a saved sample answer.
 let raw: unknown[] = [];
-let source = `${chain.toUpperCase()} Prospekt ${values.from}`;
+let source = `${chain.toUpperCase()} Prospekt`;
 if (values.sample) {
   const file = JSON.parse(readFileSync(values.sample, 'utf8')) as { offers: unknown[]; source?: string };
   raw = file.offers;
@@ -54,30 +46,17 @@ if (values.sample) {
   }
 }
 
-// 2) Check, link to products, keep real savings.
-const { products } = loadDemoData();
-const result = toOffers(raw, chain, products, week, source);
+// 2) Check every row with Zod and turn it into a Prospekt line.
+const { lines, invalid } = toProspektLines(raw);
+console.log(`\n✔ ${lines.length} offers`);
+for (const l of lines) console.log(`  ${l}`);
+if (invalid) console.log(`\n✘ ${invalid} rows rejected by Zod`);
 
-console.log(`\n✔ ${result.offers.length} offers ready`);
-for (const o of result.offers) console.log(`  ${o.productId.padEnd(24)} €${o.price.toFixed(2)}`);
-if (result.unmatched.length) {
-  console.log(`\n? ${result.unmatched.length} offers not in our catalog (not saved):`);
-  for (const u of result.unmatched) console.log(`  ${u.product} €${u.price}`);
-}
-if (result.invalid) console.log(`\n✘ ${result.invalid} rows rejected by Zod`);
-
-// 3) Save (replaces this chain's old offers).
+// 3) Save (replaces this chain's list). Set the week in src/lib/prospekt.ts (PROSPEKT_WEEK).
 if (values['dry-run']) {
   console.log('\nDry run: nothing saved.');
-} else if (values.out) {
-  const file = new URL(`../data/imported/${chain}.json`, import.meta.url);
-  writeFileSync(file, JSON.stringify(result.offers, null, 2) + '\n');
-  console.log(`\nSaved ${result.offers.length} ${chain} offers to data/imported/${chain}.json`);
-} else if (!(process.env.MONGO_URI ?? process.env.MONGODB_URI)) {
-  console.log('\nNo MONGO_URI: nothing saved. Add it to server/.env to save offers.');
 } else {
-  await mongoose.connect((process.env.MONGO_URI ?? process.env.MONGODB_URI)!, { dbName: 'spart' });
-  await mongoRepo().replaceOffers(chain, result.offers);
-  await mongoose.disconnect();
-  console.log(`\nSaved ${result.offers.length} ${chain} offers to MongoDB.`);
+  const file = new URL(`../data/prospekt/${chain}.txt`, import.meta.url);
+  writeFileSync(file, `# ${source}\n${lines.join('\n')}\n`);
+  console.log(`\nSaved ${lines.length} ${chain} offers to data/prospekt/${chain}.txt`);
 }

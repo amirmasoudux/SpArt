@@ -3,7 +3,7 @@ import { Navigate, useLocation, useNavigate, useParams } from 'react-router';
 import { BottomAction, PrimaryButton, Screen, SectionLabel } from '../components/ui';
 import ReportSheet from '../components/ReportSheet';
 import { IconCheck, IconClose } from '../components/icons';
-import { getStores } from '../lib/dataSource';
+import { getCategories, getStores } from '../lib/dataSource';
 import { fetchPlan, type PlanResult } from '../lib/api';
 import type { Pick } from '../lib/pick';
 import { euro } from '../lib/plan';
@@ -33,14 +33,12 @@ export default function Shop() {
   const done = list.items.filter((i) => i.checked).length;
   const total = list.items.length;
 
-  // One section per supermarket (in the order of the user's stores), then the items without a price.
-  const groups = [
-    ...stores
-      .filter((s) => result.chains.includes(s.chain))
-      .map((s) => ({ key: s.id, label: `At ${s.name}`, items: list.items.filter((i) => pickFor(i.id)?.chain === s.chain) })),
-    { key: 'any', label: 'No offer this week', items: list.items.filter((i) => !pickFor(i.id)?.chain) },
-  ].filter((g) => g.items.length > 0);
-  const usedStores = groups.filter((g) => g.key !== 'any').map((g) => g.label.slice(3));
+  // The list ordered by category, like walking through a supermarket.
+  const known = new Set(getCategories().map((c) => c.id));
+  const groups = getCategories()
+    .map((c) => ({ key: c.id, label: c.label, items: list.items.filter((i) => (known.has(i.categoryId) ? i.categoryId : 'other') === c.id) }))
+    .filter((g) => g.items.length > 0);
+  const usedStores = stores.filter((s) => result.picks.some((p) => p.kind === 'offer' && p.chain === s.chain)).map((s) => s.name);
 
   function toggle(itemId: string) {
     const next = { ...list!, items: list!.items.map((i) => (i.id === itemId ? { ...i, checked: !i.checked } : i)) };
@@ -92,17 +90,23 @@ export default function Shop() {
               {item.qty > 1 ? ` × ${item.qty}` : ''}
             </span>
             <span className="flex min-w-0 items-center gap-1.5 text-xs text-faint">
-              {p?.kind === 'offer' && (
-                <span className="shrink-0 rounded-full bg-save px-2 py-0.5 text-[11px] font-extrabold tracking-wide text-white uppercase">Offer</span>
+              {priced ? (
+                <>
+                  <span className="shrink-0 rounded-full bg-save px-2 py-0.5 text-[11px] font-extrabold tracking-wide text-white uppercase">
+                    {storeOf(p)?.name}
+                  </span>
+                  <span className="truncate">{p.title}</span>
+                </>
+              ) : (
+                <span className="truncate">No offer this week</span>
               )}
-              <span className="truncate">{priced ? p.title : item.unit}</span>
             </span>
           </span>
         </button>
         {priced && (
           <span className="flex shrink-0 flex-col items-end gap-0.5">
             <span className="text-[15px] font-extrabold text-save-ink">{euro(p.price)}</span>
-            {p.productId && (
+            {p.title && (
               <button
                 type="button"
                 onClick={() => setReporting(p)}

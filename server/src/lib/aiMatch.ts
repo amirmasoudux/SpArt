@@ -1,7 +1,8 @@
-// Item names our simple word list does not know ("Haferdrink", "loo roll", "banans").
-// The AI links each one to a product in our catalog, or says null.
+// Item names our search words do not know ("loo roll", "banans").
+// The AI links each one to a search word (lib/words.ts), or says null.
 import { aiConfigured, askForJson } from '../ai.js';
-import { MatchAnswer, type Product } from '../schemas.js';
+import { MatchAnswer } from '../schemas.js';
+import { WORDS } from './words.js';
 
 const MATCH_JSON_SCHEMA = {
   type: 'object',
@@ -13,27 +14,27 @@ const MATCH_JSON_SCHEMA = {
       items: {
         type: 'object',
         additionalProperties: false,
-        required: ['name', 'productId'],
-        properties: { name: { type: 'string' }, productId: { type: ['string', 'null'] } },
+        required: ['name', 'wordId'],
+        properties: { name: { type: 'string' }, wordId: { type: ['string', 'null'] } },
       },
     },
   },
 };
 
-export async function matchWithAi(names: string[], products: Product[]): Promise<{ name: string; productId: string | null }[]> {
-  if (!aiConfigured()) return names.map((name) => ({ name, productId: null }));
+export async function matchWithAi(names: string[]): Promise<{ name: string; wordId: string | null }[]> {
+  if (!aiConfigured()) return names.map((name) => ({ name, wordId: null }));
   const answer = await askForJson({
     system:
-      'You match shopping list words (English or German, maybe misspelled) to a product catalog. ' +
-      'Return the product id only when you are sure it is the same kind of product. Otherwise return null.',
-    text: `Catalog (id: name, size):\n${products.map((p) => `${p.id}: ${p.name}, ${p.unit}`).join('\n')}\n\nWords:\n${names.join('\n')}`,
+      'You match shopping list words (English or German, maybe misspelled) to a list of grocery words. ' +
+      'Return the id only when you are sure it is the same kind of item. Otherwise return null.',
+    text: `Grocery words (id: name):\n${WORDS.map((w) => `${w.id}: ${w.name}`).join('\n')}\n\nShopping list words:\n${names.join('\n')}`,
     schema: MatchAnswer,
     jsonSchema: MATCH_JSON_SCHEMA,
   });
-  // Never trust an id the catalog does not have.
-  const known = new Set(products.map((p) => p.id));
+  // Never trust an id we do not have.
+  const known = new Set(WORDS.map((w) => w.id));
   return names.map((name) => {
     const hit = answer.matches.find((m) => m.name.toLowerCase() === name.toLowerCase());
-    return { name, productId: hit?.productId && known.has(hit.productId) ? hit.productId : null };
+    return { name, wordId: hit?.wordId && known.has(hit.wordId) ? hit.wordId : null };
   });
 }

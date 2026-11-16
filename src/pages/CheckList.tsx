@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Link, Navigate, useNavigate, useParams } from 'react-router';
 import { BottomAction, ConfirmSheet, PrimaryButton, Screen, SectionLabel, Title, TopBar } from '../components/ui';
 import { IconClose } from '../components/icons';
-import { getCategories, getProducts } from '../lib/dataSource';
-import { matchProduct } from '../lib/parseList';
+import { getCategories } from '../lib/dataSource';
+import { itemFromName } from '../lib/parseList';
 import { getList, saveList } from '../lib/storage';
 import type { ListItem, ShoppingList } from '../types';
 
@@ -16,7 +16,6 @@ export default function CheckList() {
 
   if (!list) return <Navigate to="/lists" replace />;
 
-  const products = getProducts();
   const count = list.items.reduce((s, i) => s + i.qty, 0);
 
   function update(next: ShoppingList) {
@@ -29,13 +28,7 @@ export default function CheckList() {
   }
 
   function rename(item: ListItem, name: string) {
-    const product = matchProduct(name, products);
-    changeItem(item.id, {
-      name: product ? product.name : name,
-      productId: product ? product.id : null,
-      unit: product ? product.unit : '',
-      categoryId: product ? product.category : 'other',
-    });
+    changeItem(item.id, itemFromName(name));
     setEditing(null);
   }
 
@@ -95,13 +88,10 @@ export default function CheckList() {
                     <button
                       type="button"
                       onClick={() => setEditing(item.id)}
-                      aria-label={`Edit ${item.name}`}
                       className="flex min-h-11 min-w-0 flex-1 flex-col justify-center text-left"
                     >
                       <span className="truncate text-base font-extrabold">{item.name}</span>
-                      <span className="text-xs font-bold text-faint">
-                        {item.productId ? `${item.unit} · ` : ''}tap to edit
-                      </span>
+                      <span className="text-xs font-bold text-faint">tap to edit</span>
                     </button>
                     <div className="flex items-center gap-0.5 rounded-full bg-bg p-0.5">
                       <button

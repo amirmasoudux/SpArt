@@ -23,33 +23,6 @@ export const StoreModel = model(
   }),
 );
 
-export const ProductModel = model(
-  'Product',
-  new Schema({
-    _id: String,
-    name: { type: String, required: true },
-    unit: { type: String, required: true },
-    category: { type: String, ref: 'Category', required: true },
-    prices: { type: Map, of: Number, required: true }, // regular price per chain
-  }),
-);
-
-export const OfferModel = model(
-  'Offer',
-  new Schema(
-    {
-      _id: String,
-      chain: { type: String, enum: ['rewe', 'lidl', 'aldi', 'kaufland', 'penny', 'netto'], required: true },
-      productId: { type: String, ref: 'Product', required: true },
-      price: { type: Number, required: true },
-      validFrom: { type: Date, required: true },
-      validTo: { type: Date, required: true },
-      source: String,
-    },
-    { timestamps: true },
-  ).index({ chain: 1, validFrom: 1, validTo: 1 }),
-);
-
 export const ProspektOfferModel = model(
   'ProspektOffer',
   new Schema({
@@ -70,7 +43,7 @@ export const ReportModel = model(
   new Schema(
     {
       _id: String,
-      productId: { type: String, ref: 'Product', required: true },
+      offerTitle: { type: String, required: true },
       storeId: { type: String, ref: 'Store', required: true },
       kind: { type: String, required: true },
       correctPrice: Number,

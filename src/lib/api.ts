@@ -1,10 +1,10 @@
 // Talking to the backend (Express).
 // If the backend is not running, the app uses the same logic with the built-in data files,
 // so the app still works in a demo. The screens don't need to know which one answered.
-import { getProducts, getStores } from './dataSource';
-import { ALIASES } from './parseList';
+import { getStores } from './dataSource';
 import { pickForStores, type PickResult } from './pick';
 import { getProspektOffers } from './prospekt';
+import { wordById } from './words';
 import type { Chain, ListItem } from '../types';
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:4000';
@@ -17,7 +17,7 @@ export interface PlanResult extends PickResult {
 // The plan for the user's own supermarkets. Server first; without it the same logic runs on the built-in data.
 export async function fetchPlan(items: ListItem[], chains: Chain[]): Promise<PlanResult> {
   const useChains = chains.length ? chains : getStores().map((s) => s.chain);
-  const body = { items: items.map(({ id, name, qty, productId }) => ({ id, name, qty, productId })), chains: useChains };
+  const body = { items: items.map(({ id, name, qty, wordId }) => ({ id, name, qty, wordId: wordId ?? null })), chains: useChains };
   try {
     const res = await fetch(`${API_URL}/api/plan`, {
       method: 'POST',
@@ -30,7 +30,7 @@ export async function fetchPlan(items: ListItem[], chains: Chain[]): Promise<Pla
     if (!Array.isArray(data.picks)) throw new Error('old server');
     return { ...data, chains: useChains, source: 'server' };
   } catch {
-    return { ...pickForStores(body.items, useChains, getProducts(), getProspektOffers(), ALIASES), chains: useChains, source: 'local' };
+    return { ...pickForStores(body.items, useChains, getProspektOffers()), chains: useChains, source: 'local' };
   }
 }
 
@@ -47,19 +47,19 @@ async function post<T>(path: string, body: unknown, timeoutMs = 8000): Promise<T
   return (await res.json()) as T;
 }
 
-// Items the simple parser did not know: ask the AI on the server. If that fails, keep them as they are.
+// Items the simple parser did not know ("banans"): ask the AI on the server which search word they are.
+// If that fails, keep them as they are (they are still searched by name).
 export async function improveUnknownItems(items: ListItem[]): Promise<ListItem[]> {
-  const unknown = items.filter((i) => !i.productId);
+  const unknown = items.filter((i) => !i.wordId);
   if (unknown.length === 0) return items;
   try {
-    const { matches } = await post<{ matches: { name: string; productId: string | null }[] }>('/api/items/match', {
+    const { matches } = await post<{ matches: { name: string; wordId: string | null }[] }>('/api/items/match', {
       names: unknown.map((i) => i.name),
     });
-    const products = getProducts();
     return items.map((item) => {
-      if (item.productId) return item;
-      const product = products.find((p) => p.id === matches.find((m) => m.name === item.name)?.productId);
-      return product ? { ...item, name: product.name, productId: product.id, unit: product.unit, categoryId: product.category } : item;
+      if (item.wordId) return item;
+      const word = wordById(matches.find((m) => m.name === item.name)?.wordId);
+      return word ? { ...item, name: word.name, wordId: word.id, categoryId: word.category } : item;
     });
   } catch {
     return items;
@@ -67,7 +67,7 @@ export async function improveUnknownItems(items: ListItem[]): Promise<ListItem[]
 }
 
 export interface ReportInput {
-  productId: string;
+  offerTitle: string;
   storeId: string;
   kind: 'wrong_price' | 'offer_ended' | 'not_in_store' | 'other';
   correctPrice?: number | null;

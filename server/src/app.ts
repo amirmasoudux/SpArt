@@ -4,7 +4,6 @@ import express, { type NextFunction, type Request, type Response } from 'express
 import { ZodError } from 'zod';
 import { aiConfigured } from './ai.js';
 import { matchWithAi } from './lib/aiMatch.js';
-import { ALIASES } from './lib/match.js';
 import { pickForStores } from './lib/pick.js';
 import { findOffers } from './lib/search.js';
 import type { Repo } from './repo.js';
@@ -17,20 +16,11 @@ export function createApp(repo: Repo, clientUrl = '*') {
 
   app.get('/api/health', (_req, res) => res.json({ ok: true }));
 
-  // Catalog: what the app needs to understand a list.
+  // What the app needs to show stores and order a list.
   app.get('/api/catalog', async (_req, res, next) => {
     try {
-      const [categories, stores, products] = await Promise.all([repo.categories(), repo.stores(), repo.products()]);
-      res.json({ categories, stores, products });
-    } catch (err) {
-      next(err);
-    }
-  });
-
-  // This week's offers.
-  app.get('/api/offers', async (_req, res, next) => {
-    try {
-      res.json(await repo.currentOffers());
+      const [categories, stores] = await Promise.all([repo.categories(), repo.stores()]);
+      res.json({ categories, stores });
     } catch (err) {
       next(err);
     }
@@ -40,8 +30,8 @@ export function createApp(repo: Repo, clientUrl = '*') {
   app.post('/api/plan', async (req, res, next) => {
     try {
       const { items, chains } = PlanRequest.parse(req.body);
-      const [stores, products, prospekt] = await Promise.all([repo.stores(), repo.products(), repo.prospektOffers()]);
-      res.json(pickForStores(items, chains ?? stores.map((s) => s.chain), products, prospekt, ALIASES));
+      const [stores, prospekt] = await Promise.all([repo.stores(), repo.prospektOffers()]);
+      res.json(pickForStores(items, chains ?? stores.map((s) => s.chain), prospekt));
     } catch (err) {
       next(err);
     }
@@ -51,17 +41,17 @@ export function createApp(repo: Repo, clientUrl = '*') {
   app.get('/api/prospekt/search', async (req, res, next) => {
     try {
       const q = String(req.query.q ?? '').slice(0, 60);
-      res.json({ offers: findOffers(q, await repo.prospektOffers(), [], 20) });
+      res.json({ offers: findOffers(q, await repo.prospektOffers(), 20) });
     } catch (err) {
       next(err);
     }
   });
 
-  // Words the simple parser did not know → ask the AI which product they are.
+  // Words the simple parser did not know → ask the AI which search word they are.
   app.post('/api/items/match', async (req, res, next) => {
     try {
       const { names } = MatchRequest.parse(req.body);
-      const matches = await matchWithAi(names, await repo.products());
+      const matches = await matchWithAi(names);
       res.json({ matches, aiUsed: aiConfigured() });
     } catch (err) {
       next(err);

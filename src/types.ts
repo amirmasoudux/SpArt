@@ -16,30 +16,12 @@ export interface Store {
   takesGlassBottles: boolean;
 }
 
-export interface Product {
-  id: string;
-  name: string;
-  unit: string;
-  category: string;
-  prices: Record<Chain, number>;
-}
-
-export interface Offer {
-  id: string;
-  chain: Chain;
-  productId: string;
-  price: number;
-  validFrom: Date;
-  validTo: Date;
-}
-
 export interface ListItem {
   id: string;
   name: string;
   qty: number;
-  unit: string;
-  categoryId: string;
-  productId: string | null; // null = not in our catalog yet, so no price
+  categoryId: string; // for the order of the list: Fruit & veg, Dairy…; 'other' if we don't know
+  wordId: string | null; // search word (lib/words.ts); null = searched in the Prospekte by its own words
   checked: boolean; // ticked in the store
 }
 

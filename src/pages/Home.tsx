@@ -1,4 +1,4 @@
-import { Link } from 'react-router';
+import { Link, Navigate } from 'react-router';
 import { Screen } from '../components/ui';
 import { IconPen } from '../components/icons';
 import { getLists, getMyChains, getTrips } from '../lib/storage';
@@ -14,6 +14,8 @@ function greeting(): string {
 }
 
 export default function Home() {
+  // Step 1 when someone opens the app: which supermarkets can they go to?
+  if (getMyChains().length === 0) return <Navigate to="/stores" replace />;
   const lastList = getLists()[0];
   const now = new Date();
   const monthTrips = getTrips().filter((t) => {
@@ -29,7 +31,7 @@ export default function Home() {
       <p className="text-[15px] font-bold text-muted">{greeting()}</p>
       <h1 className="mb-2 text-[34px] leading-[1.1] font-extrabold tracking-tight">What are we buying this week?</h1>
 
-      <Link to={myChains.length ? '/new' : '/stores?next=/new'} className="animate-rise flex flex-col gap-7 rounded-[28px] bg-white p-6 transition hover:shadow-md">
+      <Link to="/new" className="animate-rise flex flex-col gap-7 rounded-[28px] bg-white p-6 transition hover:shadow-md">
         <span className="flex size-12 items-center justify-center rounded-2xl bg-brand text-white">
           <IconPen className="size-6" />
         </span>

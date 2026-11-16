@@ -11,6 +11,7 @@ export default function Stores() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const next = params.get('next') ?? '/';
+  const firstTime = getMyChains().length === 0;
   const [chosen, setChosen] = useState<Chain[]>(getMyChains);
   const stores = getStores();
 
@@ -24,9 +25,11 @@ export default function Stores() {
 
   return (
     <Screen>
-      <TopBar label="Your supermarkets" back="/" />
+      {firstTime ? <p className="pt-2 text-sm font-bold text-muted">Step 1 · Your supermarkets</p> : <TopBar label="Your supermarkets" back="/" />}
       <Title>Which supermarkets can you go to?</Title>
-      <p className="text-[15px] text-muted">Pick the ones near you. We suggest at least two, so we can compare their offers. We only show offers from these.</p>
+      <p className="text-[15px] text-muted">
+        Pick the ones near your home or the ones you usually go to. We suggest at least two, so we can compare their offers.
+      </p>
 
       <fieldset className="flex flex-col gap-2">
         <legend className="sr-only">Your supermarkets in Siegburg</legend>

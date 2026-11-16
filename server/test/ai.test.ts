@@ -1,8 +1,5 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { matchWithAi } from '../src/lib/aiMatch.js';
-import { loadDemoData } from '../src/repo.js';
-
-const { products } = loadDemoData();
 
 // Fake AI answer, so we test our code without calling a real AI.
 function fakeAi(answer: unknown) {
@@ -17,16 +14,16 @@ afterEach(() => {
 
 describe('matchWithAi', () => {
   it('keeps ids that exist and drops made-up ones', async () => {
-    fakeAi({ matches: [{ name: 'banans', productId: 'bananas-1kg' }, { name: 'Haferdrink', productId: 'oat-milk-made-up' }] });
-    const result = await matchWithAi(['banans', 'Haferdrink'], products);
+    fakeAi({ matches: [{ name: 'banans', wordId: 'bananas' }, { name: 'Haferdrink', wordId: 'oat-milk-made-up' }] });
+    const result = await matchWithAi(['banans', 'Haferdrink']);
     expect(result).toEqual([
-      { name: 'banans', productId: 'bananas-1kg' },
-      { name: 'Haferdrink', productId: null },
+      { name: 'banans', wordId: 'bananas' },
+      { name: 'Haferdrink', wordId: null },
     ]);
   });
 
   it('fails loudly when the AI answer has the wrong shape', async () => {
     fakeAi({ wrong: true });
-    await expect(matchWithAi(['banans'], products)).rejects.toThrow();
+    await expect(matchWithAi(['banans'])).rejects.toThrow();
   });
 });

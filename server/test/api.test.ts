@@ -12,16 +12,17 @@ describe('API', () => {
     expect(res.body).toEqual({ ok: true });
   });
 
-  it('GET /api/catalog returns stores and products', async () => {
+  it('GET /api/catalog returns stores and categories, no products', async () => {
     const res = await request(app).get('/api/catalog');
     expect(res.body.stores).toHaveLength(6);
-    expect(res.body.products.length).toBeGreaterThan(20);
+    expect(res.body.categories.length).toBeGreaterThan(5);
+    expect(res.body.products).toBeUndefined();
   });
 
   it('POST /api/plan returns one pick per item for the user’s supermarkets', async () => {
     const res = await request(app)
       .post('/api/plan')
-      .send({ items: [{ id: '1', name: 'Milk', qty: 2, productId: 'milk-1l' }], chains: ['rewe'] });
+      .send({ items: [{ id: '1', name: 'Milk', qty: 2, wordId: 'milk' }], chains: ['rewe'] });
     expect(res.status).toBe(200);
     expect(res.body.picks).toHaveLength(1);
     expect([null, 'rewe']).toContain(res.body.picks[0].chain); // a REWE offer or nothing, never another store
@@ -30,7 +31,7 @@ describe('API', () => {
   it('POST /api/plan keeps items outside the catalog on the list', async () => {
     const res = await request(app)
       .post('/api/plan')
-      .send({ items: [{ id: '1', name: 'Toffifee', qty: 1, productId: null }], chains: ['lidl', 'aldi'] });
+      .send({ items: [{ id: '1', name: 'Toffifee', qty: 1, wordId: null }], chains: ['lidl', 'aldi'] });
     expect(res.status).toBe(200);
     expect(res.body.picks).toHaveLength(1);
   });
@@ -38,7 +39,7 @@ describe('API', () => {
   it('POST /api/plan rejects an unknown supermarket', async () => {
     const res = await request(app)
       .post('/api/plan')
-      .send({ items: [{ id: '1', name: 'Milk', qty: 1, productId: 'milk-1l' }], chains: ['edeka'] });
+      .send({ items: [{ id: '1', name: 'Milk', qty: 1, wordId: 'milk' }], chains: ['edeka'] });
     expect(res.status).toBe(400);
   });
 
@@ -51,18 +52,18 @@ describe('API', () => {
 
 describe('API week 3', () => {
   it('POST /api/reports saves a report', async () => {
-    const res = await request(app).post('/api/reports').send({ productId: 'milk-1l', storeId: 'rewe', kind: 'wrong_price', correctPrice: 1.19 });
+    const res = await request(app).post('/api/reports').send({ offerTitle: 'Frische Milch', storeId: 'rewe', kind: 'wrong_price', correctPrice: 1.19 });
     expect(res.status).toBe(201);
     expect(res.body.id).toBeTruthy();
   });
 
   it('POST /api/reports rejects an unknown kind', async () => {
-    const res = await request(app).post('/api/reports').send({ productId: 'milk-1l', storeId: 'rewe', kind: 'boring' });
+    const res = await request(app).post('/api/reports').send({ offerTitle: 'Frische Milch', storeId: 'rewe', kind: 'boring' });
     expect(res.status).toBe(400);
   });
 
   it('POST /api/items/match answers null for all without AI', async () => {
     const res = await request(app).post('/api/items/match').send({ names: ['Haferdrink'] });
-    expect(res.body).toEqual({ matches: [{ name: 'Haferdrink', productId: null }], aiUsed: false });
+    expect(res.body).toEqual({ matches: [{ name: 'Haferdrink', wordId: null }], aiUsed: false });
   });
 });

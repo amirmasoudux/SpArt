@@ -1,39 +1,9 @@
 // Turns free text like "2 milk, eggs and some gouda" into list items.
-// MVP version: simple rules + a word list (English and German).
+// Simple rules + the search words (English and German, lib/words.ts). Any other word is kept as typed.
 // Later this step is done by the AI API with structured output; the screens stay the same.
 
-import type { ListItem, Product } from '../types';
-
-// Extra words people use for each product (lower case).
-export const ALIASES: Record<string, string[]> = {
-  'milk-1l': ['milk', 'milch'],
-  'gouda-400g': ['gouda', 'gauda', 'cheese', 'käse', 'kaese'],
-  'greek-yogurt-500g': ['greek yogurt', 'yogurt', 'yoghurt', 'joghurt'],
-  'butter-250g': ['butter'],
-  'eggs-10': ['eggs', 'egg', 'eier'],
-  'bananas-1kg': ['bananas', 'banana', 'bananen', 'banane'],
-  'canned-tomatoes-400g': ['canned tomatoes', 'tomato can', 'dosentomaten', 'passata'],
-  'tomatoes-500g': ['tomatoes', 'tomato', 'tomaten', 'tomate'],
-  'cucumber': ['cucumber', 'gurke'],
-  'onions-1kg': ['onions', 'onion', 'zwiebeln', 'zwiebel'],
-  'apples-1kg': ['apples', 'apple', 'äpfel', 'apfel'],
-  'potatoes-2kg': ['potatoes', 'potato', 'kartoffeln', 'kartoffel'],
-  'toast-bread': ['toast', 'toastbrot'],
-  'wholegrain-bread': ['wholegrain bread', 'bread', 'brot', 'vollkornbrot'],
-  'chicken-breast-600g': ['chicken breast', 'chicken', 'hähnchen', 'haehnchen'],
-  'minced-beef-500g': ['minced beef', 'mince', 'hackfleisch', 'hack'],
-  'basmati-rice-1kg': ['basmati rice', 'rice', 'reis'],
-  'pasta-500g': ['pasta', 'spaghetti', 'nudeln'],
-  'coffee-500g': ['coffee', 'kaffee'],
-  'olive-oil-750ml': ['olive oil', 'oil', 'olivenöl', 'öl'],
-  'frozen-pizza': ['frozen pizza', 'pizza'],
-  'frozen-spinach-450g': ['frozen spinach', 'spinach', 'spinat'],
-  'sparkling-water-6x1-5l': ['sparkling water', 'water', 'wasser', 'sprudel'],
-  'orange-juice-1l': ['orange juice', 'juice', 'orangensaft', 'saft'],
-  'dish-soap': ['dish soap', 'washing up liquid', 'spülmittel', 'spuelmittel'],
-  'toilet-paper-8': ['toilet paper', 'loo roll', 'klopapier', 'toilettenpapier'],
-  'laundry-detergent': ['laundry detergent', 'detergent', 'waschmittel'],
-};
+import type { ListItem } from '../types';
+import { findWord } from './words';
 
 const NUMBER_WORDS: Record<string, number> = {
   a: 1, an: 1, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6,
@@ -41,11 +11,6 @@ const NUMBER_WORDS: Record<string, number> = {
 };
 
 const FILLER = ['some', 'a bit of', 'a few', 'please', 'etwas', 'bitte', 'of'];
-
-// Every alias as [alias, productId], longest first, so "canned tomatoes" wins over "tomatoes".
-const ALIAS_LIST = Object.entries(ALIASES)
-  .flatMap(([productId, words]) => words.map((w) => [w, productId] as const))
-  .sort((a, b) => b[0].length - a[0].length);
 
 function splitIntoParts(text: string): string[] {
   return text
@@ -80,8 +45,7 @@ export function newId(): string {
   return crypto.randomUUID();
 }
 
-export function parseList(text: string, products: Product[]): ListItem[] {
-  const byId = new Map(products.map((p) => [p.id, p]));
+export function parseList(text: string): ListItem[] {
   const items: ListItem[] = [];
 
   for (const part of splitIntoParts(text)) {
@@ -89,11 +53,10 @@ export function parseList(text: string, products: Product[]): ListItem[] {
     const name = removeFiller(rest);
     if (!name) continue;
 
-    const match = ALIAS_LIST.find(([alias]) => new RegExp(`(^|\\s)${alias}(\\s|$)`).test(name));
-    const product = match ? byId.get(match[1]) : undefined;
+    const word = findWord(name);
 
-    // Same product twice ("milk, milk") → add up the quantity.
-    const existing = product && items.find((i) => i.productId === product.id);
+    // Same thing twice ("milk, milk") → add up the quantity.
+    const existing = items.find((i) => (word ? i.wordId === word.id : i.name.toLowerCase() === name));
     if (existing) {
       existing.qty = Math.min(20, existing.qty + qty);
       continue;
@@ -101,20 +64,18 @@ export function parseList(text: string, products: Product[]): ListItem[] {
 
     items.push({
       id: newId(),
-      name: product ? product.name : capitalize(name),
+      name: word ? word.name : capitalize(name),
       qty: Math.min(20, Math.max(1, qty)),
-      unit: product ? product.unit : '',
-      categoryId: product ? product.category : 'other',
-      productId: product ? product.id : null,
+      categoryId: word ? word.category : 'other',
+      wordId: word ? word.id : null,
       checked: false,
     });
   }
   return items;
 }
 
-// Used when the user renames an item on the review screen.
-export function matchProduct(name: string, products: Product[]): Product | undefined {
-  const lower = name.toLowerCase().trim();
-  const match = ALIAS_LIST.find(([alias]) => new RegExp(`(^|\\s)${alias}(\\s|$)`).test(lower));
-  return match ? products.find((p) => p.id === match[1]) : undefined;
+// Used when the user renames an item on the check screen.
+export function itemFromName(name: string): Pick<ListItem, 'name' | 'categoryId' | 'wordId'> {
+  const word = findWord(name);
+  return { name: word ? word.name : name, categoryId: word ? word.category : 'other', wordId: word ? word.id : null };
 }

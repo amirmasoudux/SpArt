@@ -39,16 +39,16 @@ Without `AI_API_KEY` the meal plan uses our own recipes and unknown words stay u
 npm install
 npm run dev              # http://localhost:5173
 ```
-If the backend is not running, the app uses the demo data in the browser.
+If the backend is not running, the app uses the same Prospekt files built into the app.
 
 ## Useful commands (server)
 
 | Command | What it does |
 |---|---|
 | `npm test` | Runs the tests (plan logic, Prospekt import, API) |
-| `npm run seed` | Puts the demo data into MongoDB (needs `MONGO_URI`) |
-| `npm run import-flyer -- --chain rewe --from 2026-11-16 --to 2026-11-21 page1.png` | Reads Prospekt pages with AI and saves the offers |
-| `npm run import-flyer -- --chain rewe --from 2026-11-16 --to 2026-11-21 --sample scripts/sample-flyer-answer.json --dry-run` | Practice run without AI and without saving |
+| `npm run seed` | Puts stores, categories and this week's Prospekt offers into MongoDB (needs `MONGO_URI`) |
+| `npm run import-flyer -- --chain rewe page1.png` | Reads Prospekt pages with AI and writes `data/prospekt/rewe.txt` |
+| `npm run import-flyer -- --chain rewe --sample scripts/sample-flyer-answer.json --dry-run` | Practice run without AI and without saving |
 
 ## Folders
 
@@ -57,7 +57,7 @@ src/            frontend (React + TypeScript + Tailwind)
   pages/        one file per screen
   components/   pieces used on many screens
   lib/          logic: parse the list, storage, API calls, plan
-  data/         demo data (used when the backend is not running)
+  data/         stores and categories (prices: only server/data/prospekt/)
 server/         backend (Express + MongoDB + Zod)
   src/app.ts    API routes
   src/repo.ts   data access (MongoDB or demo data)

@@ -17,10 +17,10 @@ export default function ReportSheet({ line, store, onClose }: { line: Pick; stor
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'failed'>('idle');
 
   async function submit() {
-    if (!line.productId) return;
+    if (!line.title) return;
     setState('sending');
     const correctPrice = kind === 'wrong_price' && price ? Number(price.replace(',', '.')) : null;
-    const ok = await sendReport({ productId: line.productId, storeId: store.id, kind, correctPrice: correctPrice || null });
+    const ok = await sendReport({ offerTitle: line.title, storeId: store.id, kind, correctPrice: correctPrice || null });
     setState(ok ? 'sent' : 'failed');
   }
 

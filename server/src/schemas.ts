@@ -20,28 +20,8 @@ export const Store = z.object({
 });
 export type Store = z.infer<typeof Store>;
 
-export const Product = z.object({
-  id: z.string(),
-  name: z.string(),
-  unit: z.string(),
-  category: z.string(),
-  prices: z.record(Chain, z.number().positive()),
-});
-export type Product = z.infer<typeof Product>;
-
-export const Offer = z.object({
-  id: z.string(),
-  chain: Chain,
-  productId: z.string(),
-  price: z.number().positive(),
-  validFrom: z.coerce.date(),
-  validTo: z.coerce.date(),
-  source: z.string().optional(), // e.g. "REWE Prospekt KW 46, page 3"
-});
-export type Offer = z.infer<typeof Offer>;
-
-// Any offer from a Prospekt, also for things that are not in our product catalog
-// ("Toffifee", "Lachsfilet"). The app searches these by name for every item on a list.
+// One offer from a Prospekt ("Toffifee", "Rinderhackfleisch"). The app searches these by name
+// for every item on a list. This is the only price data SpArt has: real offers of this week.
 export const ProspektOffer = z.object({
   id: z.string(),
   chain: Chain,
@@ -63,7 +43,7 @@ export const PlanRequest = z.object({
         id: z.string(),
         name: z.string(),
         qty: z.number().int().min(1).max(20),
-        productId: z.string().nullable(),
+        wordId: z.string().nullable(), // see lib/words.ts; null = searched by its own words
       }),
     )
     .min(1)
@@ -85,7 +65,7 @@ export type FlyerOffer = z.infer<typeof FlyerOffer>;
 
 // A user report about wrong data ("the price is different in the store").
 export const ReportRequest = z.object({
-  productId: z.string(),
+  offerTitle: z.string().max(200), // the Prospekt offer the user means
   storeId: z.string(),
   kind: z.enum(['wrong_price', 'offer_ended', 'not_in_store', 'other']),
   correctPrice: z.number().positive().nullable().optional(),
@@ -97,9 +77,10 @@ export interface Report extends ReportRequest {
   createdAt: Date;
 }
 
-// Item names the simple parser could not match. The AI tries to link them to products.
+// Item names the simple parser did not find in the search words ("banans", "Haferdrink").
+// The AI tries to link them to a search word.
 export const MatchRequest = z.object({ names: z.array(z.string().min(1).max(80)).min(1).max(30) });
 export const MatchAnswer = z.object({
-  matches: z.array(z.object({ name: z.string(), productId: z.string().nullable() })),
+  matches: z.array(z.object({ name: z.string(), wordId: z.string().nullable() })),
 });
 

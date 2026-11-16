@@ -1,5 +1,12 @@
 # Changelog
 
+## No dummy data
+- Removed the 27-product list I made as dummy data in week 1, its prices and sizes, and the 11 offers matched to it — from the app, the server and MongoDB (the server drops the old collections on start)
+- New flow: open the app → "Which supermarkets can you go to?" (step 1, at least two suggested) → write the list → the list ordered by category, each item with its cheapest offer at your supermarkets, if there is one
+- English and German: German words are searched in the Prospekte as typed; common English words are translated by a word list (`words.ts`: words only, no products or prices). Any word can be typed
+- AI Prospekt import now writes every offer to `data/prospekt/<chain>.txt` (no matching to a product list)
+- 24 tests; axe: 0 problems on all 7 screens
+
 ## Offers only
 - The plan shows only real Prospekt offers from the user's supermarkets: no normal prices, no estimates
 - Items without an offer stay on the list without a price ("Not on offer this week")

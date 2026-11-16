@@ -1,7 +1,7 @@
-// SpArt's plan: the user picks the supermarkets near them. For every item on the list we look
-// only at THOSE stores' Prospekte and pick the cheapest offer. Real data only:
-//   - no normal prices, no estimates; an item without an offer simply has no price,
-//   - different pack sizes are compared by the price per kg / per litre printed in the Prospekt,
+// SpArt's plan: the user picks the supermarkets they can go to. For every item on the list we look
+// only at THOSE stores' Prospekte this week and pick the cheapest offer. Real data only:
+//   - no catalog, no normal prices, no estimates: an item without an offer has no price,
+//   - pack sizes are compared by the price per kg / per litre printed in the Prospekt,
 //   - a saving is shown only when the Prospekt prints the old price ("statt").
 import { findOffers } from './search.js';
 
@@ -11,12 +11,7 @@ export interface PickItem {
   id: string;
   name: string;
   qty: number;
-  productId: string | null;
-}
-export interface PickProduct {
-  id: string;
-  name: string;
-  unit: string; // only to know the size the user wants (no prices)
+  wordId: string | null;
 }
 export interface PickOffer {
   chain: Chain;
@@ -30,21 +25,19 @@ export interface Pick {
   itemId: string;
   name: string; // what the user wrote
   qty: number;
-  productId: string | null;
   kind: 'offer' | 'none'; // none = no offer at the user's stores this week
   chain: Chain | null;
-  title: string | null; // the product as the store calls it
+  title: string | null; // the product as the Prospekt calls it
   unitInfo: string | null;
   packPrice: number | null; // price of one pack
   price: number; // packPrice × qty (0 for none)
-  saving: number; // real saving for the line, 0 when we don't know it
+  saving: number; // (old price − offer price) × qty, 0 when the Prospekt prints no old price
   perUnit: { value: number; unit: 'kg' | 'l' } | null;
-  others: { chain: Chain; title: string; price: number; regularPrice: number | null; unitInfo: string | null }[]; // other offers at the user's stores
 }
 
 export interface PickResult {
   picks: Pick[];
-  total: number;
+  total: number; // all offers on the list
   saved: number;
   offerCount: number; // Prospekt offers of the user's stores this week
 }
@@ -57,67 +50,40 @@ export function perUnitFromInfo(info: string | null): { value: number; unit: 'kg
   return m ? { unit: m[1].toLowerCase() as 'kg' | 'l', value: Number(m[2].replace(',', '.')) } : null;
 }
 
-// "500 g" → 0.5 kg, "1 L" → 1 l, "750 ml" → 0.75 l. Pieces, rolls etc. → null
-export function packSize(unit: string): { amount: number; unit: 'kg' | 'l' } | null {
-  const m = unit.trim().match(/^(\d+(?:[.,]\d+)?)\s*(g|kg|ml|l)$/i);
-  if (!m) return null;
-  const n = Number(m[1].replace(',', '.'));
-  const u = m[2].toLowerCase();
-  if (u === 'g') return { amount: n / 1000, unit: 'kg' };
-  if (u === 'kg') return { amount: n, unit: 'kg' };
-  if (u === 'ml') return { amount: n / 1000, unit: 'l' };
-  return { amount: n, unit: 'l' };
+// A pack of more than 5 kg or 5 litres (a 12-litre milk crate, a 7.5 kg potato sack) is cheap per kg,
+// but not what most people mean by "milk" or "potatoes". It goes after the normal packs.
+const BIG_PACK = 5;
+const isBig = (o: PickOffer) => {
+  const u = perUnitFromInfo(o.unitInfo);
+  return Boolean(u && o.price / u.value > BIG_PACK);
+};
+
+// Cheapest first: normal packs before big packs; by price per kg/l when the Prospekt prints it,
+// then the others by pack price.
+export function byValue(a: PickOffer, b: PickOffer): number {
+  const ba = isBig(a);
+  const bb = isBig(b);
+  if (ba !== bb) return ba ? 1 : -1;
+  const ua = perUnitFromInfo(a.unitInfo);
+  const ub = perUnitFromInfo(b.unitInfo);
+  if (ua && ub && ua.unit === ub.unit) return ua.value - ub.value;
+  if (ua && !ub) return -1;
+  if (!ua && ub) return 1;
+  return a.price - b.price;
 }
 
-// Cheapest first: by price per kg/l when we know it, the others after them by pack price.
-// A big pack (a 12-litre crate when the list says 1 litre of milk) goes to the end:
-// cheap per litre, but not what the user asked for.
-function byValue(needed: { amount: number; unit: 'kg' | 'l' } | null) {
-  const big = (o: PickOffer) => {
-    const u = perUnitFromInfo(o.unitInfo);
-    return Boolean(needed && u && u.unit === needed.unit && o.price / u.value > needed.amount * 2.5);
-  };
-  return (a: PickOffer, b: PickOffer): number => {
-    const ba = big(a);
-    const bb = big(b);
-    if (ba !== bb) return ba ? 1 : -1;
-    const ua = perUnitFromInfo(a.unitInfo);
-    const ub = perUnitFromInfo(b.unitInfo);
-    if (ua && ub && ua.unit === ub.unit) return ua.value - ub.value;
-    if (ua && !ub) return -1;
-    if (!ua && ub) return 1;
-    return a.price - b.price;
-  };
-}
-
-export function pickForStores(
-  items: PickItem[],
-  chains: Chain[],
-  products: PickProduct[],
-  prospekt: PickOffer[],
-  aliases: Record<string, string[]> = {},
-): PickResult {
+export function pickForStores(items: PickItem[], chains: Chain[], prospekt: PickOffer[]): PickResult {
   const mine = prospekt.filter((o) => chains.includes(o.chain));
   const picks: Pick[] = items.map((item) => {
-    const product = products.find((p) => p.id === item.productId);
-    const extra = item.productId ? aliases[item.productId] ?? [] : [];
-    const size = product ? packSize(product.unit) : null;
-    const needed = size ? { amount: size.amount * item.qty, unit: size.unit } : null;
-    const offers = findOffers(item.name, mine, extra, 50, item.productId).sort(byValue(needed));
-    const best = offers[0];
-
+    const best = findOffers(item.name, mine, 50, item.wordId).sort(byValue)[0];
     if (!best) {
-      return { itemId: item.id, name: item.name, qty: item.qty, productId: item.productId, kind: 'none', chain: null, title: null, unitInfo: null, packPrice: null, price: 0, saving: 0, perUnit: null, others: [] };
+      return { itemId: item.id, name: item.name, qty: item.qty, kind: 'none', chain: null, title: null, unitInfo: null, packPrice: null, price: 0, saving: 0, perUnit: null };
     }
-
-    // The saving: only when the Prospekt prints the old price ("statt").
     const saving = best.regularPrice && best.regularPrice > best.price ? best.regularPrice - best.price : 0;
-
     return {
       itemId: item.id,
       name: item.name,
       qty: item.qty,
-      productId: item.productId,
       kind: 'offer',
       chain: best.chain,
       title: best.title,
@@ -126,7 +92,6 @@ export function pickForStores(
       price: round(best.price * item.qty),
       saving: round(saving * item.qty),
       perUnit: perUnitFromInfo(best.unitInfo),
-      others: offers.slice(1, 4),
     };
   });
 

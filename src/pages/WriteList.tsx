@@ -1,7 +1,6 @@
 import { useState, type FormEvent } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import { BottomAction, PrimaryButton, Screen, Title, TopBar } from '../components/ui';
-import { getProducts } from '../lib/dataSource';
 import { newId, parseList } from '../lib/parseList';
 import { improveUnknownItems } from '../lib/api';
 import { getGuestId, getList, saveList } from '../lib/storage';
@@ -21,8 +20,8 @@ export default function WriteList() {
 
   async function submit(e: FormEvent) {
     e.preventDefault();
-    // 1) Fast rules for the words we know. 2) The AI only for the rest.
-    const parsed = parseList(text, getProducts());
+    // 1) Fast rules for the words we know. 2) The AI only for the rest. Nothing is dropped.
+    const parsed = parseList(text);
     if (parsed.length === 0) return;
     setBusy(true);
     const items = await improveUnknownItems(parsed);

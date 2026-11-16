@@ -2,8 +2,8 @@
 import 'dotenv/config';
 import mongoose from 'mongoose';
 import { createApp } from './app.js';
-import { loadDemoData, memoryRepo, mongoRepo } from './repo.js';
-import { OfferModel, ProductModel, ProspektOfferModel } from './models.js';
+import { loadData, memoryRepo, mongoRepo } from './repo.js';
+import { ProspektOfferModel } from './models.js';
 
 const port = Number(process.env.PORT ?? 4000);
 // MONGO_URI is our name; MONGODB_URI is the name in the .env file Atlas lets you download.
@@ -14,17 +14,16 @@ async function start() {
   if (mongoUri) {
     await mongoose.connect(mongoUri, { dbName: 'spart' });
     console.log('Connected to MongoDB');
-    // The data files are the source: on every start, products (normal prices) and offers in MongoDB
-    // are replaced with the files — last week's offers are deleted and this week's are copied in,
-    // so a new deploy brings the new week.
-    const { prospekt, offers, products } = loadDemoData();
-    await ProductModel.deleteMany({});
-    await ProductModel.insertMany(products.map(({ id, ...p }) => ({ _id: id, ...p })));
+    // The Prospekt files are the source: on every start last week's offers are deleted and
+    // this week's are copied in, so a new deploy brings the new week.
+    const { prospekt } = loadData();
     await ProspektOfferModel.deleteMany({});
     await ProspektOfferModel.insertMany(prospekt.map(({ id, ...o }) => ({ _id: id, ...o })));
-    await OfferModel.deleteMany({});
-    await OfferModel.insertMany(offers.map(({ id, ...o }) => ({ _id: id, ...o })));
-    console.log(`Loaded ${products.length} products, ${prospekt.length} Prospekt offers and ${offers.length} matched offers into MongoDB`);
+    // Old demo data (a product list with estimated prices) is not used any more: remove it.
+    for (const name of ['products', 'offers']) {
+      if (await mongoose.connection.db?.listCollections({ name }).hasNext()) await mongoose.connection.db?.dropCollection(name);
+    }
+    console.log(`Loaded ${prospekt.length} Prospekt offers into MongoDB`);
     repo = mongoRepo();
   } else {
     console.log('No MONGO_URI set: using the data files in memory');
