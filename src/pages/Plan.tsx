@@ -22,17 +22,13 @@ function PickRow({ p }: { p: Pick }) {
           {p.title}
           {p.perUnit ? ` · ${euro(p.perUnit.value)}/${p.perUnit.unit}` : ''}
         </span>
-        {p.kind === 'offer' ? (
-          <span className="flex flex-wrap items-center gap-2">
-            <span className="rounded-full bg-save px-2 py-0.5 text-[11px] font-extrabold tracking-wide text-white uppercase">Offer</span>
-            {p.saving > 0 && <span className="text-xs font-extrabold text-save-ink">You save {euro(p.saving)}</span>}
-          </span>
-        ) : (
-          <span className="text-xs font-bold text-faint">{p.others.length ? 'Normal price, cheaper than the offers' : 'Normal price, no offer this week'}</span>
-        )}
+        <span className="flex flex-wrap items-center gap-2">
+          <span className="rounded-full bg-save px-2 py-0.5 text-[11px] font-extrabold tracking-wide text-white uppercase">Offer</span>
+          {p.saving > 0 && <span className="text-xs font-extrabold text-save-ink">You save {euro(p.saving)}</span>}
+        </span>
       </span>
       <span className="flex shrink-0 flex-col items-end whitespace-nowrap">
-        <span className={`text-[15px] font-extrabold ${p.kind === 'offer' ? 'text-save-ink' : ''}`}>{euro(p.price)}</span>
+        <span className="text-[15px] font-extrabold text-save-ink">{euro(p.price)}</span>
         {p.saving > 0 && <span className="text-xs text-faint line-through">{euro(p.price + p.saving)}</span>}
       </span>
     </li>
@@ -76,7 +72,7 @@ export default function Plan() {
           <h1 className="text-[34px] leading-none font-extrabold tracking-tight">
             {byStore.length > 1 ? `Shop at ${byStore.length} stores` : byStore.length === 1 ? `Go to ${byStore[0].store.name}` : 'No prices found'}
           </h1>
-          {priced.length > 0 && <span className="text-sm text-muted">Your basket {euro(result.total)}</span>}
+          {priced.length > 0 && <span className="text-sm text-muted">Offers on your list {euro(result.total)}</span>}
         </div>
         <div className="flex flex-col gap-1">
           <span className="text-[13px] font-bold text-muted">You save with this week’s offers</span>
@@ -104,13 +100,12 @@ export default function Plan() {
 
       {none.length > 0 && (
         <section className="flex flex-col gap-1.5" aria-label="No offer at your supermarkets">
-          <SectionLabel>No offer at your supermarkets</SectionLabel>
+          <SectionLabel>Not on offer this week</SectionLabel>
           <ul className="rounded-[24px] bg-white py-1.5">
             {none.map((p) => (
               <li key={p.itemId} className="flex min-h-12 items-center justify-between gap-3 px-[18px] text-[15px] font-bold">
                 {p.name}
                 {p.qty > 1 ? ` × ${p.qty}` : ''}
-                <span className="text-xs font-bold text-faint">No price yet</span>
               </li>
             ))}
           </ul>
@@ -119,7 +114,7 @@ export default function Plan() {
 
       <p className="px-1.5 text-xs text-faint">
         Offers: this week’s Prospekte ({shortDate(week.from)} – {shortDate(week.to)}) of {storeNames} in Siegburg, {result.offerCount} offers.
-        {result.chains.includes('rewe') ? ' Normal prices: REWE online shop, Siegburg.' : ''} Different pack sizes are compared by the price per kg or litre when the Prospekt prints it. A saving is shown only when we know the old price.
+{' '}Only offers, no estimated prices. Pack sizes are compared by the price per kg or litre when the Prospekt prints it. A saving is shown when the Prospekt prints the old price.
         {result.source === 'local' ? ' (Built-in data, server offline.)' : ''}{' '}
         <Link to={`/stores?next=/list/${list.id}/analyze`} className="font-bold text-brand underline">
           Change supermarkets

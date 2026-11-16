@@ -38,7 +38,7 @@ export default function Shop() {
     ...stores
       .filter((s) => result.chains.includes(s.chain))
       .map((s) => ({ key: s.id, label: `At ${s.name}`, items: list.items.filter((i) => pickFor(i.id)?.chain === s.chain) })),
-    { key: 'any', label: 'Anywhere', items: list.items.filter((i) => !pickFor(i.id)?.chain) },
+    { key: 'any', label: 'No offer this week', items: list.items.filter((i) => !pickFor(i.id)?.chain) },
   ].filter((g) => g.items.length > 0);
   const usedStores = groups.filter((g) => g.key !== 'any').map((g) => g.label.slice(3));
 
@@ -101,7 +101,7 @@ export default function Shop() {
         </button>
         {priced && (
           <span className="flex shrink-0 flex-col items-end gap-0.5">
-            <span className={`text-[15px] font-extrabold ${p.kind === 'offer' ? 'text-save-ink' : ''}`}>{euro(p.price)}</span>
+            <span className="text-[15px] font-extrabold text-save-ink">{euro(p.price)}</span>
             {p.productId && (
               <button
                 type="button"

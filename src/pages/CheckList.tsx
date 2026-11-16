@@ -63,9 +63,9 @@ export default function CheckList() {
       {unknown.length > 0 && (
         <div className="flex flex-col gap-1 rounded-[22px] bg-warn-soft p-4 text-warn-ink">
           <p className="text-[15px] font-extrabold">
-            {unknown.length === 1 ? '1 item has no price yet' : `${unknown.length} items have no price yet`}
+            {unknown.length === 1 ? '1 item we don’t know yet' : `${unknown.length} items we don’t know yet`}
           </p>
-          <p className="text-sm">We keep them on your list, but they don’t count for the best store. Tap one to rename it.</p>
+          <p className="text-sm">We still look for them by name in your supermarkets’ Prospekte. Tap one to rename it.</p>
         </div>
       )}
 
@@ -110,7 +110,7 @@ export default function CheckList() {
                     >
                       <span className="truncate text-base font-extrabold">{item.name}</span>
                       <span className="text-xs font-bold text-faint">
-                        {item.productId ? item.unit : 'No price yet'} · tap to edit
+                        {item.productId ? item.unit : 'Searched by name'} · tap to edit
                       </span>
                     </button>
                     <div className="flex items-center gap-0.5 rounded-full bg-bg p-0.5">

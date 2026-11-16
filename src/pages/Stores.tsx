@@ -25,8 +25,8 @@ export default function Stores() {
   return (
     <Screen>
       <TopBar label="Your supermarkets" back="/" />
-      <Title>Where do you shop?</Title>
-      <p className="text-[15px] text-muted">Pick the supermarkets near you or the ones you usually go to. We only show you their offers.</p>
+      <Title>Which supermarkets can you go to?</Title>
+      <p className="text-[15px] text-muted">Pick the ones near you. We suggest at least two, so we can compare their offers. We only show offers from these.</p>
 
       <fieldset className="flex flex-col gap-2">
         <legend className="sr-only">Your supermarkets in Siegburg</legend>
@@ -53,11 +53,13 @@ export default function Stores() {
         })}
       </fieldset>
 
-      <p className="px-1.5 text-[13px] text-muted">Prospekte for Siegburg. You can change this any time on Home.</p>
+      <p className="px-1.5 text-[13px] text-muted">
+        {chosen.length === 1 ? 'Tip: pick one more to compare offers. ' : ''}Prospekte for Siegburg. You can change this any time on Home.
+      </p>
 
       <BottomAction>
         <PrimaryButton onClick={save} disabled={chosen.length === 0}>
-          {chosen.length === 0 ? 'Pick at least one' : `Save ${chosen.length} ${chosen.length === 1 ? 'supermarket' : 'supermarkets'}`}
+          {chosen.length === 0 ? 'Pick your supermarkets' : `Show offers from ${chosen.length} ${chosen.length === 1 ? 'supermarket' : 'supermarkets'}`}
         </PrimaryButton>
       </BottomAction>
     </Screen>

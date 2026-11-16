@@ -24,7 +24,7 @@ describe('API', () => {
       .send({ items: [{ id: '1', name: 'Milk', qty: 2, productId: 'milk-1l' }], chains: ['rewe'] });
     expect(res.status).toBe(200);
     expect(res.body.picks).toHaveLength(1);
-    expect(res.body.picks[0].chain).toBe('rewe'); // an offer or REWE's normal price, never another store
+    expect([null, 'rewe']).toContain(res.body.picks[0].chain); // a REWE offer or nothing, never another store
   });
 
   it('POST /api/plan keeps items outside the catalog on the list', async () => {

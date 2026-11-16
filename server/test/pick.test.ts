@@ -20,10 +20,10 @@ describe('pickForStores', () => {
     expect(r.offerCount).toBe(1);
   });
 
-  it('takes REWE’s normal price when it is cheaper per kg than every offer', () => {
-    // REWE butter 250 g = 1.15 → 4.60 per kg, cheaper than 5.96 at Kaufland
-    const r = pickForStores([butter], ['rewe', 'kaufland'], products, prospekt);
-    expect(r.picks[0]).toMatchObject({ kind: 'normal', chain: 'rewe', price: 2.3, saving: 0 });
+  it('uses offers only: REWE without an offer is not on the plan', () => {
+    const r = pickForStores([butter], ['rewe', 'lidl'], products, prospekt);
+    expect(r.picks[0]).toMatchObject({ kind: 'offer', chain: 'lidl', price: 2.58, saving: 0 }); // no old price printed → no saving
+    expect(pickForStores([butter], ['rewe'], products, prospekt).picks[0].kind).toBe('none');
   });
 
   it('does not pick a 12-litre crate for 1 litre of milk', () => {

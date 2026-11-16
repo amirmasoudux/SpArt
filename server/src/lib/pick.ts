@@ -1,10 +1,8 @@
-// SpArt's plan: the user picks the supermarkets they go to. For every item on the list we look
-// only at THOSE stores and pick the cheapest real price:
-//   - an offer from this week's Prospekt of one of their stores, or
-//   - REWE's normal shop price (the only normal prices we have), when REWE is one of their stores.
-// Different pack sizes are compared by the price per kg / per litre printed in the Prospekt.
-// No estimates: a saving is only shown when the Prospekt prints the old price ("statt"),
-// or when a REWE offer can be compared with REWE's own normal price.
+// SpArt's plan: the user picks the supermarkets near them. For every item on the list we look
+// only at THOSE stores' Prospekte and pick the cheapest offer. Real data only:
+//   - no normal prices, no estimates; an item without an offer simply has no price,
+//   - different pack sizes are compared by the price per kg / per litre printed in the Prospekt,
+//   - a saving is shown only when the Prospekt prints the old price ("statt").
 import { findOffers } from './search.js';
 
 type Chain = 'rewe' | 'lidl' | 'aldi' | 'kaufland' | 'penny' | 'netto';
@@ -18,8 +16,7 @@ export interface PickItem {
 export interface PickProduct {
   id: string;
   name: string;
-  unit: string;
-  prices: Partial<Record<Chain, number>>;
+  unit: string; // only to know the size the user wants (no prices)
 }
 export interface PickOffer {
   chain: Chain;
@@ -34,7 +31,7 @@ export interface Pick {
   name: string; // what the user wrote
   qty: number;
   productId: string | null;
-  kind: 'offer' | 'normal' | 'none'; // none = nothing at the user's stores this week
+  kind: 'offer' | 'none'; // none = no offer at the user's stores this week
   chain: Chain | null;
   title: string | null; // the product as the store calls it
   unitInfo: string | null;
@@ -109,44 +106,12 @@ export function pickForStores(
     const offers = findOffers(item.name, mine, extra, 50, item.productId).sort(byValue(needed));
     const best = offers[0];
 
-    // REWE's normal price, as a real alternative to the offers.
-    const reweNormal = chains.includes('rewe') ? product?.prices.rewe : undefined;
-    const reweUnit = reweNormal !== undefined && size ? { value: reweNormal / size.amount, unit: size.unit } : null;
-    const bestUnit = best ? perUnitFromInfo(best.unitInfo) : null;
-
-    const normalPick = (): Pick => ({
-      itemId: item.id,
-      name: item.name,
-      qty: item.qty,
-      productId: item.productId,
-      kind: 'normal',
-      chain: 'rewe',
-      title: `${product!.name} ${product!.unit}`,
-      unitInfo: reweUnit ? `1 ${reweUnit.unit} = ${round(reweUnit.value).toFixed(2)}` : null,
-      packPrice: reweNormal!,
-      price: round(reweNormal! * item.qty),
-      saving: 0,
-      perUnit: reweUnit ? { value: round(reweUnit.value), unit: reweUnit.unit } : null,
-      others: offers.slice(0, 3),
-    });
-
     if (!best) {
-      if (reweNormal !== undefined) return normalPick();
       return { itemId: item.id, name: item.name, qty: item.qty, productId: item.productId, kind: 'none', chain: null, title: null, unitInfo: null, packPrice: null, price: 0, saving: 0, perUnit: null, others: [] };
     }
 
-    // REWE without an offer can be cheaper than the best offer: per kg/l when we know both,
-    // otherwise by the pack price (the Prospekt doesn't say the size).
-    if (reweUnit && bestUnit && reweUnit.unit === bestUnit.unit) {
-      if (reweUnit.value < bestUnit.value) return normalPick();
-    } else if (reweNormal !== undefined && !bestUnit && reweNormal < best.price) return normalPick();
-
-    // The saving: the old price printed in the Prospekt, or for REWE offers REWE's own normal price (per kg/l).
-    let saving = 0;
-    if (best.regularPrice && best.regularPrice > best.price) saving = best.regularPrice - best.price;
-    else if (best.chain === 'rewe' && reweUnit && bestUnit && reweUnit.unit === bestUnit.unit && reweUnit.value > bestUnit.value) {
-      saving = (reweUnit.value - bestUnit.value) * (best.price / bestUnit.value);
-    }
+    // The saving: only when the Prospekt prints the old price ("statt").
+    const saving = best.regularPrice && best.regularPrice > best.price ? best.regularPrice - best.price : 0;
 
     return {
       itemId: item.id,
@@ -160,7 +125,7 @@ export function pickForStores(
       packPrice: best.price,
       price: round(best.price * item.qty),
       saving: round(saving * item.qty),
-      perUnit: bestUnit,
+      perUnit: perUnitFromInfo(best.unitInfo),
       others: offers.slice(1, 4),
     };
   });

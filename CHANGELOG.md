@@ -1,5 +1,10 @@
 # Changelog
 
+## Offers only
+- The plan shows only real Prospekt offers from the user's supermarkets: no normal prices, no estimates
+- Items without an offer stay on the list without a price ("Not on offer this week")
+- "Which supermarkets can you go to?" suggests picking at least two, to compare offers
+
 ## Your supermarkets
 - New step "Where do you shop?": the user picks one or more of the six supermarkets (saved on the phone, changeable on Home)
 - The plan only uses those supermarkets: for each item the cheapest real price, grouped by store ("At Kaufland · 7 items")
