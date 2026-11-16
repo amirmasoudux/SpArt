@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, Navigate, useLocation, useParams } from 'react-router';
+import { Link, Navigate, useLocation, useNavigate, useParams } from 'react-router';
 import { BottomAction, PrimaryLink, Screen, SectionLabel, TopBar } from '../components/ui';
 import { getCategories, getStores } from '../lib/dataSource';
 import { fetchPlan, resultOf, type PlanResult, type PlanState } from '../lib/api';
@@ -48,6 +48,7 @@ function PickRow({ p }: { p: Pick }) {
 export default function Plan() {
   const { id = '' } = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
   const list = getList(id);
   const [chains] = useState(getMyChains);
   // The Analyze screen passes the result along. After a reload, ask again.
@@ -116,7 +117,11 @@ export default function Plan() {
                   key={s.chain}
                   type="button"
                   aria-pressed={on}
-                  onClick={() => setChosen(s.chain)}
+                  onClick={() => {
+                    setChosen(s.chain);
+                    // Remember the choice, so a reload keeps it.
+                    navigate(location.pathname, { replace: true, state: { result, chain: s.chain } });
+                  }}
                   className={`flex min-w-[118px] shrink-0 flex-col items-start gap-0.5 rounded-[20px] border-2 bg-white px-4 py-3 text-left ${on ? 'border-brand' : 'border-transparent'}`}
                 >
                   <span className="text-[15px] font-extrabold">{nameOf(s.chain)}</span>

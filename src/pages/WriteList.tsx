@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import { BottomAction, PrimaryButton, Screen, Title, TopBar } from '../components/ui';
-import { newId, parseList } from '../lib/parseList';
+import { mergeItems, newId, parseList } from '../lib/parseList';
 import { improveUnknownItems } from '../lib/api';
 import { getGuestId, getList, saveList } from '../lib/storage';
 
@@ -30,7 +30,7 @@ export default function WriteList() {
     const existing = addTo ? getList(addTo) : undefined;
     const now = new Date().toISOString();
     const list = existing
-      ? { ...existing, status: 'draft' as const, items: [...existing.items, ...items] }
+      ? { ...existing, status: 'draft' as const, items: mergeItems(existing.items, items) }
       : { id: newId(), ownerId: getGuestId(), title: defaultTitle(), status: 'draft' as const, items, createdAt: now, updatedAt: now };
     saveList(list);
     navigate(`/list/${list.id}/check`, { replace: Boolean(addTo) });

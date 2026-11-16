@@ -6,6 +6,9 @@
 - Shopping checklist and trip are for that one supermarket
 - Fix: lists saved before the search words existed searched "Milk" by its name and found chocolate (Alpenmilch); the search word is now found from the name
 - 26 tests
+- No duplicate items: "Add more items", renaming, and older lists merge the same item into one line and add up the quantity
+- The chosen supermarket stays after a page reload
+- End-to-end check of the whole flow (19 steps) passes; axe: 0 problems
 
 ## No dummy data
 - Removed the 27-product list I made as dummy data in week 1, its prices and sizes, and the 11 offers matched to it — from the app, the server and MongoDB (the server drops the old collections on start)

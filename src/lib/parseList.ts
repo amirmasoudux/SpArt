@@ -79,3 +79,16 @@ export function itemFromName(name: string): Pick<ListItem, 'name' | 'categoryId'
   const word = findWord(name);
   return { name: word ? word.name : name, categoryId: word ? word.category : 'other', wordId: word ? word.id : null };
 }
+
+// "Add more items" to a list that already has some: the same thing is not added twice,
+// its quantity goes up instead ("Milk 1" + "milk" → "Milk 2").
+export function mergeItems(existing: ListItem[], added: ListItem[]): ListItem[] {
+  const result = existing.map((i) => ({ ...i }));
+  const key = (i: ListItem) => i.wordId ?? findWord(i.name)?.id ?? i.name.trim().toLowerCase();
+  for (const item of added) {
+    const same = result.find((i) => key(i) === key(item));
+    if (same) same.qty = Math.min(20, same.qty + item.qty);
+    else result.push(item);
+  }
+  return result;
+}

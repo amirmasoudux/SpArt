@@ -3,14 +3,23 @@ import { Link, Navigate, useNavigate, useParams } from 'react-router';
 import { BottomAction, ConfirmSheet, PrimaryButton, Screen, SectionLabel, Title, TopBar } from '../components/ui';
 import { IconClose } from '../components/icons';
 import { getCategories } from '../lib/dataSource';
-import { itemFromName } from '../lib/parseList';
+import { itemFromName, mergeItems } from '../lib/parseList';
 import { getList, saveList } from '../lib/storage';
 import type { ListItem, ShoppingList } from '../types';
 
 export default function CheckList() {
   const { id = '' } = useParams();
   const navigate = useNavigate();
-  const [list, setList] = useState<ShoppingList | undefined>(() => getList(id));
+  // Lists saved before duplicates were merged may have the same item twice: merge them once here.
+  const [list, setList] = useState<ShoppingList | undefined>(() => {
+    const l = getList(id);
+    if (!l) return l;
+    const items = mergeItems([], l.items);
+    if (items.length === l.items.length) return l;
+    const merged = { ...l, items };
+    saveList(merged);
+    return merged;
+  });
   const [editing, setEditing] = useState<string | null>(null);
   const [removing, setRemoving] = useState<ListItem | null>(null);
 
@@ -19,8 +28,10 @@ export default function CheckList() {
   const count = list.items.reduce((s, i) => s + i.qty, 0);
 
   function update(next: ShoppingList) {
-    setList(next);
-    saveList(next);
+    // Renaming an item to one that is already on the list adds up the quantity.
+    const merged = { ...next, items: mergeItems([], next.items) };
+    setList(merged);
+    saveList(merged);
   }
 
   function changeItem(itemId: string, patch: Partial<ListItem>) {
