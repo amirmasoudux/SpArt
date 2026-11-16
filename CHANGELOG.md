@@ -1,5 +1,12 @@
 # Changelog
 
+## One supermarket
+- The plan recommends ONE supermarket from the ones the user picked: the most items on offer, then the biggest saving ("Go to Kaufland")
+- The other picked supermarkets are shown as cards (offers + saving); tap one to see the list for that store
+- Shopping checklist and trip are for that one supermarket
+- Fix: lists saved before the search words existed searched "Milk" by its name and found chocolate (Alpenmilch); the search word is now found from the name
+- 26 tests
+
 ## No dummy data
 - Removed the 27-product list I made as dummy data in week 1, its prices and sizes, and the 11 offers matched to it — from the app, the server and MongoDB (the server drops the old collections on start)
 - New flow: open the app → "Which supermarkets can you go to?" (step 1, at least two suggested) → write the list → the list ordered by category, each item with its cheapest offer at your supermarkets, if there is one

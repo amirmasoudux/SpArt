@@ -19,13 +19,16 @@ describe('API', () => {
     expect(res.body.products).toBeUndefined();
   });
 
-  it('POST /api/plan returns one pick per item for the user’s supermarkets', async () => {
+  it('POST /api/plan returns one plan per chosen supermarket, each with only its own offers', async () => {
     const res = await request(app)
       .post('/api/plan')
-      .send({ items: [{ id: '1', name: 'Milk', qty: 2, wordId: 'milk' }], chains: ['rewe'] });
+      .send({ items: [{ id: '1', name: 'Milk', qty: 2, wordId: 'milk' }], chains: ['rewe', 'lidl'] });
     expect(res.status).toBe(200);
-    expect(res.body.picks).toHaveLength(1);
-    expect([null, 'rewe']).toContain(res.body.picks[0].chain); // a REWE offer or nothing, never another store
+    expect(res.body.stores.map((s: { chain: string }) => s.chain).sort()).toEqual(['lidl', 'rewe']);
+    for (const s of res.body.stores) {
+      expect(s.picks).toHaveLength(1);
+      expect([null, s.chain]).toContain(s.picks[0].chain); // never an offer from another store
+    }
   });
 
   it('POST /api/plan keeps items outside the catalog on the list', async () => {
@@ -33,7 +36,7 @@ describe('API', () => {
       .post('/api/plan')
       .send({ items: [{ id: '1', name: 'Toffifee', qty: 1, wordId: null }], chains: ['lidl', 'aldi'] });
     expect(res.status).toBe(200);
-    expect(res.body.picks).toHaveLength(1);
+    expect(res.body.stores[0].picks).toHaveLength(1);
   });
 
   it('POST /api/plan rejects an unknown supermarket', async () => {

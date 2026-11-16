@@ -2,19 +2,25 @@
 // If the backend is not running, the app uses the same logic with the built-in data files,
 // so the app still works in a demo. The screens don't need to know which one answered.
 import { getStores } from './dataSource';
-import { pickForStores, type PickResult } from './pick';
+import { planPerStore, type StorePlan } from './pick';
 import { getProspektOffers } from './prospekt';
 import { wordById } from './words';
 import type { Chain, ListItem } from '../types';
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:4000';
 
-export interface PlanResult extends PickResult {
+export interface PlanResult {
+  stores: StorePlan[]; // one plan per supermarket the user picked, best first
+  offerCount: number;
   chains: Chain[];
   source: 'server' | 'local';
 }
 
-// The plan for the user's own supermarkets. Server first; without it the same logic runs on the built-in data.
+// What the plan screen gets from Analyze, or passes to and from the checklist (with the chosen supermarket).
+export type PlanState = PlanResult | { result: PlanResult; chain?: Chain } | undefined;
+export const resultOf = (s: PlanState) => (s && 'result' in s ? s.result : s);
+
+// One plan per supermarket the user picked. Server first; without it the same logic runs on the built-in data.
 export async function fetchPlan(items: ListItem[], chains: Chain[]): Promise<PlanResult> {
   const useChains = chains.length ? chains : getStores().map((s) => s.chain);
   const body = { items: items.map(({ id, name, qty, wordId }) => ({ id, name, qty, wordId: wordId ?? null })), chains: useChains };
@@ -26,11 +32,11 @@ export async function fetchPlan(items: ListItem[], chains: Chain[]): Promise<Pla
       signal: AbortSignal.timeout(5000),
     });
     if (!res.ok) throw new Error(`API error ${res.status}`);
-    const data = (await res.json()) as PickResult;
-    if (!Array.isArray(data.picks)) throw new Error('old server');
+    const data = (await res.json()) as { stores: StorePlan[]; offerCount: number };
+    if (!Array.isArray(data.stores)) throw new Error('old server');
     return { ...data, chains: useChains, source: 'server' };
   } catch {
-    return { ...pickForStores(body.items, useChains, getProspektOffers()), chains: useChains, source: 'local' };
+    return { ...planPerStore(body.items, useChains, getProspektOffers()), chains: useChains, source: 'local' };
   }
 }
 

@@ -4,12 +4,12 @@ import { BottomAction, PrimaryButton, Screen, SectionLabel } from '../components
 import ReportSheet from '../components/ReportSheet';
 import { IconCheck, IconClose } from '../components/icons';
 import { getCategories, getStores } from '../lib/dataSource';
-import { fetchPlan, type PlanResult } from '../lib/api';
+import { fetchPlan, resultOf, type PlanResult, type PlanState } from '../lib/api';
 import type { Pick } from '../lib/pick';
 import { euro } from '../lib/plan';
 import { newId } from '../lib/parseList';
 import { getGuestId, getList, getMyChains, saveList, saveTrip } from '../lib/storage';
-import type { ListItem, ShoppingList } from '../types';
+import type { Chain, ListItem, ShoppingList } from '../types';
 
 export default function Shop() {
   const { id = '' } = useParams();
@@ -17,19 +17,22 @@ export default function Shop() {
   const location = useLocation();
   const [list, setList] = useState<ShoppingList | undefined>(() => getList(id));
   // The plan: passed from the plan screen, or asked again after a reload.
-  const [result, setResult] = useState<PlanResult | undefined>(location.state as PlanResult | undefined);
+  const [result, setResult] = useState<PlanResult | undefined>(() => resultOf(location.state as PlanState));
+  // The one supermarket the user shops in (from the plan screen; the best one after a reload).
+  const chain = (location.state as { chain?: Chain } | undefined)?.chain;
   const [reporting, setReporting] = useState<Pick | null>(null);
 
   useEffect(() => {
-    if (!result && list) fetchPlan(list.items, getMyChains()).then(setResult);
+    if ((!result || !Array.isArray(result.stores)) && list) fetchPlan(list.items, getMyChains()).then(setResult);
   }, [result, list]);
 
   if (!list) return <Navigate to="/lists" replace />;
-  if (!result) return <Screen><p className="text-muted">Loading your list…</p></Screen>;
+  if (!result || !Array.isArray(result.stores)) return <Screen><p className="text-muted">Loading your list…</p></Screen>;
 
   const stores = getStores();
-  const pickFor = (itemId: string) => result.picks.find((p) => p.itemId === itemId);
-  const storeOf = (p?: Pick) => stores.find((s) => s.chain === p?.chain);
+  const plan = result.stores.find((s) => s.chain === chain) ?? result.stores[0];
+  const store = stores.find((s) => s.chain === plan.chain)!;
+  const pickFor = (itemId: string) => plan.picks.find((p) => p.itemId === itemId);
   const done = list.items.filter((i) => i.checked).length;
   const total = list.items.length;
 
@@ -38,7 +41,6 @@ export default function Shop() {
   const groups = getCategories()
     .map((c) => ({ key: c.id, label: c.label, items: list.items.filter((i) => (known.has(i.categoryId) ? i.categoryId : 'other') === c.id) }))
     .filter((g) => g.items.length > 0);
-  const usedStores = stores.filter((s) => result.picks.some((p) => p.kind === 'offer' && p.chain === s.chain)).map((s) => s.name);
 
   function toggle(itemId: string) {
     const next = { ...list!, items: list!.items.map((i) => (i.id === itemId ? { ...i, checked: !i.checked } : i)) };
@@ -49,13 +51,12 @@ export default function Shop() {
   function finish() {
     // The trip counts only what was put in the cart.
     const bought = list!.items.filter((i) => i.checked).map((i) => pickFor(i.id));
-    const firstStore = storeOf(bought.find((p) => p?.chain)) ?? stores[0];
     const trip = {
       id: newId(),
       ownerId: getGuestId(),
       listId: list!.id,
-      storeId: firstStore.id,
-      storeName: usedStores.join(' + ') || firstStore.name,
+      storeId: store.id,
+      storeName: store.name,
       itemCount: bought.length,
       total: Math.round(bought.reduce((s, p) => s + (p?.price ?? 0), 0) * 100) / 100,
       saved: Math.round(bought.reduce((s, p) => s + (p?.saving ?? 0), 0) * 100) / 100,
@@ -92,9 +93,7 @@ export default function Shop() {
             <span className="flex min-w-0 items-center gap-1.5 text-xs text-faint">
               {priced ? (
                 <>
-                  <span className="shrink-0 rounded-full bg-save px-2 py-0.5 text-[11px] font-extrabold tracking-wide text-white uppercase">
-                    {storeOf(p)?.name}
-                  </span>
+                  <span className="shrink-0 rounded-full bg-save px-2 py-0.5 text-[11px] font-extrabold tracking-wide text-white uppercase">Offer</span>
                   <span className="truncate">{p.title}</span>
                 </>
               ) : (
@@ -126,14 +125,14 @@ export default function Shop() {
     <Screen>
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-0.5">
-          <span className="text-sm font-bold text-muted">Shopping at {usedStores.join(' + ') || 'your supermarkets'}</span>
+          <span className="text-sm font-bold text-muted">Shopping at {store.name}</span>
           <h1 className="text-[28px] font-extrabold tracking-tight">
             {done} of {total} in cart
           </h1>
         </div>
         <button
           type="button"
-          onClick={() => navigate(`/list/${list.id}/plan`, { state: result })}
+          onClick={() => navigate(`/list/${list.id}/plan`, { state: { result, chain: plan.chain } })}
           aria-label="Close checklist"
           className="flex size-11 items-center justify-center rounded-full bg-white"
         >
@@ -152,7 +151,7 @@ export default function Shop() {
         </section>
       ))}
 
-      {reporting && storeOf(reporting) && <ReportSheet line={reporting} store={storeOf(reporting)!} onClose={() => setReporting(null)} />}
+      {reporting && <ReportSheet line={reporting} store={store} onClose={() => setReporting(null)} />}
 
       <BottomAction>
         <PrimaryButton onClick={finish} disabled={done === 0}>

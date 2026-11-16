@@ -4,6 +4,7 @@
 //   - pack sizes are compared by the price per kg / per litre printed in the Prospekt,
 //   - a saving is shown only when the Prospekt prints the old price ("statt").
 import { findOffers } from './search.js';
+import { findWord } from './words.js';
 
 type Chain = 'rewe' | 'lidl' | 'aldi' | 'kaufland' | 'penny' | 'netto';
 
@@ -75,7 +76,9 @@ export function byValue(a: PickOffer, b: PickOffer): number {
 export function pickForStores(items: PickItem[], chains: Chain[], prospekt: PickOffer[]): PickResult {
   const mine = prospekt.filter((o) => chains.includes(o.chain));
   const picks: Pick[] = items.map((item) => {
-    const best = findOffers(item.name, mine, 50, item.wordId).sort(byValue)[0];
+    // Lists saved before the search words existed have no wordId: find it from the name.
+    const wordId = item.wordId ?? findWord(item.name)?.id ?? null;
+    const best = findOffers(item.name, mine, 50, wordId).sort(byValue)[0];
     if (!best) {
       return { itemId: item.id, name: item.name, qty: item.qty, kind: 'none', chain: null, title: null, unitInfo: null, packPrice: null, price: 0, saving: 0, perUnit: null };
     }
@@ -101,4 +104,21 @@ export function pickForStores(items: PickItem[], chains: Chain[], prospekt: Pick
     saved: round(picks.reduce((s, p) => s + p.saving, 0)),
     offerCount: mine.length,
   };
+}
+
+// One plan per supermarket the user picked, best first: the most items on offer, then the biggest saving.
+// The user shops in ONE supermarket; the others are shown for comparison.
+export interface StorePlan extends PickResult {
+  chain: Chain;
+  onOffer: number;
+}
+
+export function planPerStore(items: PickItem[], chains: Chain[], prospekt: PickOffer[]): { stores: StorePlan[]; offerCount: number } {
+  const stores = chains
+    .map((chain) => {
+      const r = pickForStores(items, [chain], prospekt);
+      return { ...r, chain, onOffer: r.picks.filter((p) => p.kind === 'offer').length };
+    })
+    .sort((a, b) => b.onOffer - a.onOffer || b.saved - a.saved || a.total - b.total);
+  return { stores, offerCount: prospekt.filter((o) => chains.includes(o.chain)).length };
 }

@@ -4,7 +4,7 @@ import express, { type NextFunction, type Request, type Response } from 'express
 import { ZodError } from 'zod';
 import { aiConfigured } from './ai.js';
 import { matchWithAi } from './lib/aiMatch.js';
-import { pickForStores } from './lib/pick.js';
+import { planPerStore } from './lib/pick.js';
 import { findOffers } from './lib/search.js';
 import type { Repo } from './repo.js';
 import { MatchRequest, PlanRequest, ReportRequest } from './schemas.js';
@@ -26,12 +26,12 @@ export function createApp(repo: Repo, clientUrl = '*') {
     }
   });
 
-  // The main feature: list + the user's supermarkets in, the cheapest real price per item out.
+  // The main feature: list + the user's supermarkets in, one plan per supermarket out (best first).
   app.post('/api/plan', async (req, res, next) => {
     try {
       const { items, chains } = PlanRequest.parse(req.body);
       const [stores, prospekt] = await Promise.all([repo.stores(), repo.prospektOffers()]);
-      res.json(pickForStores(items, chains ?? stores.map((s) => s.chain), prospekt));
+      res.json(planPerStore(items, chains ?? stores.map((s) => s.chain), prospekt));
     } catch (err) {
       next(err);
     }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { perUnitFromInfo, pickForStores } from '../src/lib/pick.js';
+import { perUnitFromInfo, pickForStores, planPerStore } from '../src/lib/pick.js';
 
 // Test offers (not app data), so the numbers don't change with each week's Prospekte.
 const prospekt = [
@@ -31,6 +31,18 @@ describe('pickForStores', () => {
     const r = pickForStores([butter, { id: 'x', name: 'Toffifee', qty: 1, wordId: null }], ['aldi'], prospekt);
     expect(r.picks.map((p) => p.kind)).toEqual(['none', 'none']);
     expect(r.total).toBe(0);
+  });
+
+  it('one plan per supermarket, the one with the most offers first', () => {
+    const r = planPerStore([butter, milk], ['aldi', 'kaufland', 'lidl'], prospekt);
+    expect(r.stores[0].onOffer).toBe(1);
+    expect(r.stores.map((s) => s.chain)).toEqual(['kaufland', 'aldi', 'lidl']); // same count: the bigger saving first (Kaufland €1.00), then the lower total (ALDI €0.99)
+    expect(r.stores.every((s) => s.picks.every((p) => p.chain === null || p.chain === s.chain))).toBe(true);
+  });
+
+  it('finds the search word for lists saved without one ("Milk" is not chocolate)', () => {
+    const choc = { chain: 'rewe' as const, title: 'Alpenmilch Schokolade', price: 1.29, regularPrice: null, unitInfo: null };
+    expect(pickForStores([{ id: 'm', name: 'Milk', qty: 1, wordId: null }], ['rewe'], [choc]).picks[0].kind).toBe('none');
   });
 
   it('reads the price per kg / litre', () => {
