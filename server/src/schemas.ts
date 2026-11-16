@@ -68,6 +68,8 @@ export const PlanRequest = z.object({
     )
     .min(1)
     .max(100),
+  // The supermarkets the user goes to. Missing = all six.
+  chains: z.array(z.enum(['rewe', 'lidl', 'aldi', 'kaufland', 'penny', 'netto'])).min(1).max(6).optional(),
 });
 export type PlanRequest = z.infer<typeof PlanRequest>;
 

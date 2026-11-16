@@ -1,5 +1,14 @@
 # Changelog
 
+## Your supermarkets
+- New step "Where do you shop?": the user picks one or more of the six supermarkets (saved on the phone, changeable on Home)
+- The plan only uses those supermarkets: for each item the cheapest real price, grouped by store ("At Kaufland · 7 items")
+  - an offer from this week's Prospekt of one of their stores, or REWE's normal shop price when it is cheaper (e.g. milk: REWE €0.85 vs. offers)
+  - pack sizes compared by the price per kg/l printed in the Prospekt; big packs (a 12 l crate for 1 l of milk) go last
+  - a saving only when the Prospekt prints the old price, or for REWE offers vs. REWE's own price; no estimated prices for other stores
+- No more long list of every offer; the checklist is grouped by store
+- API: POST /api/plan takes `chains`; tests for the new logic (27 passing); axe: 0 problems on the new screens
+
 ## Accessibility & search accuracy
 - Accessibility (WCAG 2.1 AA): axe finds 0 problems on all 10 screens (before: color contrast on 9 screens, missing main/h1, unnamed progress bar)
   - Color tokens fixed at the source: `faint` #8a8d99 → #6c6f7c, `save` #0fa968 → #0a8752 (4.5:1)

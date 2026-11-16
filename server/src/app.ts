@@ -5,7 +5,7 @@ import { ZodError } from 'zod';
 import { aiConfigured } from './ai.js';
 import { matchWithAi } from './lib/aiMatch.js';
 import { ALIASES } from './lib/match.js';
-import { rankStores } from './lib/plan.js';
+import { pickForStores } from './lib/pick.js';
 import { findOffers } from './lib/search.js';
 import type { Repo } from './repo.js';
 import { MatchRequest, PlanRequest, ReportRequest } from './schemas.js';
@@ -36,37 +36,12 @@ export function createApp(repo: Repo, clientUrl = '*') {
     }
   });
 
-  // The main feature: list in, stores ranked by price out.
+  // The main feature: list + the user's supermarkets in, the cheapest real price per item out.
   app.post('/api/plan', async (req, res, next) => {
     try {
-      const { items } = PlanRequest.parse(req.body);
-      const [stores, products, offers, prospekt] = await Promise.all([
-        repo.stores(),
-        repo.products(),
-        repo.currentOffers(),
-        repo.prospektOffers(),
-      ]);
-      const storeName = (chain: string) => stores.find((s) => s.chain === chain)?.name ?? chain;
-      // For every item: all Prospekt offers that match its name, also outside our catalog.
-      const itemOffers = items
-        .map((item) => ({
-          itemId: item.id,
-          name: item.name,
-          offers: findOffers(item.name, prospekt, item.productId ? ALIASES[item.productId] ?? [] : [], 6, item.productId).map((o) => ({
-            chain: o.chain,
-            storeName: storeName(o.chain),
-            title: o.title,
-            price: o.price,
-            regularPrice: o.regularPrice,
-            unitInfo: o.unitInfo,
-          })),
-        }))
-        .filter((i) => i.offers.length > 0);
-      res.json({
-        plans: rankStores(items, stores, products, offers),
-        offerCount: offers.length + prospekt.length,
-        itemOffers,
-      });
+      const { items, chains } = PlanRequest.parse(req.body);
+      const [stores, products, prospekt] = await Promise.all([repo.stores(), repo.products(), repo.prospektOffers()]);
+      res.json(pickForStores(items, chains ?? stores.map((s) => s.chain), products, prospekt, ALIASES));
     } catch (err) {
       next(err);
     }

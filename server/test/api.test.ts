@@ -18,20 +18,28 @@ describe('API', () => {
     expect(res.body.products.length).toBeGreaterThan(20);
   });
 
-  it('POST /api/plan ranks stores', async () => {
+  it('POST /api/plan returns one pick per item for the user’s supermarkets', async () => {
     const res = await request(app)
       .post('/api/plan')
-      .send({ items: [{ id: '1', name: 'Milk', qty: 2, productId: 'milk-1l' }] });
+      .send({ items: [{ id: '1', name: 'Milk', qty: 2, productId: 'milk-1l' }], chains: ['rewe'] });
     expect(res.status).toBe(200);
-    expect(res.body.plans).toHaveLength(6);
+    expect(res.body.picks).toHaveLength(1);
+    expect(res.body.picks[0].chain).toBe('rewe'); // an offer or REWE's normal price, never another store
   });
 
-  it('POST /api/plan also returns Prospekt offers per item (also outside the catalog)', async () => {
+  it('POST /api/plan keeps items outside the catalog on the list', async () => {
     const res = await request(app)
       .post('/api/plan')
-      .send({ items: [{ id: '1', name: 'Toffifee', qty: 1, productId: null }] });
+      .send({ items: [{ id: '1', name: 'Toffifee', qty: 1, productId: null }], chains: ['lidl', 'aldi'] });
     expect(res.status).toBe(200);
-    expect(Array.isArray(res.body.itemOffers)).toBe(true); // empty once this week's Prospekte expire
+    expect(res.body.picks).toHaveLength(1);
+  });
+
+  it('POST /api/plan rejects an unknown supermarket', async () => {
+    const res = await request(app)
+      .post('/api/plan')
+      .send({ items: [{ id: '1', name: 'Milk', qty: 1, productId: 'milk-1l' }], chains: ['edeka'] });
+    expect(res.status).toBe(400);
   });
 
   it('POST /api/plan rejects bad input with 400', async () => {

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { sendReport, type ReportInput } from '../lib/api';
-import type { PlanLine } from '../lib/plan';
+import type { Pick } from '../lib/pick';
 import type { Store } from '../types';
 
 // "Wrong price?" → the user tells us what is wrong. Bad data is the biggest risk of the app,
@@ -11,7 +11,7 @@ const KINDS: { id: ReportInput['kind']; label: string }[] = [
   { id: 'not_in_store', label: 'Not in the store' },
 ];
 
-export default function ReportSheet({ line, store, onClose }: { line: PlanLine; store: Store; onClose: () => void }) {
+export default function ReportSheet({ line, store, onClose }: { line: Pick; store: Store; onClose: () => void }) {
   const [kind, setKind] = useState<ReportInput['kind']>('wrong_price');
   const [price, setPrice] = useState('');
   const [state, setState] = useState<'idle' | 'sending' | 'sent' | 'failed'>('idle');

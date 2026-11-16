@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router';
 import { IconCheck } from '../components/icons';
-import { getCurrentOffers, getStores } from '../lib/dataSource';
+import { getStores } from '../lib/dataSource';
 import { fetchPlan, type PlanResult } from '../lib/api';
-import { getList } from '../lib/storage';
+import { getList, getMyChains } from '../lib/storage';
 import { getProspektOffers, WEEK } from '../lib/prospekt';
 
 // The "working on it" moment between the list and the plan.
@@ -20,9 +20,10 @@ export default function Analyze() {
   const { id = '' } = useParams();
   const navigate = useNavigate();
   const list = getList(id);
-  const stores = getStores();
-  // This week's real offers: every Prospekt offer plus the ones matched to our products.
-  const offers = [...getProspektOffers(), ...getCurrentOffers()];
+  const [chains] = useState(getMyChains);
+  // Only the user's supermarkets and their Prospekte.
+  const stores = getStores().filter((s) => chains.includes(s.chain));
+  const offers = getProspektOffers().filter((o) => chains.includes(o.chain));
 
   // Steps: one per store Prospekt, then "match items", then "compare".
   const totalSteps = stores.length + 2;
@@ -32,10 +33,10 @@ export default function Analyze() {
 
   // Ask the backend once, while the steps play.
   useEffect(() => {
-    if (!list || started.current) return;
+    if (!list || !chains.length || started.current) return;
     started.current = true;
-    fetchPlan(list.items).then(setResult);
-  }, [list]);
+    fetchPlan(list.items, chains).then(setResult);
+  }, [list, chains]);
 
   useEffect(() => {
     const fast = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -49,6 +50,7 @@ export default function Analyze() {
   }, [step, totalSteps, id, navigate, result]);
 
   if (!list) return <Navigate to="/lists" replace />;
+  if (!chains.length) return <Navigate to={`/stores?next=/list/${id}/analyze`} replace />;
 
   const weeks = Object.values(WEEK);
   const from = offers.length ? new Date(`${weeks.map((w) => w.from).sort()[0]}T00:00:00`) : null;
@@ -86,11 +88,11 @@ export default function Analyze() {
         <ul className="flex flex-col gap-5">
           {stores.map((s, i) => row(`${s.name} Prospekt`, step > i, step === i))}
           {row(`Matching your ${count} ${count === 1 ? 'item' : 'items'}`, matchDone, step === stores.length)}
-          {row('Finding the cheapest store', compareDone, step === stores.length + 1)}
+          {row('Finding the best price for each item', compareDone, step === stores.length + 1)}
         </ul>
       </div>
 
-      <p className="text-center text-sm text-faint">{offers.length} offers this week from {stores.length} supermarkets</p>
+      <p className="text-center text-sm text-faint">{offers.length} offers this week from your {stores.length === 1 ? 'supermarket' : `${stores.length} supermarkets`}</p>
     </main>
   );
 }

@@ -1,65 +1,36 @@
 // Talking to the backend (Express).
 // If the backend is not running, the app uses the same logic with the built-in data files,
 // so the app still works in a demo. The screens don't need to know which one answered.
-import { getCurrentOffers, getProducts, getStores } from './dataSource';
+import { getProducts, getStores } from './dataSource';
 import { ALIASES } from './parseList';
-import { rankStores, type StorePlan } from './plan';
+import { pickForStores, type PickResult } from './pick';
 import { getProspektOffers } from './prospekt';
-import { findOffers } from './search';
-import type { ListItem } from '../types';
+import type { Chain, ListItem } from '../types';
 
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:4000';
 
-// Where an item on the list is on offer this week, from the full Prospekte (also things outside our catalog).
-export interface ItemOffers {
-  itemId: string;
-  name: string;
-  offers: { chain: string; storeName: string; title: string; price: number; regularPrice: number | null; unitInfo: string | null }[];
-}
-
-export interface PlanResult {
-  plans: StorePlan[];
-  offerCount: number;
-  itemOffers?: ItemOffers[];
+export interface PlanResult extends PickResult {
+  chains: Chain[];
   source: 'server' | 'local';
 }
 
-function localItemOffers(items: ListItem[]): { itemOffers: ItemOffers[]; count: number } {
-  const prospekt = getProspektOffers();
-  const storeName = (chain: string) => getStores().find((s) => s.chain === chain)?.name ?? chain;
-  const itemOffers = items
-    .map((item) => ({
-      itemId: item.id,
-      name: item.name,
-      offers: findOffers(item.name, prospekt, item.productId ? ALIASES[item.productId] ?? [] : [], 6, item.productId).map((o) => ({
-        ...o,
-        storeName: storeName(o.chain),
-      })),
-    }))
-    .filter((i) => i.offers.length > 0);
-  return { itemOffers, count: prospekt.length };
-}
-
-export async function fetchPlan(items: ListItem[]): Promise<PlanResult> {
+// The plan for the user's own supermarkets. Server first; without it the same logic runs on the built-in data.
+export async function fetchPlan(items: ListItem[], chains: Chain[]): Promise<PlanResult> {
+  const useChains = chains.length ? chains : getStores().map((s) => s.chain);
+  const body = { items: items.map(({ id, name, qty, productId }) => ({ id, name, qty, productId })), chains: useChains };
   try {
     const res = await fetch(`${API_URL}/api/plan`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ items: items.map(({ id, name, qty, productId }) => ({ id, name, qty, productId })) }),
+      body: JSON.stringify(body),
       signal: AbortSignal.timeout(5000),
     });
     if (!res.ok) throw new Error(`API error ${res.status}`);
-    const data = (await res.json()) as { plans: StorePlan[]; offerCount: number };
-    return { ...data, source: 'server' };
+    const data = (await res.json()) as PickResult;
+    if (!Array.isArray(data.picks)) throw new Error('old server');
+    return { ...data, chains: useChains, source: 'server' };
   } catch {
-    const offers = getCurrentOffers();
-    const { itemOffers, count } = localItemOffers(items);
-    return {
-      plans: rankStores(items, getStores(), getProducts(), offers),
-      offerCount: offers.length + count,
-      itemOffers,
-      source: 'local',
-    };
+    return { ...pickForStores(body.items, useChains, getProducts(), getProspektOffers(), ALIASES), chains: useChains, source: 'local' };
   }
 }
 

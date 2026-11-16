@@ -1,7 +1,8 @@
 import { Link } from 'react-router';
 import { Screen } from '../components/ui';
 import { IconPen } from '../components/icons';
-import { getLists, getTrips } from '../lib/storage';
+import { getLists, getMyChains, getTrips } from '../lib/storage';
+import { getStores } from '../lib/dataSource';
 import { euro } from '../lib/plan';
 
 
@@ -20,20 +21,30 @@ export default function Home() {
     return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
   });
   const saved = monthTrips.reduce((s, t) => s + t.saved, 0);
+  const myChains = getMyChains();
+  const myStores = getStores().filter((s) => myChains.includes(s.chain));
 
   return (
     <Screen nav>
       <p className="text-[15px] font-bold text-muted">{greeting()}</p>
       <h1 className="mb-2 text-[34px] leading-[1.1] font-extrabold tracking-tight">What are we buying this week?</h1>
 
-      <Link to="/new" className="animate-rise flex flex-col gap-7 rounded-[28px] bg-white p-6 transition hover:shadow-md">
+      <Link to={myChains.length ? '/new' : '/stores?next=/new'} className="animate-rise flex flex-col gap-7 rounded-[28px] bg-white p-6 transition hover:shadow-md">
         <span className="flex size-12 items-center justify-center rounded-2xl bg-brand text-white">
           <IconPen className="size-6" />
         </span>
         <span className="flex flex-col gap-1">
           <span className="text-2xl font-extrabold tracking-tight">Write my list</span>
-          <span className="text-[15px] text-muted">Type it. We check this week’s Prospekte.</span>
+          <span className="text-[15px] text-muted">Type it. We check this week’s Prospekte of your supermarkets.</span>
         </span>
+      </Link>
+
+      <Link to="/stores" className="flex items-center justify-between gap-3 rounded-[22px] bg-white px-[18px] py-3.5">
+        <span className="flex min-w-0 flex-col gap-0.5">
+          <span className="text-[13px] font-bold text-muted">Your supermarkets</span>
+          <span className="truncate text-[15px] font-extrabold">{myStores.length ? myStores.map((s) => s.name).join(', ') : 'Not picked yet'}</span>
+        </span>
+        <span className="shrink-0 rounded-full bg-brand-soft px-3.5 py-2 text-[13px] font-extrabold text-brand">{myStores.length ? 'Change' : 'Pick'}</span>
       </Link>
 
       {lastList && (

@@ -2,12 +2,13 @@
 // Each browser gets a random guest id, and lists and trips are saved in localStorage.
 // Later the same functions can call the API instead (lists and trips get the user id).
 
-import type { ShoppingList, Trip } from '../types';
+import type { Chain, ShoppingList, Trip } from '../types';
 
 const KEYS = {
   guestId: 'spart:guestId',
   lists: 'spart:lists',
   trips: 'spart:trips:v2',
+  chains: 'spart:chains',
 };
 
 function read<T>(key: string, fallback: T): T {
@@ -65,4 +66,13 @@ export function getTrip(id: string): Trip | undefined {
 
 export function saveTrip(trip: Trip): void {
   write(KEYS.trips, [...read<Trip[]>(KEYS.trips, []), trip]);
+}
+
+// The supermarkets the user goes to (asked once, changeable on Home). Empty = not asked yet.
+export function getMyChains(): Chain[] {
+  return read<Chain[]>(KEYS.chains, []);
+}
+
+export function saveMyChains(chains: Chain[]): void {
+  write(KEYS.chains, chains);
 }
