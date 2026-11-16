@@ -1,20 +1,11 @@
 [
   {
-    "id": "penny-butter-250g-2026-11-08",
-    "chain": "penny",
-    "productId": "butter-250g",
-    "price": 1.15,
-    "validFrom": "2026-11-08T23:00:00.000Z",
-    "validTo": "2026-11-15T22:59:59.999Z",
-    "source": "Penny Prospekt \"Wer günstig will, muss Penny.\" (9.–15.11.2026), Siegburg, read from kaufDA"
-  },
-  {
-    "id": "penny-pasta-500g-2026-11-08",
+    "id": "penny-pasta-500g-2026-11-15",
     "chain": "penny",
     "productId": "pasta-500g",
     "price": 0.79,
-    "validFrom": "2026-11-08T23:00:00.000Z",
-    "validTo": "2026-11-15T22:59:59.999Z",
-    "source": "Penny Prospekt \"Wer günstig will, muss Penny.\" (9.–15.11.2026), Siegburg, read from kaufDA"
+    "validFrom": "2026-11-15T23:00:00.000Z",
+    "validTo": "2026-11-21T22:59:59.999Z",
+    "source": "Penny Prospekt KW 47 (16.-21.11.2026), Siegburg, read from kaufDA. Offer: Pasta 500 g (1 kg = 1.58). Sizes worked out from the price per kg/l where the pack differs."
   }
 ]

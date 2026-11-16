@@ -1,5 +1,11 @@
 # Changelog
 
+## Weekly data update · KW 47 (16.–21.11.2026)
+- New Prospekt offers for Siegburg, read from kaufDA (ALDI SÜD from aldi-sued.de): 700 offers — REWE 144, Kaufland 181, Penny 131, Netto 124, Lidl 65, ALDI 55
+- 17 offers matched to our 27 products (data/imported/)
+- Last week's offers are deleted: on start the server replaces both the Prospekt offers and the matched offers in MongoDB
+- Search test now uses the current Prospekt week, so it keeps working after each update
+
 ## v0.3 · Week 3
 
 **New features**

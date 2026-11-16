@@ -6,12 +6,12 @@ import { endOfDay } from './week.js';
 
 // When each Prospekt is valid. Update this when new Prospekte are added.
 export const PROSPEKT_WEEK: Record<Chain, { from: string; to: string }> = {
-  rewe: { from: '2026-11-09', to: '2026-11-14' },
-  lidl: { from: '2026-11-09', to: '2026-11-14' },
-  aldi: { from: '2026-11-09', to: '2026-11-14' },
-  kaufland: { from: '2026-11-09', to: '2026-11-14' },
-  penny: { from: '2026-11-09', to: '2026-11-15' },
-  netto: { from: '2026-11-09', to: '2026-11-14' },
+  rewe: { from: '2026-11-16', to: '2026-11-21' },
+  lidl: { from: '2026-11-16', to: '2026-11-21' },
+  aldi: { from: '2026-11-16', to: '2026-11-21' },
+  kaufland: { from: '2026-11-16', to: '2026-11-21' },
+  penny: { from: '2026-11-16', to: '2026-11-21' },
+  netto: { from: '2026-11-16', to: '2026-11-21' },
 };
 
 export function parseProspekt(chain: Chain, text: string): ProspektOffer[] {
