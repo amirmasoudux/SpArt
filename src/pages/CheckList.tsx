@@ -18,7 +18,6 @@ export default function CheckList() {
 
   const products = getProducts();
   const count = list.items.reduce((s, i) => s + i.qty, 0);
-  const unknown = list.items.filter((i) => !i.productId);
 
   function update(next: ShoppingList) {
     setList(next);
@@ -59,15 +58,6 @@ export default function CheckList() {
     <Screen>
       <TopBar label="Step 2 of 2" back="/lists" />
       <Title>Check your list</Title>
-
-      {unknown.length > 0 && (
-        <div className="flex flex-col gap-1 rounded-[22px] bg-warn-soft p-4 text-warn-ink">
-          <p className="text-[15px] font-extrabold">
-            {unknown.length === 1 ? '1 item we don’t know yet' : `${unknown.length} items we don’t know yet`}
-          </p>
-          <p className="text-sm">We still look for them by name in your supermarkets’ Prospekte. Tap one to rename it.</p>
-        </div>
-      )}
 
       {list.items.length === 0 && (
         <p className="rounded-[22px] bg-white p-5 text-center text-muted">Your list is empty. Add some items.</p>
@@ -110,7 +100,7 @@ export default function CheckList() {
                     >
                       <span className="truncate text-base font-extrabold">{item.name}</span>
                       <span className="text-xs font-bold text-faint">
-                        {item.productId ? item.unit : 'Searched by name'} · tap to edit
+                        {item.productId ? `${item.unit} · ` : ''}tap to edit
                       </span>
                     </button>
                     <div className="flex items-center gap-0.5 rounded-full bg-bg p-0.5">
