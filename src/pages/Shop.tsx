@@ -84,7 +84,7 @@ export default function Shop() {
         </button>
       </div>
 
-      <div className="h-2 overflow-hidden rounded-full bg-line" role="progressbar" aria-valuemin={0} aria-valuemax={total} aria-valuenow={done}>
+      <div className="h-2 overflow-hidden rounded-full bg-line" role="progressbar" aria-label="Items in your basket" aria-valuemin={0} aria-valuemax={total} aria-valuenow={done}>
         <div className="h-full rounded-full bg-save transition-all" style={{ width: `${total ? (done / total) * 100 : 0}%` }} />
       </div>
 

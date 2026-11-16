@@ -52,7 +52,7 @@ export function createApp(repo: Repo, clientUrl = '*') {
         .map((item) => ({
           itemId: item.id,
           name: item.name,
-          offers: findOffers(item.name, prospekt, item.productId ? ALIASES[item.productId] ?? [] : []).map((o) => ({
+          offers: findOffers(item.name, prospekt, item.productId ? ALIASES[item.productId] ?? [] : [], 6, item.productId).map((o) => ({
             chain: o.chain,
             storeName: storeName(o.chain),
             title: o.title,

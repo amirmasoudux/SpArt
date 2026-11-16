@@ -47,7 +47,7 @@ export default function Plan() {
       <section aria-label="Best store" className="animate-rise flex flex-col gap-5 rounded-[28px] bg-white p-6">
         <div className="flex flex-col gap-1.5">
           <span className="text-sm font-bold text-muted">Cheapest for your list this week</span>
-          <span className="text-4xl leading-none font-extrabold tracking-tight">Go to {best.store.name}</span>
+          <h1 className="text-4xl leading-none font-extrabold tracking-tight">Go to {best.store.name}</h1>
           <span className="text-sm text-muted">Your basket ≈ {euro(best.basketTotal)}</span>
         </div>
         <div className="flex flex-col gap-1">

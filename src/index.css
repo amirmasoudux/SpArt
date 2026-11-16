@@ -5,14 +5,14 @@
   --font-sans: 'Manrope', system-ui, sans-serif;
   --color-ink: #0e0f14;
   --color-muted: #6b6e7b;
-  --color-faint: #8a8d99;
+  --color-faint: #6c6f7c; /* 4.5:1 on bg (WCAG AA) */
   --color-line: #e4e5eb;
   --color-bg: #f6f6f9;
   --color-brand: #5b3df5;
   --color-brand-dark: #4326d9;
   --color-brand-soft: #f1eeff;
   --color-brand-ink: #3a22c9;
-  --color-save: #0fa968;
+  --color-save: #0a8752; /* 4.5:1 with white text (WCAG AA) */
   --color-save-ink: #0a7a4b;
   --color-save-soft: #e3f7ee;
   --color-warn-soft: #fff4e5;
@@ -40,4 +40,10 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* Keyboard users always see where they are (WCAG 2.4.7). */
+:focus-visible {
+  outline: 3px solid var(--color-brand);
+  outline-offset: 2px;
 }

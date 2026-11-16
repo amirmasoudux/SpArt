@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { sendReport, type ReportInput } from '../lib/api';
 import type { PlanLine } from '../lib/plan';
 import type { Store } from '../types';
@@ -24,9 +24,26 @@ export default function ReportSheet({ line, store, onClose }: { line: PlanLine; 
     setState(ok ? 'sent' : 'failed');
   }
 
+  // Like every dialog: focus moves into it, Escape closes it.
+  // Runs once when the sheet opens (the latest onClose is read from a ref).
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef(onClose);
+  closeRef.current = onClose;
+  useEffect(() => {
+    const opener = document.activeElement as HTMLElement | null;
+    dialogRef.current?.querySelector<HTMLElement>('button, input')?.focus();
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && closeRef.current();
+    window.addEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      opener?.focus(); // back to the "Wrong price?" link that opened it
+    };
+  }, []);
+
   return (
     <div className="fixed inset-0 z-50 flex flex-col justify-end bg-ink/55" onClick={onClose}>
       <div
+        ref={dialogRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="report-title"

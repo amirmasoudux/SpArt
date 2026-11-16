@@ -62,6 +62,52 @@ export function titleMatches(title: string, terms: string[]): boolean {
     );
 }
 
+// Our 27 products get a precise German word list, so "minced beef" does not show pork mince
+// and "potatoes" does not show crisps. include: whole words or the end of a compound word
+// ("Speisekartoffeln" ends with "kartoffeln"); phrases with a space must appear as they are.
+// exclude: if one of these is in the title, it is a different product.
+const PRODUCT_TERMS: Record<string, { include: string[]; exclude?: string[] }> = {
+  'milk-1l': { include: ['frische milch', 'haltbare milch', 'frischmilch', 'vollmilch', 'weidemilch', 'fettarme milch', 'landmilch'], exclude: ['schoko', 'kondensmilch', 'kaffee milch'] },
+  'gouda-400g': { include: ['gouda'] },
+  'greek-yogurt-500g': { include: ['griech joghurt', 'griechischer joghurt', 'griechischer art'] },
+  'butter-250g': { include: ['butter', 'markenbutter', 'almbutter', 'süßrahmbutter'], exclude: ['zopf', 'käse', 'kräuterbutter', 'erdnussbutter', 'croissant', 'kekse', 'cookies', 'cracker', 'schmalz', 'stollen'] },
+  'eggs-10': { include: ['eier', 'freilandeier', 'bodenhaltung'] },
+  'bananas-1kg': { include: ['banane', 'bananen'], exclude: ['am stiel', 'schoko', 'quark'] },
+  'tomatoes-500g': { include: ['tomaten', 'tomate'], exclude: ['pesto', 'rucola', 'sauce', 'gehackt', 'passiert', 'polpa', 'pizza', 'getrocknet'] },
+  cucumber: { include: ['gurke', 'gurken'], exclude: ['aufstrich', 'gewürz', 'einlege', 'cornichon'] },
+  'onions-1kg': { include: ['zwiebel', 'zwiebeln'], exclude: ['lauchzwiebel', 'mettwurst', 'röst'] },
+  'apples-1kg': { include: ['apfel', 'äpfel'], exclude: ['smoothie', 'saft', 'mus', 'dreieck', 'kuchen', 'riegel', 'tasche', 'granat'] },
+  'potatoes-2kg': { include: ['kartoffeln'], exclude: ['marzipan', 'herzogin', 'snack', 'salat', 'gratin', 'rösti', 'brot', 'taschen', 'bowl', 'pfanne'] },
+  'wholegrain-bread': { include: ['vollkornbrot', 'vollkorn brot'] },
+  'toast-bread': { include: ['toast', 'toastbrot', 'buttertoast'], exclude: ['toasty', 'chick n'] },
+  'chicken-breast-600g': { include: ['hähnchenbrust', 'hähnchenbrustfilet', 'hähnchenbrustfilets', 'hähnchen brustfilet', 'hähnchenbrustfilet teilstücke'], exclude: ['aufschnitt', 'roulade', 'croissant'] },
+  'minced-beef-500g': { include: ['rinderhackfleisch', 'rinder hackfleisch', 'hackfleisch vom rind'] },
+  'basmati-rice-1kg': { include: ['basmati', 'basmatireis'] },
+  'pasta-500g': { include: ['spaghetti', 'fusilli', 'penne', 'pasta', 'teigwaren', 'nudeln', 'tagliatelle', 'maccaroni'], exclude: ['pot', 'spinaci', 'sauce', 'toscana', 'fertig', 'creamy', 'protein', 'eierspätzle', 'fix ', 'zahn'] },
+  'coffee-500g': { include: ['kaffee', 'röstkaffee', 'krönung', 'prodomo', 'kaffeebohnen'], exclude: ['pads', 'kapseln', 'löslich', 'milch', 'tassimo', 'gold kaffee', 'eis', 'cappuccino'] },
+  'olive-oil-750ml': { include: ['olivenöl'] },
+  'canned-tomatoes-400g': { include: ['polpa', 'passata', 'gehackte tomaten', 'tomaten fein gehackt', 'geschälte tomaten'] },
+  'frozen-pizza': { include: ['pizza', 'steinofenpizza', 'steinofen pizza', 'steinoffenpizza'], exclude: ['teig', 'käse', 'kit', 'sauce', 'gewürz'] },
+  'frozen-spinach-450g': { include: ['spinat', 'rahmspinat', 'rahm spinat'], exclude: ['pasta', 'lachs'] },
+  'sparkling-water-6x1-5l': { include: ['mineralwasser', 'sprudel'] },
+  'orange-juice-1l': { include: ['orangensaft', 'o saft'] },
+  'dish-soap': { include: ['spülmittel', 'geschirrspülmittel'], exclude: ['maschine', 'tabs'] },
+  'toilet-paper-8': { include: ['toilettenpapier', 'klopapier'] },
+  'laundry-detergent': { include: ['waschmittel', 'vollwaschmittel', 'colorwaschmittel', 'universal pulver', 'waschmittelpods', 'sunil', 'persil'] },
+};
+
+// Does the title name this product? (see PRODUCT_TERMS)
+export function productMatches(title: string, productId: string): boolean {
+  const rule = PRODUCT_TERMS[productId];
+  if (!rule) return false;
+  const t = ` ${normalize(title)} `;
+  if ((rule.exclude ?? []).some((x) => t.includes(x))) return false;
+  const words = t.trim().split(' ');
+  return rule.include.some((term) =>
+    term.includes(' ') ? t.includes(` ${term} `) : words.some((w) => w === term || (term.length >= 4 && w.endsWith(term))),
+  );
+}
+
 export interface OfferLike {
   chain: string;
   title: string;
@@ -70,9 +116,15 @@ export interface OfferLike {
   unitInfo: string | null;
 }
 
-// Offers for one item, cheapest first.
-export function findOffers<T extends OfferLike>(itemName: string, offers: T[], extra: string[] = [], limit = 6): T[] {
-  const terms = searchTerms(itemName, extra);
-  if (terms.length === 0) return [];
-  return offers.filter((o) => titleMatches(o.title, terms)).sort((a, b) => a.price - b.price).slice(0, limit);
+// Offers for one item, cheapest first. Items that are one of our products use the precise word list;
+// anything else the user typed ("Toffifee", "chocolate") is found by its own words.
+export function findOffers<T extends OfferLike>(itemName: string, offers: T[], extra: string[] = [], limit = 6, productId?: string | null): T[] {
+  const match =
+    productId && PRODUCT_TERMS[productId]
+      ? (o: T) => productMatches(o.title, productId)
+      : (() => {
+          const terms = searchTerms(itemName, extra);
+          return (o: T) => terms.length > 0 && titleMatches(o.title, terms);
+        })();
+  return offers.filter(match).sort((a, b) => a.price - b.price).slice(0, limit);
 }

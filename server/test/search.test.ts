@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { loadDemoData } from '../src/repo.js';
-import { findOffers, titleMatches } from '../src/lib/search.js';
+import { findOffers, productMatches, titleMatches } from '../src/lib/search.js';
 import { PROSPEKT_WEEK } from '../src/lib/prospekt.js';
 
 // A day inside the current Prospekt week, so the test keeps working after each weekly update.
@@ -27,5 +27,19 @@ describe('Prospekt search', () => {
     expect(titleMatches('Lauchzwiebeln', ['zwiebeln'])).toBe(false);
     expect(titleMatches('Speisezwiebeln gelb', ['zwiebeln'])).toBe(true);
     expect(titleMatches('Milchreis', ['reis'])).toBe(false);
+  });
+
+  it('finds the right product for our catalog items, not look-alikes', () => {
+    expect(productMatches('Rinderhackfleisch', 'minced-beef-500g')).toBe(true);
+    expect(productMatches('Frisches Rinder-Hackfleisch', 'minced-beef-500g')).toBe(true);
+    expect(productMatches('Schweine-Hackfleisch', 'minced-beef-500g')).toBe(false); // pork
+    expect(productMatches('Rinderrouladen', 'minced-beef-500g')).toBe(false);
+    expect(productMatches('Dtsch. Speisekartoffeln', 'potatoes-2kg')).toBe(true);
+    expect(productMatches('Kartoffel-Snacks', 'potatoes-2kg')).toBe(false); // crisps
+    expect(productMatches('Marzipankartoffeln', 'potatoes-2kg')).toBe(false);
+    expect(productMatches('Hähnchen-Keule', 'chicken-breast-600g')).toBe(false); // leg, not breast
+    expect(productMatches('Frische Hähnchenbrustfilets', 'chicken-breast-600g')).toBe(true);
+    expect(productMatches('Zahnpasta', 'pasta-500g')).toBe(false);
+    expect(productMatches('Granatapfel', 'apples-1kg')).toBe(false);
   });
 });

@@ -1,5 +1,15 @@
 # Changelog
 
+## Accessibility & search accuracy
+- Accessibility (WCAG 2.1 AA): axe finds 0 problems on all 10 screens (before: color contrast on 9 screens, missing main/h1, unnamed progress bar)
+  - Color tokens fixed at the source: `faint` #8a8d99 → #6c6f7c, `save` #0fa968 → #0a8752 (4.5:1)
+  - Visible focus ring for keyboard users (`:focus-visible`)
+  - "Wrong price?" sheet: focus moves into it, Escape closes it, focus returns to the link
+  - Every screen has a `main` landmark and one `h1`; the shopping progress bar has a name
+- Lighthouse (local production build, mobile): Accessibility 94 → 100, SEO 91 → 100 (robots.txt), Performance 98–99
+- "In this week's Prospekte" for our 27 products uses a precise German word list per product:
+  no more pork mince for "minced beef", crisps for "potatoes" or chicken legs for "chicken breast" (tests added)
+
 ## Real data only · before Demo Day
 - No made-up data any more: the 41 demo offers are deleted (server and app); the app's built-in fallback uses this week's real offers
 - Normal prices: the real REWE online-shop price (Siegburg) is the estimate for all six stores, so the best offers decide the winner. Frozen spinach and toilet paper have no real price, so they show as "not in our price list"
