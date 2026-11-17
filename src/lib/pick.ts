@@ -34,6 +34,7 @@ export interface Pick {
   price: number; // packPrice × qty (0 for none)
   saving: number; // (old price − offer price) × qty, 0 when the Prospekt prints no old price
   perUnit: { value: number; unit: 'kg' | 'l' } | null;
+  bigPack: string | null; // "12 l" when the only offer is a big pack (worked out from the Prospekt's price per kg/l)
 }
 
 export interface PickResult {
@@ -59,6 +60,12 @@ const isBig = (o: PickOffer) => {
   return Boolean(u && o.price / u.value > BIG_PACK);
 };
 
+// 8.88 at "1 l = 0.74" → "12 l"
+function packAmount(o: PickOffer): string | null {
+  const u = perUnitFromInfo(o.unitInfo);
+  return u ? `${Math.round(o.price / u.value)} ${u.unit}` : null;
+}
+
 // Cheapest first: normal packs before big packs; by price per kg/l when the Prospekt prints it,
 // then the others by pack price.
 export function byValue(a: PickOffer, b: PickOffer): number {
@@ -80,7 +87,7 @@ export function pickForStores(items: PickItem[], chains: Chain[], prospekt: Pick
     const wordId = item.wordId ?? findWord(item.name)?.id ?? null;
     const best = findOffers(item.name, mine, 50, wordId).sort(byValue)[0];
     if (!best) {
-      return { itemId: item.id, name: item.name, qty: item.qty, kind: 'none', chain: null, title: null, unitInfo: null, packPrice: null, price: 0, saving: 0, perUnit: null };
+      return { itemId: item.id, name: item.name, qty: item.qty, kind: 'none', chain: null, title: null, unitInfo: null, packPrice: null, price: 0, saving: 0, perUnit: null, bigPack: null };
     }
     const saving = best.regularPrice && best.regularPrice > best.price ? best.regularPrice - best.price : 0;
     return {
@@ -95,6 +102,7 @@ export function pickForStores(items: PickItem[], chains: Chain[], prospekt: Pick
       price: round(best.price * item.qty),
       saving: round(saving * item.qty),
       perUnit: perUnitFromInfo(best.unitInfo),
+      bigPack: isBig(best) ? packAmount(best) : null,
     };
   });
 

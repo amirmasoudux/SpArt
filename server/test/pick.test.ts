@@ -27,6 +27,12 @@ describe('pickForStores', () => {
     expect(pickForStores([milk], ['aldi'], prospekt).picks[0].title).toBe('Frische Vollmilch 1 l');
   });
 
+  it('says when the only offer is a big pack', () => {
+    const crate = prospekt.filter((o) => o.title.startsWith('H-Vollmilch'));
+    expect(pickForStores([milk], ['aldi'], crate).picks[0].bigPack).toBe('12 l');
+    expect(pickForStores([milk], ['aldi'], prospekt).picks[0].bigPack).toBeNull();
+  });
+
   it('no offer at the user’s stores → no price (no estimate)', () => {
     const r = pickForStores([butter, { id: 'x', name: 'Toffifee', qty: 1, wordId: null }], ['aldi'], prospekt);
     expect(r.picks.map((p) => p.kind)).toEqual(['none', 'none']);

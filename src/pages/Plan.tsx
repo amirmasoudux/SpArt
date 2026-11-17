@@ -24,6 +24,7 @@ function PickRow({ p }: { p: Pick }) {
           <>
             <span className="truncate text-xs text-muted">
               {p.title}
+              {p.bigPack ? ` · big pack, ${p.bigPack}` : ''}
               {p.perUnit ? ` · ${euro(p.perUnit.value)}/${p.perUnit.unit}` : ''}
             </span>
             <span className="flex flex-wrap items-center gap-2">

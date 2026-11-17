@@ -9,6 +9,8 @@
 - No duplicate items: "Add more items", renaming, and older lists merge the same item into one line and add up the quantity
 - The chosen supermarket stays after a page reload
 - End-to-end check of the whole flow (19 steps) passes; axe: 0 problems
+- When the only offer is a big pack (Netto: 12 l milk for €8.88), the list says "big pack, 12 l"
+- Live test on spart-plum.vercel.app + the real server: 20 steps pass
 
 ## No dummy data
 - Removed the 27-product list I made as dummy data in week 1, its prices and sizes, and the 11 offers matched to it — from the app, the server and MongoDB (the server drops the old collections on start)

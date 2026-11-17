@@ -94,7 +94,10 @@ export default function Shop() {
               {priced ? (
                 <>
                   <span className="shrink-0 rounded-full bg-save px-2 py-0.5 text-[11px] font-extrabold tracking-wide text-white uppercase">Offer</span>
-                  <span className="truncate">{p.title}</span>
+                  <span className="truncate">
+                    {p.title}
+                    {p.bigPack ? ` · big pack, ${p.bigPack}` : ''}
+                  </span>
                 </>
               ) : (
                 <span className="truncate">No offer this week</span>
