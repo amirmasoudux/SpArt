@@ -9,7 +9,8 @@
 - The stores are compared on the whole basket: only items with a price in every chosen store, same amounts (smallest known pack); washing powder, beer and toilet paper are left out (pack sizes too different)
 - Unsized fresh meat/fish offers are read as "per 100 g"; fixed: Wagner "Die Backfrische Mozzarella" pizza was matched as cheese
 - Plan: "Go to X · your basket €…, €… cheaper than Y", every price shows offer or normal price with its source
-- 29 tests; end-to-end 19 steps pass; axe: 0 problems
+- Trip saving: what the same basket costs more at the next-cheapest chosen store (or the Prospekt old prices with one store)
+- 29 tests; end-to-end 19 steps pass; axe: 0 problems; live test on spart-plum.vercel.app + Render/MongoDB passes
 
 ## One supermarket
 - The plan recommends ONE supermarket from the ones the user picked: the most items on offer, then the biggest saving ("Go to Kaufland")

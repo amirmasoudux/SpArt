@@ -46,6 +46,7 @@ export interface Trip {
   storeName: string;
   itemCount: number;
   total: number;
-  saved: number; // money saved through Prospekt offers
+  saved: number; // money saved: vs. the next-cheapest chosen store for the same basket, or through Prospekt offers
+  savedNote?: string; // how: "compared with the same basket at Kaufland" or "with this week’s Prospekt offers"
   date: string;
 }

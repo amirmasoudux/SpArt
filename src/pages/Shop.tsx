@@ -48,6 +48,17 @@ export default function Shop() {
     saveList(next);
   }
 
+  // What going to this store saved: the same basket at the next-cheapest chosen store costs more.
+  // With one store only: the old prices printed in the Prospekt.
+  function tripSaving(): { saved: number; savedNote: string } {
+    const next = result!.stores.filter((s) => s.chain !== plan.chain).sort((a, b) => a.basket - b.basket)[0];
+    if (next && next.basket > plan.basket) {
+      return { saved: Math.round((next.basket - plan.basket) * 100) / 100, savedNote: `compared with the same basket at ${stores.find((s) => s.chain === next.chain)?.name}` };
+    }
+    const offers = list!.items.filter((i) => i.checked).reduce((s, i) => s + (pickFor(i.id)?.saving ?? 0), 0);
+    return { saved: Math.round(offers * 100) / 100, savedNote: 'with this week’s Prospekt offers' };
+  }
+
   function finish() {
     // The trip counts only what was put in the cart.
     const bought = list!.items.filter((i) => i.checked).map((i) => pickFor(i.id));
@@ -59,7 +70,7 @@ export default function Shop() {
       storeName: store.name,
       itemCount: bought.length,
       total: Math.round(bought.reduce((s, p) => s + (p?.price ?? 0), 0) * 100) / 100,
-      saved: Math.round(bought.reduce((s, p) => s + (p?.saving ?? 0), 0) * 100) / 100,
+      ...tripSaving(),
       date: new Date().toISOString(),
     };
     saveTrip(trip);

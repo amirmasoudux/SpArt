@@ -40,7 +40,7 @@ export default function Done() {
           {euro(shown)}
         </p>
         <p className="text-[15px] leading-relaxed text-white">
-          At {trip.storeName} · {trip.itemCount} items · {euro(trip.total)} · thanks to this week’s Prospekt offers.
+          {trip.savedNote ? `${trip.savedNote[0].toUpperCase()}${trip.savedNote.slice(1)}. ` : ''}At {trip.storeName} · {trip.itemCount} items · {euro(trip.total)}.
         </p>
       </div>
       <div className="flex flex-col gap-3 rounded-[28px] bg-white/15 p-5">
