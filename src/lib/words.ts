@@ -28,7 +28,7 @@ export const WORDS: SearchWord[] = [
   // Dairy & eggs
   { id: 'milk', name: 'Milk', category: 'dairy', words: ['milk', 'milch'], include: ['frische milch', 'haltbare milch', 'frischmilch', 'vollmilch', 'weidemilch', 'fettarme milch', 'landmilch'], exclude: ['schoko', 'kondensmilch', 'kaffee milch'] },
   { id: 'gouda', name: 'Gouda', category: 'dairy', words: ['gouda', 'gauda'], include: ['gouda'] },
-  { id: 'cheese', name: 'Cheese', category: 'dairy', words: ['cheese', 'käse', 'kaese'], include: ['käse', 'gouda', 'emmentaler', 'mozzarella', 'cheddar', 'edamer', 'bergkäse', 'leerdammer'], exclude: ['kuchen', 'pizza', 'käsekuchen', 'sahne', 'spätzle'] },
+  { id: 'cheese', name: 'Cheese', category: 'dairy', words: ['cheese', 'käse', 'kaese'], include: ['käse', 'gouda', 'emmentaler', 'mozzarella', 'cheddar', 'edamer', 'bergkäse', 'leerdammer'], exclude: ['kuchen', 'pizza', 'käsekuchen', 'sahne', 'spätzle', 'backfrische', 'ofenfrische', 'baguette'] },
   { id: 'greek-yogurt', name: 'Greek yogurt', category: 'dairy', words: ['greek yogurt', 'greek yoghurt', 'griechischer joghurt'], include: ['griech joghurt', 'griechischer joghurt', 'griechischer art'] },
   { id: 'yogurt', name: 'Yogurt', category: 'dairy', words: ['yogurt', 'yoghurt', 'joghurt'], include: ['joghurt'], exclude: ['butter', 'riegel', 'drops'] },
   { id: 'butter', name: 'Butter', category: 'dairy', words: ['butter'], include: ['butter', 'markenbutter', 'almbutter', 'süßrahmbutter'], exclude: ['zopf', 'käse', 'kräuterbutter', 'erdnussbutter', 'croissant', 'kekse', 'cookies', 'cracker', 'schmalz', 'stollen'] },

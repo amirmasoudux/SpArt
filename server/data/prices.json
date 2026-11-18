@@ -1,0 +1,812 @@
+[
+ {
+  "wordId": "milk",
+  "chain": "rewe",
+  "price": 0.85,
+  "size": "1 l",
+  "title": "ja! Frische fettarme Milch 1,5%",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "butter",
+  "chain": "rewe",
+  "price": 1.15,
+  "size": "250 g",
+  "title": "ja! Markenbutter mild gesäuert",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "cheese",
+  "chain": "rewe",
+  "price": 1.65,
+  "size": "250 g",
+  "title": "ja! Gouda jung",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "gouda",
+  "chain": "rewe",
+  "price": 1.65,
+  "size": "250 g",
+  "title": "ja! Gouda jung",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "yogurt",
+  "chain": "rewe",
+  "price": 0.79,
+  "size": "500 g",
+  "title": "ja! Fettarmer Joghurt mild 1,5%",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "greek-yogurt",
+  "chain": "rewe",
+  "price": 1.39,
+  "size": "600 g",
+  "title": "ja! Joghurt Griechischer Art Natur",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "eggs",
+  "chain": "rewe",
+  "price": 2.49,
+  "size": "10 eggs",
+  "title": "ja! Frische Eier aus Bodenhaltung",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "bananas",
+  "chain": "rewe",
+  "price": 1.3,
+  "size": "1 kg",
+  "title": "ja! Banane",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "tomatoes",
+  "chain": "rewe",
+  "price": 1.35,
+  "size": "500 g",
+  "title": "Rispentomaten",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "cucumber",
+  "chain": "rewe",
+  "price": 1.09,
+  "size": "1 piece",
+  "title": "Salatgurke",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "onions",
+  "chain": "rewe",
+  "price": 1.49,
+  "size": "1 kg",
+  "title": "Speisezwiebeln im Netz",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "apples",
+  "chain": "rewe",
+  "price": 1.59,
+  "size": "1 kg",
+  "title": "Apfel rot",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "potatoes",
+  "chain": "rewe",
+  "price": 2.69,
+  "size": "2 kg",
+  "title": "Kartoffeln festkochend",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "bread",
+  "chain": "rewe",
+  "price": 0.89,
+  "size": "500 g",
+  "title": "ja! Roggen-Vollkornbrot",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "wholegrain-bread",
+  "chain": "rewe",
+  "price": 0.89,
+  "size": "500 g",
+  "title": "ja! Roggen-Vollkornbrot",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "toast",
+  "chain": "rewe",
+  "price": 0.89,
+  "size": "500 g",
+  "title": "ja! Butter-Toastbrot",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "rice",
+  "chain": "rewe",
+  "price": 2.49,
+  "size": "1 kg",
+  "title": "ja! Basmati Reis",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "pasta",
+  "chain": "rewe",
+  "price": 0.69,
+  "size": "500 g",
+  "title": "ja! Spaghetti",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "coffee",
+  "chain": "rewe",
+  "price": 4.49,
+  "size": "500 g",
+  "title": "ja! kräftiger Röstkaffee",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "olive-oil",
+  "chain": "rewe",
+  "price": 5.99,
+  "size": "750 ml",
+  "title": "ja! Natives Olivenöl extra",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "canned-tomatoes",
+  "chain": "rewe",
+  "price": 0.59,
+  "size": "400 g",
+  "title": "ja! Tomaten fein gehackt",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "pizza",
+  "chain": "rewe",
+  "price": 1.99,
+  "size": "350 g",
+  "title": "Dr. Oetker Pizza Tradizionale Margherita",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "orange-juice",
+  "chain": "rewe",
+  "price": 1.39,
+  "size": "1 l",
+  "title": "ja! Orangensaft",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "dish-soap",
+  "chain": "rewe",
+  "price": 0.85,
+  "size": "1 l",
+  "title": "ja! Geschirrspülmittel Classic",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "detergent",
+  "chain": "rewe",
+  "price": 3.15,
+  "size": "1.1 l (20 loads)",
+  "title": "ja! Vollwaschmittel",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-10"
+ },
+ {
+  "wordId": "chocolate",
+  "chain": "rewe",
+  "price": 0.79,
+  "size": "100 g",
+  "title": "ja! Alpenvollmilch-Schokolade",
+  "source": "REWE online shop, Siegburg",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "chicken-breast",
+  "chain": "rewe",
+  "price": 5.99,
+  "size": "400 g",
+  "title": "Hähnchenbrust",
+  "source": "Open Prices",
+  "date": "2025-11-24"
+ },
+ {
+  "wordId": "minced-beef",
+  "chain": "rewe",
+  "price": 6.49,
+  "size": "500 g",
+  "title": "Rinderhackfleisch",
+  "source": "Open Prices",
+  "date": "2025-10-18"
+ },
+ {
+  "wordId": "water",
+  "chain": "rewe",
+  "price": 0.29,
+  "size": "1.5 l",
+  "title": "Mineralwasser",
+  "source": "Open Prices",
+  "date": "2026-08-17"
+ },
+ {
+  "wordId": "toilet-paper",
+  "chain": "rewe",
+  "price": 2.65,
+  "size": "pack",
+  "title": "Toilettenpapier",
+  "source": "Open Prices",
+  "date": "2026-08-17"
+ },
+ {
+  "wordId": "milk",
+  "chain": "aldi",
+  "price": 0.85,
+  "size": "1 l",
+  "title": "H-Milch 1,5 %",
+  "source": "ALDI SÜD website",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "butter",
+  "chain": "aldi",
+  "price": 1.15,
+  "size": "250 g",
+  "title": "Deutsche Markenbutter",
+  "source": "ALDI SÜD website",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "pasta",
+  "chain": "aldi",
+  "price": 0.69,
+  "size": "500 g",
+  "title": "Spaghetti",
+  "source": "ALDI SÜD website",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "rice",
+  "chain": "aldi",
+  "price": 1.39,
+  "size": "1 kg",
+  "title": "Parboiled Reis",
+  "source": "ALDI SÜD website",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "pizza",
+  "chain": "aldi",
+  "price": 2.99,
+  "size": "350 g",
+  "title": "Holzofen Pizza Tricolore",
+  "source": "ALDI SÜD website",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "cheese",
+  "chain": "aldi",
+  "price": 1.65,
+  "size": "250 g",
+  "title": "Gouda jung",
+  "source": "ALDI SÜD website",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "gouda",
+  "chain": "aldi",
+  "price": 1.65,
+  "size": "250 g",
+  "title": "Gouda jung",
+  "source": "ALDI SÜD website",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "chocolate",
+  "chain": "aldi",
+  "price": 0.79,
+  "size": "100 g",
+  "title": "Vollmilch Schokolade",
+  "source": "ALDI SÜD website",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "yogurt",
+  "chain": "aldi",
+  "price": 0.89,
+  "size": "500 g",
+  "title": "Joghurt 3,5 % Fett, mild",
+  "source": "ALDI SÜD website",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "chicken-breast",
+  "chain": "aldi",
+  "price": 6.79,
+  "size": "600 g",
+  "title": "Hähnchen-Brustfilet",
+  "source": "ALDI SÜD website",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "minced-beef",
+  "chain": "aldi",
+  "price": 5.79,
+  "size": "500 g",
+  "title": "Hackfleisch vom Rind",
+  "source": "ALDI SÜD website",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "salmon",
+  "chain": "aldi",
+  "price": 5.79,
+  "size": "300 g",
+  "title": "Lachsfilet",
+  "source": "ALDI SÜD website",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "coffee",
+  "chain": "aldi",
+  "price": 5.49,
+  "size": "500 g",
+  "title": "Kaffee Gold",
+  "source": "ALDI SÜD website",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "water",
+  "chain": "aldi",
+  "price": 0.29,
+  "size": "1.5 l",
+  "title": "Natürliches Mineralwasser Classic",
+  "source": "ALDI SÜD website",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "dish-soap",
+  "chain": "aldi",
+  "price": 0.95,
+  "size": "500 ml",
+  "title": "Spülmittel Aloe Vera",
+  "source": "ALDI SÜD website",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "toilet-paper",
+  "chain": "aldi",
+  "price": 2.55,
+  "size": "8 rolls",
+  "title": "Toilettenpapier 3-lagig, 8 x 220 Blatt",
+  "source": "ALDI SÜD website",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "bread",
+  "chain": "aldi",
+  "price": 0.95,
+  "size": "375 g",
+  "title": "Bio-Roggenvollkornbrot",
+  "source": "ALDI SÜD website",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "wholegrain-bread",
+  "chain": "aldi",
+  "price": 0.95,
+  "size": "375 g",
+  "title": "Bio-Roggenvollkornbrot",
+  "source": "ALDI SÜD website",
+  "date": "2026-11-18"
+ },
+ {
+  "wordId": "bananas",
+  "chain": "aldi",
+  "price": 1.29,
+  "size": "1 kg",
+  "title": "Bananen",
+  "source": "Open Prices",
+  "date": "2026-05-27"
+ },
+ {
+  "wordId": "potatoes",
+  "chain": "aldi",
+  "price": 1.69,
+  "size": "1 kg",
+  "title": "Drillinge Speisekartoffeln",
+  "source": "Open Prices",
+  "date": "2025-10-04"
+ },
+ {
+  "wordId": "tomatoes",
+  "chain": "aldi",
+  "price": 1.59,
+  "size": "300 g",
+  "title": "Mini-Roma-Rispentomaten",
+  "source": "Open Prices",
+  "date": "2026-07-22"
+ },
+ {
+  "wordId": "apples",
+  "chain": "aldi",
+  "price": 1.39,
+  "size": "1 kg",
+  "title": "Äpfel rot",
+  "source": "Open Prices",
+  "date": "2025-10-18"
+ },
+ {
+  "wordId": "milk",
+  "chain": "lidl",
+  "price": 0.85,
+  "size": "1 l",
+  "title": "Fettarme Milch",
+  "source": "Open Prices",
+  "date": "2026-06-04"
+ },
+ {
+  "wordId": "butter",
+  "chain": "lidl",
+  "price": 1.05,
+  "size": "250 g",
+  "title": "Süßrahmbutter",
+  "source": "Open Prices",
+  "date": "2026-09-07"
+ },
+ {
+  "wordId": "bananas",
+  "chain": "lidl",
+  "price": 1.29,
+  "size": "1 kg",
+  "title": "Banane lose",
+  "source": "Open Prices",
+  "date": "2026-11-14"
+ },
+ {
+  "wordId": "pasta",
+  "chain": "lidl",
+  "price": 0.69,
+  "size": "500 g",
+  "title": "Fusilli",
+  "source": "Open Prices",
+  "date": "2026-08-22"
+ },
+ {
+  "wordId": "pizza",
+  "chain": "lidl",
+  "price": 1.79,
+  "size": "390 g",
+  "title": "Pizza Verdura (vegan)",
+  "source": "Open Prices",
+  "date": "2026-08-22"
+ },
+ {
+  "wordId": "cheese",
+  "chain": "lidl",
+  "price": 0.99,
+  "size": "pack",
+  "title": "Gouda",
+  "source": "Open Prices",
+  "date": "2026-07-11"
+ },
+ {
+  "wordId": "gouda",
+  "chain": "lidl",
+  "price": 0.99,
+  "size": "pack",
+  "title": "Gouda",
+  "source": "Open Prices",
+  "date": "2026-07-11"
+ },
+ {
+  "wordId": "coffee",
+  "chain": "lidl",
+  "price": 13.99,
+  "size": "1 kg",
+  "title": "Espresso Cremoso",
+  "source": "Open Prices",
+  "date": "2025-11-29"
+ },
+ {
+  "wordId": "chocolate",
+  "chain": "lidl",
+  "price": 0.89,
+  "size": "100 g",
+  "title": "Noisette Schokolade",
+  "source": "Open Prices",
+  "date": "2026-07-31"
+ },
+ {
+  "wordId": "bread",
+  "chain": "lidl",
+  "price": 0.89,
+  "size": "500 g",
+  "title": "Roggenvollkornbrot",
+  "source": "Open Prices",
+  "date": "2026-07-08"
+ },
+ {
+  "wordId": "wholegrain-bread",
+  "chain": "lidl",
+  "price": 0.89,
+  "size": "500 g",
+  "title": "Roggenvollkornbrot",
+  "source": "Open Prices",
+  "date": "2026-07-08"
+ },
+ {
+  "wordId": "toast",
+  "chain": "lidl",
+  "price": 0.79,
+  "size": "500 g",
+  "title": "Vollkorntoast",
+  "source": "Open Prices",
+  "date": "2025-11-29"
+ },
+ {
+  "wordId": "salmon",
+  "chain": "lidl",
+  "price": 6.99,
+  "size": "200 g",
+  "title": "Lachsfilet Bio",
+  "source": "Open Prices",
+  "date": "2026-02-24"
+ },
+ {
+  "wordId": "apples",
+  "chain": "lidl",
+  "price": 1.99,
+  "size": "1 kg",
+  "title": "Apfel grün",
+  "source": "Open Prices",
+  "date": "2026-08-25"
+ },
+ {
+  "wordId": "rice",
+  "chain": "lidl",
+  "price": 1.59,
+  "size": "1 kg",
+  "title": "Reis",
+  "source": "Open Prices",
+  "date": "2025-12-22"
+ },
+ {
+  "wordId": "water",
+  "chain": "lidl",
+  "price": 0.29,
+  "size": "1.5 l",
+  "title": "Mineralwasser Medium",
+  "source": "Open Prices",
+  "date": "2026-06-14"
+ },
+ {
+  "wordId": "toilet-paper",
+  "chain": "lidl",
+  "price": 2.69,
+  "size": "pack",
+  "title": "Recycling Toilettenpapier",
+  "source": "Open Prices",
+  "date": "2026-02-13"
+ },
+ {
+  "wordId": "butter",
+  "chain": "kaufland",
+  "price": 1.19,
+  "size": "250 g",
+  "title": "Butter",
+  "source": "Open Prices",
+  "date": "2026-09-22"
+ },
+ {
+  "wordId": "bananas",
+  "chain": "kaufland",
+  "price": 1.29,
+  "size": "1 kg",
+  "title": "Bananen",
+  "source": "Open Prices",
+  "date": "2026-08-14"
+ },
+ {
+  "wordId": "pasta",
+  "chain": "kaufland",
+  "price": 1.58,
+  "size": "1 kg",
+  "title": "Nudeln Fusilli",
+  "source": "Open Prices",
+  "date": "2026-05-16"
+ },
+ {
+  "wordId": "yogurt",
+  "chain": "kaufland",
+  "price": 1.19,
+  "size": "500 g",
+  "title": "Naturjoghurt",
+  "source": "Open Prices",
+  "date": "2026-08-11"
+ },
+ {
+  "wordId": "apples",
+  "chain": "kaufland",
+  "price": 0.99,
+  "size": "1 kg",
+  "title": "Äpfel rot (2 kg bag)",
+  "source": "Open Prices",
+  "date": "2026-05-16"
+ },
+ {
+  "wordId": "toast",
+  "chain": "kaufland",
+  "price": 0.79,
+  "size": "500 g",
+  "title": "Vollkorn Toast",
+  "source": "Open Prices",
+  "date": "2025-12-13"
+ },
+ {
+  "wordId": "cucumber",
+  "chain": "kaufland",
+  "price": 0.69,
+  "size": "1 piece",
+  "title": "Salatgurke",
+  "source": "Open Prices",
+  "date": "2026-05-16"
+ },
+ {
+  "wordId": "milk",
+  "chain": "penny",
+  "price": 0.95,
+  "size": "1 l",
+  "title": "Frische Vollmilch",
+  "source": "Open Prices",
+  "date": "2026-10-01"
+ },
+ {
+  "wordId": "bananas",
+  "chain": "penny",
+  "price": 1.0,
+  "size": "1 kg",
+  "title": "Bananen",
+  "source": "Open Prices",
+  "date": "2026-08-31"
+ },
+ {
+  "wordId": "water",
+  "chain": "penny",
+  "price": 0.29,
+  "size": "1.5 l",
+  "title": "Natürliches Mineralwasser",
+  "source": "Open Prices",
+  "date": "2026-07-07"
+ },
+ {
+  "wordId": "bread",
+  "chain": "penny",
+  "price": 1.19,
+  "size": "pack",
+  "title": "Roggenvollkornbrot",
+  "source": "Open Prices",
+  "date": "2025-07-03"
+ },
+ {
+  "wordId": "wholegrain-bread",
+  "chain": "penny",
+  "price": 1.19,
+  "size": "pack",
+  "title": "Roggenvollkornbrot",
+  "source": "Open Prices",
+  "date": "2025-07-03"
+ },
+ {
+  "wordId": "salmon",
+  "chain": "penny",
+  "price": 5.49,
+  "size": "300 g",
+  "title": "Lachsfilet",
+  "source": "Open Prices",
+  "date": "2025-03-08"
+ },
+ {
+  "wordId": "tomatoes",
+  "chain": "penny",
+  "price": 0.75,
+  "size": "250 g",
+  "title": "Cherry-Roma Tomaten",
+  "source": "Open Prices",
+  "date": "2026-08-31"
+ },
+ {
+  "wordId": "rice",
+  "chain": "penny",
+  "price": 1.99,
+  "size": "1 kg",
+  "title": "Langkorn Spitzenreis",
+  "source": "Open Prices",
+  "date": "2025-04-12"
+ },
+ {
+  "wordId": "cucumber",
+  "chain": "penny",
+  "price": 0.55,
+  "size": "1 piece",
+  "title": "Gurke",
+  "source": "Open Prices",
+  "date": "2026-05-07"
+ },
+ {
+  "wordId": "milk",
+  "chain": "netto",
+  "price": 0.85,
+  "size": "1 l",
+  "title": "Frische Weidemilch 1,5%",
+  "source": "Open Prices",
+  "date": "2026-08-24"
+ },
+ {
+  "wordId": "rice",
+  "chain": "netto",
+  "price": 1.99,
+  "size": "500 g",
+  "title": "Echter Basmati",
+  "source": "Open Prices",
+  "date": "2026-08-29"
+ },
+ {
+  "wordId": "dish-soap",
+  "chain": "netto",
+  "price": 0.85,
+  "size": "1 l",
+  "title": "Balsam-Spülmittel",
+  "source": "Open Prices",
+  "date": "2026-10-30"
+ },
+ {
+  "wordId": "toast",
+  "chain": "netto",
+  "price": 0.89,
+  "size": "500 g",
+  "title": "Toastbrot",
+  "source": "Open Prices",
+  "date": "2026-10-22"
+ },
+ {
+  "wordId": "pasta",
+  "chain": "netto",
+  "price": 1.39,
+  "size": "500 g",
+  "title": "Spaghettini",
+  "source": "Open Prices",
+  "date": "2026-04-25"
+ }
+]

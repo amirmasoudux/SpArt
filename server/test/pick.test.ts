@@ -51,6 +51,26 @@ describe('pickForStores', () => {
     expect(pickForStores([{ id: 'm', name: 'Milk', qty: 1, wordId: null }], ['rewe'], [choc]).picks[0].kind).toBe('none');
   });
 
+  it('uses the normal price when there is no offer, and the cheaper of the two per kg', () => {
+    const normal = [
+      { wordId: 'butter', chain: 'aldi' as const, price: 1.15, size: '250 g', title: 'Markenbutter', source: 'ALDI SÜD website', date: '2026-11-18' },
+      { wordId: 'butter', chain: 'kaufland' as const, price: 1.19, size: '250 g', title: 'Butter', source: 'Open Prices', date: '2026-09-22' },
+      { wordId: 'milk', chain: 'aldi' as const, price: 0.85, size: '1 l', title: 'H-Milch', source: 'ALDI SÜD website', date: '2026-11-18' },
+    ];
+    const aldi = pickForStores([butter, milk], ['aldi'], prospekt, normal).picks;
+    expect(aldi[0]).toMatchObject({ kind: 'normal', price: 2.3, normal: { source: 'ALDI SÜD website' } });
+    expect(aldi[1]).toMatchObject({ kind: 'normal', title: 'H-Milch' }); // 0.85 per litre beats 0.99, and the crate is too big
+    // Kaufland: offer 1.49 (5.96/kg) is dearer than the normal 1.19 (4.76/kg)
+    expect(pickForStores([butter], ['kaufland'], prospekt, normal).picks[0]).toMatchObject({ kind: 'normal', packPrice: 1.19 });
+  });
+
+  it('compares the whole basket only on items every store has a price for', () => {
+    const normal = [{ wordId: 'milk', chain: 'kaufland' as const, price: 0.9, size: '1 l', title: 'Milch', source: 'Open Prices', date: '2026-08-11' }];
+    const r = planPerStore([butter, milk], ['kaufland', 'aldi'], prospekt, normal);
+    expect(r.compared).toEqual(['m']); // ALDI has no butter price → butter is left out
+    expect(r.stores.map((s) => [s.chain, s.basket])).toEqual([['kaufland', 0.9], ['aldi', 0.99]]);
+  });
+
   it('reads the price per kg / litre', () => {
     expect(perUnitFromInfo('ab, 1 l = 1.73')).toEqual({ value: 1.73, unit: 'l' });
     expect(perUnitFromInfo('ab')).toBeNull();

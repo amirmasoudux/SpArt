@@ -11,8 +11,11 @@ import type { Chain } from '../types';
 
 const shortDate = (d: string) => new Date(`${d}T00:00:00`).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
 
-// One line of the shopping list: the item, and its offer in the chosen supermarket if there is one.
-function PickRow({ p }: { p: Pick }) {
+const monthYear = (d: string) => new Date(`${d}T00:00:00`).toLocaleDateString('en-GB', { month: 'short', year: 'numeric' });
+
+// One line of the shopping list: the item and its price in the chosen supermarket —
+// this week's offer, or the normal price (with its source), or no price.
+function PickRow({ p, storeName, compared }: { p: Pick; storeName: string; compared: boolean }) {
   return (
     <li className="flex min-h-[56px] items-center justify-between gap-3 px-[18px] py-2.5">
       <span className="flex min-w-0 flex-1 flex-col gap-1">
@@ -20,10 +23,11 @@ function PickRow({ p }: { p: Pick }) {
           {p.name}
           {p.qty > 1 ? ` × ${p.qty}` : ''}
         </span>
-        {p.kind === 'offer' ? (
+        {p.kind === 'offer' && (
           <>
             <span className="truncate text-xs text-muted">
               {p.title}
+              {p.per100g ? ' · per 100 g' : ''}
               {p.bigPack ? ` · big pack, ${p.bigPack}` : ''}
               {p.perUnit ? ` · ${euro(p.perUnit.value)}/${p.perUnit.unit}` : ''}
             </span>
@@ -32,13 +36,23 @@ function PickRow({ p }: { p: Pick }) {
               {p.saving > 0 && <span className="text-xs font-extrabold text-save-ink">You save {euro(p.saving)}</span>}
             </span>
           </>
-        ) : (
-          <span className="text-xs font-bold text-faint">No offer this week</span>
         )}
+        {p.kind === 'normal' && p.normal && (
+          <>
+            <span className="truncate text-xs text-muted">
+              {p.title} · {p.normal.size}
+            </span>
+            <span className="text-xs text-faint">
+              <span className="font-bold">Normal price</span> · {p.normal.source}, {monthYear(p.normal.date)}
+            </span>
+          </>
+        )}
+        {p.kind === 'none' && <span className="text-xs font-bold text-faint">No price for {storeName} yet</span>}
+        {p.kind !== 'none' && !compared && <span className="text-xs text-faint">Not in the comparison (another store has no price)</span>}
       </span>
-      {p.kind === 'offer' && (
+      {p.kind !== 'none' && (
         <span className="flex shrink-0 flex-col items-end whitespace-nowrap">
-          <span className="text-[15px] font-extrabold text-save-ink">{euro(p.price)}</span>
+          <span className={`text-[15px] font-extrabold ${p.kind === 'offer' ? 'text-save-ink' : ''}`}>{euro(p.price)}</span>
           {p.saving > 0 && <span className="text-xs text-faint line-through">{euro(p.price + p.saving)}</span>}
         </span>
       )}
@@ -61,12 +75,12 @@ export default function Plan() {
   });
 
   useEffect(() => {
-    if ((!result || !Array.isArray(result.stores)) && list && chains.length) fetchPlan(list.items, chains).then(setResult);
+    if ((!result || !Array.isArray(result.stores) || !Array.isArray(result.compared)) && list && chains.length) fetchPlan(list.items, chains).then(setResult);
   }, [result, list, chains]);
 
   if (!list) return <Navigate to="/lists" replace />;
   if (!chains.length) return <Navigate to={`/stores?next=/list/${id}/analyze`} replace />;
-  if (!result || !Array.isArray(result.stores)) return <Screen><p className="text-muted">Loading your plan…</p></Screen>;
+  if (!result || !Array.isArray(result.stores) || !Array.isArray(result.compared)) return <Screen><p className="text-muted">Loading your plan…</p></Screen>;
 
   const stores = getStores();
   const nameOf = (c: Chain) => stores.find((s) => s.chain === c)?.name ?? c;
@@ -86,6 +100,8 @@ export default function Plan() {
     }))
     .filter((g) => g.picks.length > 0);
   const week = WEEK[plan.chain];
+  const comparedCount = result.compared.length;
+  const isCompared = (itemId: string) => result.compared.includes(itemId);
 
   return (
     <Screen>
@@ -93,18 +109,29 @@ export default function Plan() {
 
       <section aria-label="Summary" className="animate-rise flex flex-col gap-5 rounded-[28px] bg-white p-6">
         <div className="flex flex-col gap-1.5">
-          <span className="text-sm font-bold text-muted">{plan.chain === best.chain ? 'Best for your list this week' : 'Your choice'}</span>
+          <span className="text-sm font-bold text-muted">
+            {plan.chain === best.chain ? (result.stores.length > 1 ? 'Cheapest for your list' : 'Your supermarket') : 'Your choice'}
+          </span>
           <h1 className="text-[34px] leading-none font-extrabold tracking-tight">Go to {nameOf(plan.chain)}</h1>
           <span className="text-sm text-muted">
-            {plan.onOffer} of {plan.picks.length} items on offer{plan.onOffer > 0 ? ` · ${euro(plan.total)}` : ''}
+            {plan.priced} of {plan.picks.length} items with a price · {plan.onOffer} on offer
           </span>
         </div>
-        {plan.saved > 0 && (
-          <div className="flex flex-col gap-1">
-            <span className="text-[13px] font-bold text-muted">You save with these offers</span>
-            <span className="text-[52px] leading-none font-extrabold tracking-tight text-save">{euro(plan.saved)}</span>
-          </div>
-        )}
+        <div className="flex flex-col gap-1">
+          <span className="text-[13px] font-bold text-muted">
+            {result.stores.length > 1 ? `Your basket · ${comparedCount} items with a price in every store, same amounts` : 'Your basket'}
+          </span>
+          <span className="text-[52px] leading-none font-extrabold tracking-tight">{euro(result.stores.length > 1 ? plan.basket : plan.total)}</span>
+          {result.stores.length > 1 && plan.chain === best.chain && result.stores[1] && result.stores[1].basket > plan.basket && (
+            <span className="text-sm font-extrabold text-save-ink">
+              {euro(result.stores[1].basket - plan.basket)} cheaper than {nameOf(result.stores[1].chain)}
+            </span>
+          )}
+          <span className="text-[13px] text-muted">
+            At the shelf, your packs: {euro(plan.total)}
+            {plan.saved > 0 ? ` · offers save you ${euro(plan.saved)}` : ''}
+          </span>
+        </div>
       </section>
 
       {result.stores.length > 1 && (
@@ -126,9 +153,8 @@ export default function Plan() {
                   className={`flex min-w-[118px] shrink-0 flex-col items-start gap-0.5 rounded-[20px] border-2 bg-white px-4 py-3 text-left ${on ? 'border-brand' : 'border-transparent'}`}
                 >
                   <span className="text-[15px] font-extrabold">{nameOf(s.chain)}</span>
-                  <span className="text-xs text-muted">
-                    {s.onOffer} on offer{s.saved > 0 ? ` · save ${euro(s.saved)}` : ''}
-                  </span>
+                  <span className="text-sm font-bold">{euro(s.basket)}</span>
+                  <span className="text-xs text-muted">{s.onOffer} on offer</span>
                 </button>
               );
             })}
@@ -141,15 +167,16 @@ export default function Plan() {
           <SectionLabel>{g.label}</SectionLabel>
           <ul className="rounded-[24px] bg-white py-1.5">
             {g.picks.map((p) => (
-              <PickRow key={p.itemId} p={p} />
+              <PickRow key={p.itemId} p={p} storeName={nameOf(plan.chain)} compared={isCompared(p.itemId)} />
             ))}
           </ul>
         </section>
       ))}
 
       <p className="px-1.5 text-xs text-faint">
-        Offers: {nameOf(plan.chain)} Prospekt in Siegburg ({shortDate(week.from)} – {shortDate(week.to)}). Only real offers, no other prices. Pack
-        sizes are compared by the price per kg or litre when the Prospekt prints it. A saving is shown when the Prospekt prints the old price.
+        Offers: {nameOf(plan.chain)} Prospekt in Siegburg ({shortDate(week.from)} – {shortDate(week.to)}). Normal prices: ALDI SÜD website, REWE online
+        shop (Siegburg) and Open Prices (receipts and shelf labels in Germany). No estimates: an item without a real price is left out of the
+        comparison. A saving is shown when the Prospekt prints the old price.
         {result.source === 'local' ? ' (Built-in data, server offline.)' : ''}{' '}
         <Link to={`/stores?next=/list/${list.id}/analyze`} className="font-bold text-brand underline">
           Change supermarkets

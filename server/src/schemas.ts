@@ -35,6 +35,19 @@ export const ProspektOffer = z.object({
 });
 export type ProspektOffer = z.infer<typeof ProspektOffer>;
 
+// A normal (not discounted) price of one store, for items that are not on offer this week.
+// Real data only: ALDI SÜD website, REWE online shop (Siegburg) or Open Prices (receipts and shelf labels).
+export const NormalPrice = z.object({
+  wordId: z.string(), // search word, see lib/words.ts
+  chain: Chain,
+  price: z.number().positive(),
+  size: z.string(), // "500 g", "1 l", "pack"
+  title: z.string(),
+  source: z.string(),
+  date: z.string(), // when the price was seen, YYYY-MM-DD
+});
+export type NormalPrice = z.infer<typeof NormalPrice>;
+
 // What the app sends to get a plan.
 export const PlanRequest = z.object({
   items: z

@@ -93,22 +93,26 @@ export default function Shop() {
             <span className="flex min-w-0 items-center gap-1.5 text-xs text-faint">
               {priced ? (
                 <>
-                  <span className="shrink-0 rounded-full bg-save px-2 py-0.5 text-[11px] font-extrabold tracking-wide text-white uppercase">Offer</span>
+                  {p.kind === 'offer' ? (
+                    <span className="shrink-0 rounded-full bg-save px-2 py-0.5 text-[11px] font-extrabold tracking-wide text-white uppercase">Offer</span>
+                  ) : (
+                    <span className="shrink-0 text-[11px] font-extrabold tracking-wide uppercase">Normal</span>
+                  )}
                   <span className="truncate">
                     {p.title}
                     {p.bigPack ? ` · big pack, ${p.bigPack}` : ''}
                   </span>
                 </>
               ) : (
-                <span className="truncate">No offer this week</span>
+                <span className="truncate">No price yet</span>
               )}
             </span>
           </span>
         </button>
         {priced && (
           <span className="flex shrink-0 flex-col items-end gap-0.5">
-            <span className="text-[15px] font-extrabold text-save-ink">{euro(p.price)}</span>
-            {p.title && (
+            <span className={`text-[15px] font-extrabold ${p.kind === 'offer' ? 'text-save-ink' : ''}`}>{euro(p.price)}</span>
+            {p.kind === 'offer' && p.title && (
               <button
                 type="button"
                 onClick={() => setReporting(p)}

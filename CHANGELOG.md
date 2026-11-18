@@ -1,5 +1,16 @@
 # Changelog
 
+## Whole basket, real normal prices
+- New price database (`server/data/prices.json`, MongoDB `normal_prices`): 90 real normal prices for 6 chains, each with source and date
+  - REWE: online shop of the Siegburg market (Barbarastr.), checked 10. and 18.11.2026
+  - ALDI SÜD: official website, checked 18.11.2026
+  - Lidl, Kaufland, Penny, Netto: Open Prices (receipts and shelf labels in Germany; Lidl/Kaufland/Penny/Netto publish no normal prices online)
+- For every item and store: this week's offer, or the normal price when there is no offer or it is cheaper per kg/l (e.g. Netto's 12-litre crate)
+- The stores are compared on the whole basket: only items with a price in every chosen store, same amounts (smallest known pack); washing powder, beer and toilet paper are left out (pack sizes too different)
+- Unsized fresh meat/fish offers are read as "per 100 g"; fixed: Wagner "Die Backfrische Mozzarella" pizza was matched as cheese
+- Plan: "Go to X · your basket €…, €… cheaper than Y", every price shows offer or normal price with its source
+- 29 tests; end-to-end 19 steps pass; axe: 0 problems
+
 ## One supermarket
 - The plan recommends ONE supermarket from the ones the user picked: the most items on offer, then the biggest saving ("Go to Kaufland")
 - The other picked supermarkets are shown as cards (offers + saving); tap one to see the list for that store

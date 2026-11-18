@@ -38,6 +38,21 @@ export const ProspektOfferModel = model(
   }).index({ validFrom: 1, validTo: 1 }),
 );
 
+// Normal prices (see schemas.ts NormalPrice). Replaced from data/prices.json on every start.
+export const NormalPriceModel = model(
+  'NormalPrice',
+  new Schema({
+    wordId: { type: String, required: true },
+    chain: { type: String, enum: ['rewe', 'lidl', 'aldi', 'kaufland', 'penny', 'netto'], required: true },
+    price: { type: Number, required: true },
+    size: { type: String, required: true },
+    title: { type: String, required: true },
+    source: { type: String, required: true },
+    date: { type: String, required: true },
+  }).index({ wordId: 1, chain: 1 }, { unique: true }),
+  'normal_prices',
+);
+
 export const ReportModel = model(
   'Report',
   new Schema(

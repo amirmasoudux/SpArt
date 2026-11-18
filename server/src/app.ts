@@ -26,12 +26,12 @@ export function createApp(repo: Repo, clientUrl = '*') {
     }
   });
 
-  // The main feature: list + the user's supermarkets in, one plan per supermarket out (best first).
+  // The main feature: list + the user's supermarkets in, one plan per supermarket out (cheapest basket first).
   app.post('/api/plan', async (req, res, next) => {
     try {
       const { items, chains } = PlanRequest.parse(req.body);
-      const [stores, prospekt] = await Promise.all([repo.stores(), repo.prospektOffers()]);
-      res.json(planPerStore(items, chains ?? stores.map((s) => s.chain), prospekt));
+      const [stores, prospekt, normal] = await Promise.all([repo.stores(), repo.prospektOffers(), repo.normalPrices()]);
+      res.json(planPerStore(items, chains ?? stores.map((s) => s.chain), prospekt, normal));
     } catch (err) {
       next(err);
     }

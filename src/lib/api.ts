@@ -1,7 +1,7 @@
 // Talking to the backend (Express).
 // If the backend is not running, the app uses the same logic with the built-in data files,
 // so the app still works in a demo. The screens don't need to know which one answered.
-import { getStores } from './dataSource';
+import { getNormalPrices, getStores } from './dataSource';
 import { planPerStore, type StorePlan } from './pick';
 import { getProspektOffers } from './prospekt';
 import { wordById } from './words';
@@ -10,7 +10,8 @@ import type { Chain, ListItem } from '../types';
 const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:4000';
 
 export interface PlanResult {
-  stores: StorePlan[]; // one plan per supermarket the user picked, best first
+  stores: StorePlan[]; // one plan per supermarket the user picked, cheapest basket first
+  compared: string[]; // item ids that every chosen store has a price for
   offerCount: number;
   chains: Chain[];
   source: 'server' | 'local';
@@ -32,11 +33,11 @@ export async function fetchPlan(items: ListItem[], chains: Chain[]): Promise<Pla
       signal: AbortSignal.timeout(5000),
     });
     if (!res.ok) throw new Error(`API error ${res.status}`);
-    const data = (await res.json()) as { stores: StorePlan[]; offerCount: number };
-    if (!Array.isArray(data.stores)) throw new Error('old server');
+    const data = (await res.json()) as { stores: StorePlan[]; offerCount: number; compared: string[] };
+    if (!Array.isArray(data.stores) || !Array.isArray(data.compared)) throw new Error('old server');
     return { ...data, chains: useChains, source: 'server' };
   } catch {
-    return { ...planPerStore(body.items, useChains, getProspektOffers()), chains: useChains, source: 'local' };
+    return { ...planPerStore(body.items, useChains, getProspektOffers(), getNormalPrices()), chains: useChains, source: 'local' };
   }
 }
 
