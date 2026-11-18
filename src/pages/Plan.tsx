@@ -105,84 +105,151 @@ export default function Plan() {
   const comparedCount = result.compared.length;
   const isCompared = (itemId: string) => result.compared.includes(itemId);
 
+  // The card compares only two stores: the one you shop at and the next best (or the best, if you picked another).
+  const other = plan.chain === best.chain ? result.stores[1] : best;
+  const diff = other ? Math.round((other.basket - plan.basket) * 100) / 100 : 0;
+  const maxBasket = Math.max(plan.basket, other?.basket ?? 0) || 1;
+  const choose = (c: Chain) => {
+    setChosen(c);
+    // Remember the choice, so a reload keeps it.
+    navigate(location.pathname, { replace: true, state: { result, chain: c } });
+  };
+  const storeBox = (s: typeof plan, on: boolean) => (
+    <button
+      key={s.chain}
+      type="button"
+      aria-pressed={on}
+      onClick={() => choose(s.chain)}
+      className={`flex min-w-0 flex-col gap-2 rounded-[20px] p-3.5 text-left ${on ? 'bg-brand-soft outline-2 outline-brand' : 'bg-bg'}`}
+    >
+      <span className="flex items-center gap-2">
+        <span
+          aria-hidden="true"
+          className={`flex size-[30px] shrink-0 items-center justify-center rounded-[10px] text-sm font-extrabold ${on ? 'bg-white text-brand' : 'bg-line text-muted'}`}
+        >
+          {nameOf(s.chain).slice(0, 1)}
+        </span>
+        <span className={`truncate text-[15px] font-extrabold ${on ? '' : 'text-muted'}`}>{nameOf(s.chain)}</span>
+      </span>
+      <span className={`text-[26px] leading-none font-extrabold tracking-tight ${on ? '' : 'text-muted'}`}>{euro(s.basket)}</span>
+      <span className="h-2 rounded-full bg-white/60">
+        <span className={`block h-2 rounded-full ${on ? 'bg-brand' : 'bg-faint/40'}`} style={{ width: `${Math.max(8, (s.basket / maxBasket) * 100)}%` }} />
+      </span>
+    </button>
+  );
+
   return (
     <Screen>
       <TopBar label="Your plan" back={`/list/${list.id}/check`} />
 
-      <section aria-label="Summary" className="animate-rise flex flex-col gap-5 rounded-[28px] bg-white p-6">
-        <div className="flex flex-col gap-1.5">
-          <span className="text-sm font-bold text-muted">
-            {plan.chain === best.chain ? (result.stores.length > 1 ? 'Cheapest for your list' : 'Your supermarket') : 'Your choice'}
-          </span>
-          <h1 className="text-[34px] leading-none font-extrabold tracking-tight">Go to {nameOf(plan.chain)}</h1>
-          <span className="text-sm text-muted">
-            {plan.priced} of {plan.picks.length} items with a price · {plan.onOffer} on offer
-          </span>
-        </div>
+      <section aria-label="Summary" className="animate-rise flex flex-col gap-4 rounded-[28px] bg-white p-5">
         <div className="flex flex-col gap-1">
-          <span className="text-[13px] font-bold text-muted">
-            You pay at {nameOf(plan.chain)}
-            {result.stores.length > 1 && comparedCount < plan.picks.length ? ` · ${comparedCount} items every store has` : ''}
-          </span>
-          <span className="text-[52px] leading-none font-extrabold tracking-tight">{euro(result.stores.length > 1 ? plan.basket : plan.total)}</span>
-          {result.stores.length > 1 && plan.chain === best.chain && result.stores[1] && result.stores[1].basket > plan.basket && (
-            <span className="text-sm font-extrabold text-save-ink">
-              {euro(result.stores[1].basket - plan.basket)} less than at {nameOf(result.stores[1].chain)}
+          <span className="text-sm font-bold text-muted">{plan.chain === best.chain ? 'Best for your list' : 'Your choice'}</span>
+          <h1 className="text-[30px] leading-none font-extrabold tracking-tight">Go to {nameOf(plan.chain)}</h1>
+        </div>
+
+        {other ? (
+          <div className="flex flex-col gap-1.5">
+            <div className="grid grid-cols-2 gap-2.5">
+              {storeBox(plan, true)}
+              {storeBox(other, false)}
+            </div>
+            {comparedCount < plan.picks.length && (
+              <span className="px-1 text-xs text-muted">Same {comparedCount} items in both stores</span>
+            )}
+          </div>
+        ) : (
+          <span className="text-[46px] leading-none font-extrabold tracking-tight">{euro(plan.total)}</span>
+        )}
+
+        {plan.saved > 0 ? (
+          <div className="flex flex-col items-start gap-1">
+            <span className="rounded-full bg-save-soft px-3.5 py-2 text-[15px] font-extrabold text-save-ink">
+              You save {euro(plan.saved)} with offers
             </span>
-          )}
-          {result.stores.length > 1 && plan.total > plan.basket && <span className="text-[13px] text-muted">All {plan.priced} items with a price: {euro(plan.total)}</span>}
-          {plan.saved > 0 && <span className="text-[13px] text-muted">Offers save you {euro(plan.saved)}</span>}
+            {other && diff !== 0 && (
+              <span className="px-1 text-[13px] text-muted">
+                {euro(Math.abs(diff))} {diff > 0 ? 'less' : 'more'} than at {nameOf(other.chain)}
+              </span>
+            )}
+          </div>
+        ) : (
+          other &&
+          diff > 0 && (
+            <span className="self-start rounded-full bg-save-soft px-3.5 py-2 text-[15px] font-extrabold text-save-ink">
+              {euro(diff)} less than at {nameOf(other.chain)}
+            </span>
+          )
+        )}
+
+        <div className="flex items-center justify-between border-t-2 border-dashed border-line pt-3 text-[15px] font-bold">
+          <span>
+            Whole list at {nameOf(plan.chain)} ({plan.priced} {plan.priced === 1 ? 'item' : 'items'})
+          </span>
+          <span className="font-extrabold">{euro(plan.total)}</span>
         </div>
       </section>
 
-      {result.stores.length > 1 && (
-        <section aria-label="Your supermarkets" className="flex flex-col gap-1.5">
-          <SectionLabel>Your supermarkets</SectionLabel>
-          <div className="flex gap-2 overflow-x-auto pb-1">
-            {result.stores.map((s) => {
-              const on = s.chain === plan.chain;
-              return (
-                <button
-                  key={s.chain}
-                  type="button"
-                  aria-pressed={on}
-                  onClick={() => {
-                    setChosen(s.chain);
-                    // Remember the choice, so a reload keeps it.
-                    navigate(location.pathname, { replace: true, state: { result, chain: s.chain } });
-                  }}
-                  className={`flex min-w-[118px] shrink-0 flex-col items-start gap-0.5 rounded-[20px] border-2 bg-white px-4 py-3 text-left ${on ? 'border-brand' : 'border-transparent'}`}
-                >
-                  <span className="text-[15px] font-extrabold">{nameOf(s.chain)}</span>
-                  <span className="text-sm font-bold">{euro(s.basket)}</span>
-                  <span className="text-xs text-muted">{s.onOffer} on offer</span>
-                </button>
-              );
-            })}
-          </div>
-        </section>
-      )}
+      <details className="group rounded-[22px] bg-white">
+        <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between px-5 text-[15px] font-bold">
+          Your list · {plan.picks.length} {plan.picks.length === 1 ? 'item' : 'items'} · {plan.onOffer} on offer
+          <span aria-hidden="true" className="text-muted transition group-open:rotate-180">▾</span>
+        </summary>
+        <div className="flex flex-col gap-3 px-1 pb-3">
+          {groups.map((g) => (
+            <section key={g.id} className="flex flex-col gap-1" aria-label={g.label}>
+              <SectionLabel>{g.label}</SectionLabel>
+              <ul className="py-0.5">
+                {g.picks.map((p) => (
+                  <PickRow key={p.itemId} p={p} storeName={nameOf(plan.chain)} compared={isCompared(p.itemId)} />
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
+      </details>
 
-      {groups.map((g) => (
-        <section key={g.id} className="flex flex-col gap-1.5" aria-label={g.label}>
-          <SectionLabel>{g.label}</SectionLabel>
-          <ul className="rounded-[24px] bg-white py-1.5">
-            {g.picks.map((p) => (
-              <PickRow key={p.itemId} p={p} storeName={nameOf(plan.chain)} compared={isCompared(p.itemId)} />
+      {result.stores.length > 2 && (
+        <details className="group rounded-[22px] bg-white">
+          <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between px-5 text-[15px] font-bold">
+            All your supermarkets
+            <span aria-hidden="true" className="text-muted transition group-open:rotate-180">▾</span>
+          </summary>
+          <ul className="pb-2">
+            {result.stores.map((s) => (
+              <li key={s.chain}>
+                <button
+                  type="button"
+                  aria-pressed={s.chain === plan.chain}
+                  onClick={() => choose(s.chain)}
+                  className="flex min-h-12 w-full items-center justify-between px-5 text-left text-[15px]"
+                >
+                  <span className={s.chain === plan.chain ? 'font-extrabold text-brand' : 'font-bold'}>{nameOf(s.chain)}</span>
+                  <span className="font-bold">
+                    {euro(s.basket)} <span className="text-xs font-normal text-muted">· {s.onOffer} on offer</span>
+                  </span>
+                </button>
+              </li>
             ))}
           </ul>
-        </section>
-      ))}
+        </details>
+      )}
 
-      <p className="px-1.5 text-xs text-faint">
-        Offers: {nameOf(plan.chain)} Prospekt in Siegburg ({shortDate(week.from)} – {shortDate(week.to)}). Normal prices: ALDI SÜD website, REWE online
-        shop (Siegburg) and Open Prices (receipts and shelf labels in Germany). Every price is what you pay for the amount on your list (e.g. 500 g
-        pasta, 1 l milk), with as many packs as you need. No estimates: an item without a real price is left out of the comparison.
-        {result.source === 'local' ? ' (Built-in data, server offline.)' : ''}{' '}
-        <Link to={`/stores?next=/list/${list.id}/analyze`} className="font-bold text-brand underline">
-          Change supermarkets
-        </Link>
-      </p>
+      <details className="group rounded-[22px] bg-white">
+        <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between px-5 text-[15px] font-bold">
+          How we compared
+          <span aria-hidden="true" className="text-muted transition group-open:rotate-180">▾</span>
+        </summary>
+        <p className="px-5 pb-4 text-[13px] leading-relaxed text-muted">
+          Offers: this week’s Prospekte in Siegburg ({shortDate(week.from)} – {shortDate(week.to)}). Normal prices: ALDI SÜD website, REWE online shop
+          (Siegburg) and Open Prices (receipts and shelf labels in Germany). Every price is what you pay for the amount on your list (e.g. 500 g pasta,
+          1 l milk). Stores are compared on the items they all have. “You save” uses the old price printed in the Prospekt. No estimates.
+          {result.source === 'local' ? ' (Built-in data, server offline.)' : ''}{' '}
+          <Link to={`/stores?next=/list/${list.id}/analyze`} className="font-bold text-brand underline">
+            Change supermarkets
+          </Link>
+        </p>
+      </details>
 
       <BottomAction>
         <PrimaryLink to={`/list/${list.id}/shop`} state={{ result, chain: plan.chain }}>

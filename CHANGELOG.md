@@ -1,5 +1,10 @@
 # Changelog
 
+## Plan screen: clear hierarchy
+- Top card: "Go to Kaufland", the chosen store next to the next best (same items, with bars), the main saving "You save €7.24 with offers", then one receipt line "Whole list at Kaufland (11 items) €21.89"
+- The list, all supermarkets and "How we compared" (sources, method) moved into accordions
+- Fixed search matches: cheese ≠ pasta, cream cheese, cheese pretzels or croissants; bread ≠ Lebkuchen
+
 ## Real money, real amounts
 - Every price is now what you really pay for the amount on the list (search words have an amount: 500 g pasta, 1 l milk, 250 g cheese…), with as many packs as you need (2 × 125 g mozzarella for 250 g); a pack up to 25 % smaller counts as enough
 - Offer vs. normal price: the one that costs less for that amount
