@@ -25,11 +25,11 @@ export const WORDS: SearchWord[] = [
   // Bread
   { id: 'wholegrain-bread', name: 'Whole-grain bread', category: 'bakery', words: ['wholegrain bread', 'whole grain bread', 'vollkornbrot'], include: ['vollkornbrot', 'vollkorn brot'], amount: '500 g' },
   { id: 'toast', name: 'Toast bread', category: 'bakery', words: ['toast bread', 'toast', 'toastbrot'], include: ['toast', 'toastbrot', 'buttertoast'], exclude: ['toasty', 'chick n'], amount: '500 g' },
-  { id: 'bread', name: 'Bread', category: 'bakery', words: ['bread', 'brot'], include: ['brot', 'baguette', 'brötchen'], exclude: ['knusper', 'aufstrich', 'chips', 'kartoffel'], amount: '500 g' },
+  { id: 'bread', name: 'Bread', category: 'bakery', words: ['bread', 'brot'], include: ['brot', 'baguette', 'brötchen'], exclude: ['knusper', 'aufstrich', 'chips', 'kartoffel', 'lebkuchen', 'magenbrot'], amount: '500 g' },
   // Dairy & eggs
   { id: 'milk', name: 'Milk', category: 'dairy', words: ['milk', 'milch'], include: ['frische milch', 'haltbare milch', 'frischmilch', 'vollmilch', 'weidemilch', 'fettarme milch', 'landmilch'], exclude: ['schoko', 'kondensmilch', 'kaffee milch'], amount: '1 l' },
   { id: 'gouda', name: 'Gouda', category: 'dairy', words: ['gouda', 'gauda'], include: ['gouda'], amount: '250 g' },
-  { id: 'cheese', name: 'Cheese', category: 'dairy', words: ['cheese', 'käse', 'kaese'], include: ['käse', 'gouda', 'emmentaler', 'mozzarella', 'cheddar', 'edamer', 'bergkäse', 'leerdammer'], exclude: ['kuchen', 'pizza', 'käsekuchen', 'sahne', 'spätzle', 'backfrische', 'ofenfrische', 'baguette'], amount: '250 g' },
+  { id: 'cheese', name: 'Cheese', category: 'dairy', words: ['cheese', 'käse', 'kaese'], include: ['käse', 'gouda', 'emmentaler', 'mozzarella', 'cheddar', 'edamer', 'bergkäse', 'leerdammer'], exclude: ['kuchen', 'pizza', 'käsekuchen', 'sahne', 'spätzle', 'backfrische', 'ofenfrische', 'baguette', 'pasta', 'spinaci', 'frischkäse', 'nudel'], amount: '250 g' },
   { id: 'greek-yogurt', name: 'Greek yogurt', category: 'dairy', words: ['greek yogurt', 'greek yoghurt', 'griechischer joghurt'], include: ['griech joghurt', 'griechischer joghurt', 'griechischer art'], amount: '500 g' },
   { id: 'yogurt', name: 'Yogurt', category: 'dairy', words: ['yogurt', 'yoghurt', 'joghurt'], include: ['joghurt'], exclude: ['butter', 'riegel', 'drops'], amount: '500 g' },
   { id: 'butter', name: 'Butter', category: 'dairy', words: ['butter'], include: ['butter', 'markenbutter', 'almbutter', 'süßrahmbutter'], exclude: ['zopf', 'käse', 'kräuterbutter', 'erdnussbutter', 'croissant', 'kekse', 'cookies', 'cracker', 'schmalz', 'stollen'], amount: '250 g' },
