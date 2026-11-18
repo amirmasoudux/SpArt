@@ -26,6 +26,7 @@ function PickRow({ p, storeName, compared }: { p: Pick; storeName: string; compa
         {p.kind === 'offer' && (
           <>
             <span className="truncate text-xs text-muted">
+              {p.packs > 1 ? `${p.packs} × ` : ''}
               {p.title}
               {p.per100g ? ' · per 100 g' : ''}
               {p.bigPack ? ` · big pack, ${p.bigPack}` : ''}
@@ -40,6 +41,7 @@ function PickRow({ p, storeName, compared }: { p: Pick; storeName: string; compa
         {p.kind === 'normal' && p.normal && (
           <>
             <span className="truncate text-xs text-muted">
+              {p.packs > 1 ? `${p.packs} × ` : ''}
               {p.title} · {p.normal.size}
             </span>
             <span className="text-xs text-faint">
@@ -119,18 +121,17 @@ export default function Plan() {
         </div>
         <div className="flex flex-col gap-1">
           <span className="text-[13px] font-bold text-muted">
-            {result.stores.length > 1 ? `Your basket · ${comparedCount} items with a price in every store, same amounts` : 'Your basket'}
+            You pay at {nameOf(plan.chain)}
+            {result.stores.length > 1 && comparedCount < plan.picks.length ? ` · ${comparedCount} items every store has` : ''}
           </span>
           <span className="text-[52px] leading-none font-extrabold tracking-tight">{euro(result.stores.length > 1 ? plan.basket : plan.total)}</span>
           {result.stores.length > 1 && plan.chain === best.chain && result.stores[1] && result.stores[1].basket > plan.basket && (
             <span className="text-sm font-extrabold text-save-ink">
-              {euro(result.stores[1].basket - plan.basket)} cheaper than {nameOf(result.stores[1].chain)}
+              {euro(result.stores[1].basket - plan.basket)} less than at {nameOf(result.stores[1].chain)}
             </span>
           )}
-          <span className="text-[13px] text-muted">
-            At the shelf, your packs: {euro(plan.total)}
-            {plan.saved > 0 ? ` · offers save you ${euro(plan.saved)}` : ''}
-          </span>
+          {result.stores.length > 1 && plan.total > plan.basket && <span className="text-[13px] text-muted">All {plan.priced} items with a price: {euro(plan.total)}</span>}
+          {plan.saved > 0 && <span className="text-[13px] text-muted">Offers save you {euro(plan.saved)}</span>}
         </div>
       </section>
 
@@ -175,8 +176,8 @@ export default function Plan() {
 
       <p className="px-1.5 text-xs text-faint">
         Offers: {nameOf(plan.chain)} Prospekt in Siegburg ({shortDate(week.from)} – {shortDate(week.to)}). Normal prices: ALDI SÜD website, REWE online
-        shop (Siegburg) and Open Prices (receipts and shelf labels in Germany). No estimates: an item without a real price is left out of the
-        comparison. A saving is shown when the Prospekt prints the old price.
+        shop (Siegburg) and Open Prices (receipts and shelf labels in Germany). Every price is what you pay for the amount on your list (e.g. 500 g
+        pasta, 1 l milk), with as many packs as you need. No estimates: an item without a real price is left out of the comparison.
         {result.source === 'local' ? ' (Built-in data, server offline.)' : ''}{' '}
         <Link to={`/stores?next=/list/${list.id}/analyze`} className="font-bold text-brand underline">
           Change supermarkets

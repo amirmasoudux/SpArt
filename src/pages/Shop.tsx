@@ -110,6 +110,7 @@ export default function Shop() {
                     <span className="shrink-0 text-[11px] font-extrabold tracking-wide uppercase">Normal</span>
                   )}
                   <span className="truncate">
+                    {p.packs > 1 ? `${p.packs} × ` : ''}
                     {p.title}
                     {p.bigPack ? ` · big pack, ${p.bigPack}` : ''}
                   </span>

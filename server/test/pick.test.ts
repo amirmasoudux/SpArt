@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { perUnitFromInfo, pickForStores, planPerStore } from '../src/lib/pick.js';
+import { packsFor, perUnitFromInfo, pickForStores, planPerStore } from '../src/lib/pick.js';
 
 // Test offers (not app data), so the numbers don't change with each week's Prospekte.
 const prospekt = [
@@ -69,6 +69,16 @@ describe('pickForStores', () => {
     const r = planPerStore([butter, milk], ['kaufland', 'aldi'], prospekt, normal);
     expect(r.compared).toEqual(['m']); // ALDI has no butter price → butter is left out
     expect(r.stores.map((s) => [s.chain, s.basket])).toEqual([['kaufland', 0.9], ['aldi', 0.99]]);
+  });
+
+  it('counts the packs you need for the amount on the list', () => {
+    expect(packsFor({ value: 0.125, unit: 'kg' }, { value: 0.25, unit: 'kg' })).toBe(2); // 2 × 125 g for 250 g
+    expect(packsFor({ value: 0.2, unit: 'kg' }, { value: 0.25, unit: 'kg' })).toBe(1); // 200 g is close enough to 250 g
+    expect(packsFor({ value: 1, unit: 'kg' }, { value: 0.5, unit: 'kg' })).toBe(1); // a bigger pack: still 1
+    expect(packsFor(null, { value: 0.5, unit: 'kg' })).toBe(1); // unknown size
+    // Kaufland mozzarella 125 g at 0.69 → cheese (250 g) costs 2 × 0.69
+    const moz = [{ chain: 'kaufland' as const, title: 'Mozzarella', price: 0.69, regularPrice: null, unitInfo: '1 kg = 5.52' }];
+    expect(pickForStores([{ id: 'c', name: 'Cheese', qty: 1, wordId: 'cheese' }], ['kaufland'], moz).picks[0]).toMatchObject({ packs: 2, price: 1.38 });
   });
 
   it('reads the price per kg / litre', () => {

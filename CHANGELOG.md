@@ -1,5 +1,11 @@
 # Changelog
 
+## Real money, real amounts
+- Every price is now what you really pay for the amount on the list (search words have an amount: 500 g pasta, 1 l milk, 250 g cheese…), with as many packs as you need (2 × 125 g mozzarella for 250 g); a pack up to 25 % smaller counts as enough
+- Offer vs. normal price: the one that costs less for that amount
+- The plan shows one number: "You pay at Kaufland €13.42 · €1.61 less than at ALDI" (no more separate "same amounts" basket)
+- 30 tests
+
 ## Whole basket, real normal prices
 - New price database (`server/data/prices.json`, MongoDB `normal_prices`): 90 real normal prices for 6 chains, each with source and date
   - REWE: online shop of the Siegburg market (Barbarastr.), checked 10. and 18.11.2026
