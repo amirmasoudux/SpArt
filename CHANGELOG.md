@@ -1,5 +1,10 @@
 # Changelog
 
+## Plan screen: supermarket slider
+- One card per chosen supermarket, cheapest first, in a swipe slider (with dots); every card shows the total for your items and its own saving with offers
+- The card in view is the one you shop at: the list and the "Shop at…" button follow it
+- The "All your supermarkets" accordion is gone (the slider shows them all)
+
 ## Plan screen: clear hierarchy
 - Top card: "Go to Kaufland", the chosen store next to the next best (same items, with bars), the main saving "You save €7.24 with offers", then one receipt line "Whole list at Kaufland (11 items) €21.89"
 - The list, all supermarkets and "How we compared" (sources, method) moved into accordions

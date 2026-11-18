@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, Navigate, useLocation, useNavigate, useParams } from 'react-router';
 import { BottomAction, PrimaryLink, Screen, SectionLabel, TopBar } from '../components/ui';
 import { getCategories, getStores } from '../lib/dataSource';
 import { fetchPlan, resultOf, type PlanResult, type PlanState } from '../lib/api';
-import type { Pick } from '../lib/pick';
+import type { Pick, StorePlan } from '../lib/pick';
 import { euro } from '../lib/plan';
 import { WEEK } from '../lib/prospekt';
 import { getList, getMyChains } from '../lib/storage';
@@ -62,6 +62,128 @@ function PickRow({ p, storeName, compared }: { p: Pick; storeName: string; compa
   );
 }
 
+// One card per chosen supermarket, cheapest first. Swipe (or tap a dot) to see the next one;
+// the card in view is the one you shop at.
+function StoreSlider({
+  stores,
+  index,
+  nameOf,
+  itemsLabel,
+  onChange,
+}: {
+  stores: StorePlan[];
+  index: number;
+  nameOf: (c: Chain) => string;
+  itemsLabel: string;
+  onChange: (i: number) => void;
+}) {
+  const track = useRef<HTMLDivElement>(null);
+  const cardAt = (i: number) => track.current?.children[i] as HTMLElement | undefined;
+  const scrollTo = (i: number, smooth = true) => {
+    const el = cardAt(i);
+    if (el && track.current) track.current.scrollTo({ left: el.offsetLeft - track.current.offsetLeft - 20, behavior: smooth ? 'smooth' : 'auto' });
+  };
+
+  // Start on the chosen card (after a reload or coming back from the shop screen).
+  useEffect(() => {
+    scrollTo(index, false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // The card closest to the left edge is the one in view.
+  const timer = useRef<number | undefined>(undefined);
+  const onScroll = () => {
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => {
+      const t = track.current;
+      if (!t) return;
+      let nearest = 0;
+      let dist = Infinity;
+      [...t.children].forEach((c, i) => {
+        const d = Math.abs((c as HTMLElement).offsetLeft - t.offsetLeft - 20 - t.scrollLeft);
+        if (d < dist) {
+          dist = d;
+          nearest = i;
+        }
+      });
+      if (nearest !== index) onChange(nearest);
+    }, 120);
+  };
+
+  return (
+    <section aria-label="Your supermarkets" aria-roledescription="carousel" className="animate-rise -mx-5 flex flex-col gap-3">
+      <div
+        ref={track}
+        onScroll={onScroll}
+        className="flex snap-x snap-mandatory gap-2.5 overflow-x-auto scroll-px-5 px-5 py-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {stores.map((s, i) => {
+          const on = i === index;
+          return (
+            <article
+              key={s.chain}
+              aria-roledescription="slide"
+              aria-label={`${nameOf(s.chain)}, ${i + 1} of ${stores.length}`}
+              onClick={() => !on && (scrollTo(i), onChange(i))}
+              className={`flex w-[86%] shrink-0 snap-start flex-col gap-3.5 rounded-[28px] bg-white p-5 ${on ? 'outline-2 outline-brand' : ''} ${stores.length === 1 ? 'w-full' : ''}`}
+            >
+              <div className="flex items-center justify-between gap-2">
+                <span className="flex min-w-0 items-center gap-2.5">
+                  <span
+                    aria-hidden="true"
+                    className={`flex size-9 shrink-0 items-center justify-center rounded-xl text-[15px] font-extrabold ${i === 0 ? 'bg-brand-soft text-brand' : 'bg-line text-muted'}`}
+                  >
+                    {nameOf(s.chain).slice(0, 1)}
+                  </span>
+                  <span className="truncate text-lg font-extrabold">{nameOf(s.chain)}</span>
+                </span>
+                {i === 0 && stores.length > 1 && (
+                  <span className="rounded-full bg-brand px-2.5 py-1 text-[11px] font-extrabold tracking-wide text-white uppercase">Best</span>
+                )}
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-[13px] font-semibold text-muted">{itemsLabel}</span>
+                <span className="text-[40px] leading-none font-extrabold tracking-tight">{euro(s.basket)}</span>
+              </div>
+              {s.saved > 0 && (
+                <span className="self-start rounded-full bg-save-soft px-3 py-1.5 text-sm font-extrabold text-save-ink">
+                  You save {euro(s.saved)} with offers
+                </span>
+              )}
+              <div className="mt-auto flex items-center justify-between border-t-2 border-dashed border-line pt-2.5 text-[13px] font-bold text-muted">
+                <span>
+                  {s.onOffer} of {s.picks.length} items on offer
+                </span>
+                {stores.length > 1 && (
+                  <span>
+                    {i + 1} / {stores.length}
+                  </span>
+                )}
+              </div>
+            </article>
+          );
+        })}
+      </div>
+      {stores.length > 1 && (
+        <div className="flex justify-center gap-1.5">
+          {stores.map((s, i) => (
+            <button
+              key={s.chain}
+              type="button"
+              aria-label={`Show ${nameOf(s.chain)}`}
+              aria-current={i === index}
+              onClick={() => (scrollTo(i), onChange(i))}
+              className="flex h-6 items-center"
+            >
+              <span className={`block h-[7px] rounded-full transition-all ${i === index ? 'w-5 bg-brand' : 'w-[7px] bg-faint/50'}`} />
+            </button>
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+
 export default function Plan() {
   const { id = '' } = useParams();
   const location = useLocation();
@@ -105,90 +227,25 @@ export default function Plan() {
   const comparedCount = result.compared.length;
   const isCompared = (itemId: string) => result.compared.includes(itemId);
 
-  // The card compares only two stores: the one you shop at and the next best (or the best, if you picked another).
-  const other = plan.chain === best.chain ? result.stores[1] : best;
-  const diff = other ? Math.round((other.basket - plan.basket) * 100) / 100 : 0;
-  const maxBasket = Math.max(plan.basket, other?.basket ?? 0) || 1;
   const choose = (c: Chain) => {
     setChosen(c);
     // Remember the choice, so a reload keeps it.
     navigate(location.pathname, { replace: true, state: { result, chain: c } });
   };
-  const storeBox = (s: typeof plan, on: boolean) => (
-    <button
-      key={s.chain}
-      type="button"
-      aria-pressed={on}
-      onClick={() => choose(s.chain)}
-      className={`flex min-w-0 flex-col gap-2 rounded-[20px] p-3.5 text-left ${on ? 'bg-brand-soft outline-2 outline-brand' : 'bg-bg'}`}
-    >
-      <span className="flex items-center gap-2">
-        <span
-          aria-hidden="true"
-          className={`flex size-[30px] shrink-0 items-center justify-center rounded-[10px] text-sm font-extrabold ${on ? 'bg-white text-brand' : 'bg-line text-muted'}`}
-        >
-          {nameOf(s.chain).slice(0, 1)}
-        </span>
-        <span className={`truncate text-[15px] font-extrabold ${on ? '' : 'text-muted'}`}>{nameOf(s.chain)}</span>
-      </span>
-      <span className={`text-[26px] leading-none font-extrabold tracking-tight ${on ? '' : 'text-muted'}`}>{euro(s.basket)}</span>
-      <span className="h-2 rounded-full bg-white/60">
-        <span className={`block h-2 rounded-full ${on ? 'bg-brand' : 'bg-faint/40'}`} style={{ width: `${Math.max(8, (s.basket / maxBasket) * 100)}%` }} />
-      </span>
-    </button>
-  );
-
+  const index = Math.max(0, result.stores.findIndex((s) => s.chain === plan.chain));
+  const allCompared = comparedCount === plan.picks.length;
   return (
     <Screen>
       <TopBar label="Your plan" back={`/list/${list.id}/check`} />
 
-      <section aria-label="Summary" className="animate-rise flex flex-col gap-4 rounded-[28px] bg-white p-5">
-        <div className="flex flex-col gap-1">
-          <span className="text-sm font-bold text-muted">{plan.chain === best.chain ? 'Best for your list' : 'Your choice'}</span>
-          <h1 className="text-[30px] leading-none font-extrabold tracking-tight">Go to {nameOf(plan.chain)}</h1>
-        </div>
-
-        {other ? (
-          <div className="flex flex-col gap-1.5">
-            <div className="grid grid-cols-2 gap-2.5">
-              {storeBox(plan, true)}
-              {storeBox(other, false)}
-            </div>
-            {comparedCount < plan.picks.length && (
-              <span className="px-1 text-xs text-muted">Same {comparedCount} items in both stores</span>
-            )}
-          </div>
-        ) : (
-          <span className="text-[46px] leading-none font-extrabold tracking-tight">{euro(plan.total)}</span>
-        )}
-
-        {plan.saved > 0 ? (
-          <div className="flex flex-col items-start gap-1">
-            <span className="rounded-full bg-save-soft px-3.5 py-2 text-[15px] font-extrabold text-save-ink">
-              You save {euro(plan.saved)} with offers
-            </span>
-            {other && diff !== 0 && (
-              <span className="px-1 text-[13px] text-muted">
-                {euro(Math.abs(diff))} {diff > 0 ? 'less' : 'more'} than at {nameOf(other.chain)}
-              </span>
-            )}
-          </div>
-        ) : (
-          other &&
-          diff > 0 && (
-            <span className="self-start rounded-full bg-save-soft px-3.5 py-2 text-[15px] font-extrabold text-save-ink">
-              {euro(diff)} less than at {nameOf(other.chain)}
-            </span>
-          )
-        )}
-
-        <div className="flex items-center justify-between border-t-2 border-dashed border-line pt-3 text-[15px] font-bold">
-          <span>
-            Whole list at {nameOf(plan.chain)} ({plan.priced} {plan.priced === 1 ? 'item' : 'items'})
-          </span>
-          <span className="font-extrabold">{euro(plan.total)}</span>
-        </div>
-      </section>
+      <h1 className="sr-only">Your plan: {nameOf(plan.chain)}</h1>
+      <StoreSlider
+        stores={result.stores}
+        index={index}
+        nameOf={nameOf}
+        itemsLabel={allCompared ? `Your ${comparedCount} ${comparedCount === 1 ? 'item' : 'items'}` : `Same ${comparedCount} items in every store`}
+        onChange={(i) => choose(result.stores[i].chain)}
+      />
 
       <details className="group rounded-[22px] bg-white">
         <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between px-5 text-[15px] font-bold">
@@ -208,32 +265,6 @@ export default function Plan() {
           ))}
         </div>
       </details>
-
-      {result.stores.length > 2 && (
-        <details className="group rounded-[22px] bg-white">
-          <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between px-5 text-[15px] font-bold">
-            All your supermarkets
-            <span aria-hidden="true" className="text-muted transition group-open:rotate-180">▾</span>
-          </summary>
-          <ul className="pb-2">
-            {result.stores.map((s) => (
-              <li key={s.chain}>
-                <button
-                  type="button"
-                  aria-pressed={s.chain === plan.chain}
-                  onClick={() => choose(s.chain)}
-                  className="flex min-h-12 w-full items-center justify-between px-5 text-left text-[15px]"
-                >
-                  <span className={s.chain === plan.chain ? 'font-extrabold text-brand' : 'font-bold'}>{nameOf(s.chain)}</span>
-                  <span className="font-bold">
-                    {euro(s.basket)} <span className="text-xs font-normal text-muted">· {s.onOffer} on offer</span>
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </details>
-      )}
 
       <details className="group rounded-[22px] bg-white">
         <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between px-5 text-[15px] font-bold">
