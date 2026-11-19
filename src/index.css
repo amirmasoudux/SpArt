@@ -51,34 +51,13 @@ body {
 /* Phone frame on big screens: "full height" means the phone's height, not the window's. */
 .phone-screen .min-h-dvh { min-height: 100%; }
 
-/* Splash: groceries fall into the basket, it shakes, "SpArt" jumps out. */
-@keyframes splash-fall {
-  0% { opacity: 0; transform: translate(var(--x), -460px) rotate(var(--r)); }
-  10% { opacity: 1; }
-  80% { opacity: 1; transform: translate(calc(var(--x) * 0.4), 0) rotate(0deg); }
-  100% { opacity: 0; transform: translate(calc(var(--x) * 0.4), 34px) rotate(0deg) scale(0.7); }
-}
-@keyframes splash-shake {
-  0%, 100% { transform: none; }
-  20% { transform: translateY(4px) rotate(-5deg); }
-  45% { transform: translateY(2px) rotate(5deg); }
-  70% { transform: rotate(-3deg); }
-  85% { transform: rotate(2deg); }
-}
-@keyframes splash-jump {
-  0% { opacity: 0; transform: translateY(150px) scale(0.4); }
-  60% { opacity: 1; transform: translateY(-14px) scale(1.08); }
-  100% { opacity: 1; transform: none; }
-}
+/* Splash */
 @keyframes splash-in {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(10px) scale(0.96); }
   to { opacity: 1; transform: none; }
 }
-.splash-item { opacity: 0; animation: splash-fall 0.6s cubic-bezier(0.5, 0, 0.9, 0.6) both; }
-.splash-basket { transform-origin: 50% 100%; animation: splash-shake 0.45s ease-in-out 1.35s both; }
-.splash-logo { opacity: 0; animation: splash-jump 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 1.65s both; }
-.splash-tag { animation: splash-in 0.45s ease-out 2s both; }
+.splash-logo { animation: splash-in 0.45s ease-out both; }
+.splash-tag { animation: splash-in 0.45s ease-out 0.15s both; }
 @media (prefers-reduced-motion: reduce) {
-  .splash-logo, .splash-tag, .splash-basket { animation: none; opacity: 1; }
-  .splash-item { display: none; }
+  .splash-logo, .splash-tag { animation: none; }
 }
