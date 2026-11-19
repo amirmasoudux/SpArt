@@ -62,18 +62,20 @@ export default function Shell({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="relative flex min-h-dvh items-center justify-center gap-24 bg-[#ecebf4] px-10 py-8">
-      {/* Small and quiet, bottom left: doesn't take attention from the app. */}
-      <div className="absolute bottom-6 left-8 flex items-center gap-3 rounded-2xl bg-white/70 p-2 pr-4">
-        <img src="/linkedin-qr.svg" alt="QR code for LinkedIn" className="size-14 shrink-0" />
-        <span className="text-[13px] font-bold text-muted">Let’s connect on LinkedIn</span>
-      </div>
-      <div className="flex max-w-[380px] flex-col gap-6">
-        <div className="flex flex-col gap-2">
-          <span className="text-[64px] leading-none font-extrabold tracking-tight text-brand">SpArt</span>
-          <span className="text-2xl font-bold">The art of Sparen</span>
+    <div className="flex min-h-dvh items-center justify-center gap-24 bg-[#ecebf4] px-10 py-8">
+      {/* Same height as the phone: SpArt in the middle, a quiet LinkedIn QR at the bottom (in line with the phone's bottom). */}
+      <div className="flex h-[min(844px,calc(100dvh-64px))] max-w-[380px] flex-col">
+        <div className="flex flex-1 flex-col justify-center gap-6">
+          <div className="flex flex-col gap-2">
+            <span className="text-[64px] leading-none font-extrabold tracking-tight text-brand">SpArt</span>
+            <span className="text-2xl font-bold">The art of Sparen</span>
+          </div>
+          <p className="text-lg leading-relaxed text-muted">Write your shopping list. SpArt tells you which supermarket is cheapest for your whole basket.</p>
         </div>
-        <p className="text-lg leading-relaxed text-muted">Write your shopping list. SpArt tells you which supermarket is cheapest for your whole basket.</p>
+        <div className="flex flex-col gap-2">
+          <span className="text-[13px] font-bold text-muted">Let’s connect on LinkedIn</span>
+          <img src="/linkedin-qr.svg" alt="QR code for LinkedIn" className="size-16" />
+        </div>
       </div>
       {/* transform: fixed parts of the app (bottom bar, sheets, splash) stay inside the phone */}
       <div className="phone relative h-[min(844px,calc(100dvh-64px))] w-[390px] shrink-0 overflow-hidden rounded-[56px] border-[12px] border-ink bg-bg shadow-[0_30px_80px_-20px_rgba(19,18,31,0.45)] [transform:translateZ(0)]">
