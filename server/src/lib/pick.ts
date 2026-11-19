@@ -51,6 +51,7 @@ export interface Pick {
   normal: { size: string; source: string; date: string } | null; // where a normal price comes from
   amount: { value: number; unit: 'kg' | 'l' } | null; // pack size, when we know it (to compare the same amount)
   per100g?: boolean; // the Prospekt price is for 100 g (fresh meat and fish)
+  sized?: boolean; // false: an offer without a pack size, so it can't be compared fairly
 }
 
 // Fresh meat and fish: Prospekte often print the price for 100 g without saying so.
@@ -142,9 +143,13 @@ export function pickForStores(items: PickItem[], chains: Chain[], prospekt: Pick
     })();
     const offerAmount = best ? offerAmountOf(best, wordId) : null;
     const usualAmount = usual ? amountOf(usual.size) : null;
-    const offerPacks = best ? packsFor(offerAmount, want) : 0;
+    // Fair price for the amount on the list: when we know the offer's pack size, the price per kg/l
+    // times the amount on the list (1.5 l of a 12-litre crate = 1.5 × price per litre).
+    const byUnit = Boolean(best && want && offerAmount && offerAmount.unit === want.unit && offerAmount.value > 0);
+    const offerPacks = best ? (byUnit ? 1 : packsFor(offerAmount, want)) : 0;
+    const offerCost = best ? (byUnit ? (best.price / offerAmount!.value) * want!.value : best.price * offerPacks) : 0;
     const usualPacks = usual ? packsFor(usualAmount, want) : 0;
-    const normalIsCheaper = usual && best ? isBig(best) || usual.price * usualPacks < best.price * offerPacks : false;
+    const normalIsCheaper = usual && best ? usual.price * usualPacks < offerCost : false;
     if (usual && (!best || normalIsCheaper)) {
       return {
         ...base,
@@ -165,7 +170,8 @@ export function pickForStores(items: PickItem[], chains: Chain[], prospekt: Pick
     if (!best) {
       return { ...base, kind: 'none', chain: null, title: null, unitInfo: null, packPrice: null, packs: 0, price: 0, saving: 0, perUnit: null, bigPack: null, normal: null, amount: null };
     }
-    const saving = best.regularPrice && best.regularPrice > best.price ? best.regularPrice - best.price : 0;
+    // Saving: the Prospekt's old price, for the same amount (same share of the price as on the pack).
+    const saving = best.regularPrice && best.regularPrice > best.price ? ((best.regularPrice - best.price) / best.price) * offerCost : 0;
     return {
       ...base,
       kind: 'offer',
@@ -174,8 +180,9 @@ export function pickForStores(items: PickItem[], chains: Chain[], prospekt: Pick
       unitInfo: best.unitInfo,
       packPrice: best.price,
       packs: offerPacks,
-      price: round(best.price * offerPacks * item.qty),
-      saving: round(saving * offerPacks * item.qty),
+      price: round(offerCost * item.qty),
+      saving: round(saving * item.qty),
+      sized: !want || Boolean(offerAmount),
       perUnit: perUnitFromInfo(best.unitInfo),
       bigPack: isBig(best) ? packAmount(best) : null,
       normal: null,
@@ -219,7 +226,12 @@ export function planPerStore(
   const compared = items
     .filter((i) => !NOT_COMPARED.includes(wordOf(i) ?? ''))
     .map((i) => i.id)
-    .filter((id) => plans.every((s) => s.picks.find((p) => p.itemId === id)?.kind !== 'none'));
+    .filter((id) =>
+      plans.every((s) => {
+        const p = s.picks.find((x) => x.itemId === id);
+        return p && p.kind !== 'none' && p.sized !== false;
+      }),
+    );
   const stores = plans
     .map((s) => ({ ...s, basket: round(s.picks.filter((p) => compared.includes(p.itemId)).reduce((sum, p) => sum + p.price, 0)) }))
     .sort((a, b) => (compared.length ? a.basket - b.basket : 0) || b.priced - a.priced || b.saved - a.saved);

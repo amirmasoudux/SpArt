@@ -76,9 +76,12 @@ describe('pickForStores', () => {
     expect(packsFor({ value: 0.2, unit: 'kg' }, { value: 0.25, unit: 'kg' })).toBe(1); // 200 g is close enough to 250 g
     expect(packsFor({ value: 1, unit: 'kg' }, { value: 0.5, unit: 'kg' })).toBe(1); // a bigger pack: still 1
     expect(packsFor(null, { value: 0.5, unit: 'kg' })).toBe(1); // unknown size
-    // Kaufland mozzarella 125 g at 0.69 → cheese (250 g) costs 2 × 0.69
+    // Kaufland mozzarella at 5.52 per kg → cheese (250 g) costs 1.38
     const moz = [{ chain: 'kaufland' as const, title: 'Mozzarella', price: 0.69, regularPrice: null, unitInfo: '1 kg = 5.52' }];
-    expect(pickForStores([{ id: 'c', name: 'Cheese', qty: 1, wordId: 'cheese' }], ['kaufland'], moz).picks[0]).toMatchObject({ packs: 2, price: 1.38 });
+    expect(pickForStores([{ id: 'c', name: 'Cheese', qty: 1, wordId: 'cheese' }], ['kaufland'], moz).picks[0]).toMatchObject({ price: 1.38 });
+    // A 12-litre crate at 0.46 per litre → 1.5 l of water costs 0.69, not the whole crate
+    const crate = [{ chain: 'netto' as const, title: 'Sprudel', price: 5.49, regularPrice: null, unitInfo: '1 l = 0.46' }];
+    expect(pickForStores([{ id: 'w', name: 'water', qty: 1, wordId: 'water' }], ['netto'], crate).picks[0]).toMatchObject({ price: 0.69 });
   });
 
   it('reads the price per kg / litre', () => {
