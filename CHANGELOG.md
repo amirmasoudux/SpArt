@@ -1,7 +1,7 @@
 # Changelog
 
 ## Demo Day: splash screen and phone frame
-- Splash screen: "SpArt · The art of Sparen" on violet for about a second each time the app opens
+- Splash screen: "SpArt" pops up on violet, € coins jump out and fall, then "The art of Sparen" (about 2 seconds; no movement with Reduce Motion)
 - On big screens the app sits in a phone frame, with the SpArt name next to it (no QR code)
 
 ## Fair prices for the list amount
