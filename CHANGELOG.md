@@ -2,7 +2,7 @@
 
 ## Demo Day: splash screen and phone frame
 - Splash screen: "SpArt · The art of Sparen" on violet when the app opens; stays 20 seconds (for the Demo Day intro), a tap skips it
-- On big screens the app sits in a phone frame, with the SpArt name next to it, and a small "Let’s connect on LinkedIn" QR under it, in line with the bottom of the phone
+- On big screens the app sits in a phone frame, with the SpArt name next to it, and a small "Let’s connect on LinkedIn" QR card under it
 
 ## Fair prices for the list amount
 - When the Prospekt prints the price per kg/l, an item costs that price × the amount on the list (1.5 l from a 12-litre crate = 1.5 × price per litre), not the whole pack
