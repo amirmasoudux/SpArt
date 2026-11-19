@@ -47,3 +47,17 @@ body {
   outline: 3px solid var(--color-brand);
   outline-offset: 2px;
 }
+
+/* Phone frame on big screens: "full height" means the phone's height, not the window's. */
+.phone-screen .min-h-dvh { min-height: 100%; }
+
+/* Splash */
+@keyframes splash-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+.splash-logo { animation: splash-in 0.45s ease-out both; }
+.splash-tag { animation: splash-in 0.45s ease-out 0.15s both; }
+@media (prefers-reduced-motion: reduce) {
+  .splash-logo, .splash-tag { animation: none; }
+}

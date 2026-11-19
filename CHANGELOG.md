@@ -1,5 +1,9 @@
 # Changelog
 
+## Demo Day: splash screen and phone frame
+- Splash screen: "SpArt · The art of Sparen" on violet for about a second each time the app opens
+- On big screens the app sits in a phone frame, with the SpArt name and a QR code to open it on a phone
+
 ## Fair prices for the list amount
 - When the Prospekt prints the price per kg/l, an item costs that price × the amount on the list (1.5 l from a 12-litre crate = 1.5 × price per litre), not the whole pack
 - Offers without a pack size (e.g. "Gouda 5.49") are shown, but that item is left out of the store comparison
