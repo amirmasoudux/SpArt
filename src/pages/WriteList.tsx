@@ -5,7 +5,7 @@ import { mergeItems, newId, parseList } from '../lib/parseList';
 import { improveUnknownItems } from '../lib/api';
 import { getGuestId, getList, saveList } from '../lib/storage';
 
-const EXAMPLES = ['2 milk', 'eggs', 'some gouda', 'bananas', 'pasta', 'coffee'];
+const EXAMPLES = ['butter', 'cheese', 'pizza', 'pasta', 'bananas', 'salmon', 'chocolate', 'water', 'apples'];
 
 function defaultTitle(): string {
   return 'List of ' + new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
