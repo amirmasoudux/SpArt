@@ -1,21 +1,20 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
 import { useLocation } from 'react-router';
 
-// Splash: "SpArt" pops up on violet, € coins jump out of it and fall, then "The art of Sparen".
-// About two seconds, then it fades away. With Reduce Motion: no movement, just the name.
-const COINS = [
-  { x: -120, r: -200, d: 0.5 },
-  { x: 95, r: 240, d: 0.58 },
-  { x: -55, r: 160, d: 0.66 },
-  { x: 140, r: -180, d: 0.74 },
-  { x: -150, r: 220, d: 0.82 },
-  { x: 40, r: -260, d: 0.9 },
+// Splash: groceries fall into a basket, the basket shakes and "SpArt" jumps out of it,
+// then "The art of Sparen". About 2.5 seconds, then it fades away. With Reduce Motion: just the name.
+const ITEMS = [
+  { e: '🍌', x: -38, d: 0.05, r: -40 },
+  { e: '🧀', x: 30, d: 0.25, r: 30 },
+  { e: '🥛', x: -8, d: 0.45, r: -20 },
+  { e: '🍎', x: 42, d: 0.62, r: 50 },
+  { e: '🍕', x: -30, d: 0.8, r: -35 },
 ];
 function Splash() {
   const [phase, setPhase] = useState<'show' | 'hide' | 'gone'>('show');
   useEffect(() => {
-    const hide = window.setTimeout(() => setPhase('hide'), 2000);
-    const gone = window.setTimeout(() => setPhase('gone'), 2400);
+    const hide = window.setTimeout(() => setPhase('hide'), 2600);
+    const gone = window.setTimeout(() => setPhase('gone'), 3000);
     return () => {
       window.clearTimeout(hide);
       window.clearTimeout(gone);
@@ -25,19 +24,25 @@ function Splash() {
   return (
     <div
       aria-hidden="true"
-      className={`splash fixed inset-0 z-[60] flex flex-col items-center justify-center gap-3 overflow-hidden bg-brand text-white transition-opacity duration-400 ${phase === 'hide' ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
+      className={`splash fixed inset-0 z-[60] flex flex-col items-center justify-center gap-4 overflow-hidden bg-brand text-white transition-opacity duration-400 ${phase === 'hide' ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
     >
-      <div className="relative flex items-center justify-center">
-        {COINS.map((c, i) => (
+      <div className="relative h-[280px] w-[240px]">
+        <span className="splash-logo absolute inset-x-0 top-6 text-center text-[64px] leading-none font-extrabold tracking-tight">SpArt</span>
+        {ITEMS.map((it) => (
           <span
-            key={i}
-            className="splash-coin absolute flex size-11 items-center justify-center rounded-full border-[3px] border-[#e0a91b] bg-[#f5c542] text-xl font-extrabold text-[#7a5300]"
-            style={{ '--x': `${c.x}px`, '--r': `${c.r}deg`, animationDelay: `${c.d}s` } as CSSProperties}
+            key={it.e}
+            className="splash-item absolute bottom-[78px] left-1/2 -ml-5 text-[40px] leading-none"
+            style={{ '--x': `${it.x}px`, '--r': `${it.r}deg`, animationDelay: `${it.d}s` } as CSSProperties}
           >
-            €
+            {it.e}
           </span>
         ))}
-        <span className="splash-logo relative text-[64px] leading-none font-extrabold tracking-tight">SpArt</span>
+        <svg className="splash-basket absolute bottom-0 left-1/2 -ml-[80px]" width="160" height="120" viewBox="0 0 160 120" fill="none">
+          <path d="M44 46 C44 10 116 10 116 46" stroke="#fff" strokeWidth="8" strokeLinecap="round" />
+          <path d="M10 46 H150 L134 112 H26 Z" fill="#fff" />
+          <path d="M10 46 H150" stroke="#fff" strokeWidth="10" strokeLinecap="round" />
+          <path d="M54 62 L58 98 M80 62 V98 M106 62 L102 98" stroke="#5b3df5" strokeWidth="6" strokeLinecap="round" />
+        </svg>
       </div>
       <span className="splash-tag text-lg font-semibold text-white/80">The art of Sparen</span>
     </div>
