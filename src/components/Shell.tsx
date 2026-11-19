@@ -72,11 +72,11 @@ export default function Shell({ children }: { children: ReactNode }) {
           </div>
           <p className="text-lg leading-relaxed text-muted">Write your shopping list. SpArt tells you which supermarket is cheapest for your whole basket.</p>
         </div>
-        <div className="flex items-center gap-4 self-start rounded-[22px] bg-white p-4 pr-6">
-          <img src="/linkedin-qr.svg" alt="QR code for LinkedIn" className="size-20 shrink-0" />
-          <div className="flex flex-col gap-1">
-            <span className="text-base font-extrabold">Let’s connect on LinkedIn</span>
-            <span className="text-sm text-muted">Scan the code</span>
+        <div className="flex items-center gap-3 self-start rounded-[18px] bg-white p-3 pr-5">
+          <img src="/linkedin-qr.svg" alt="QR code for LinkedIn" className="size-14 shrink-0" />
+          <div className="flex flex-col gap-0.5">
+            <span className="text-sm font-extrabold">Let’s connect on LinkedIn</span>
+            <span className="text-xs text-muted">Scan the code</span>
           </div>
         </div>
       </div>
