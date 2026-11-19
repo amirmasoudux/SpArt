@@ -63,12 +63,15 @@ export default function Shell({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex min-h-dvh items-center justify-center gap-24 bg-[#ecebf4] px-10 py-8">
-      <div className="flex max-w-[380px] flex-col gap-6">
-        <div className="flex flex-col gap-2">
-          <span className="text-[64px] leading-none font-extrabold tracking-tight text-brand">SpArt</span>
-          <span className="text-2xl font-bold">The art of Sparen</span>
+      {/* Same height as the phone: SpArt in the middle, the LinkedIn card at the bottom (in line with the phone's bottom). */}
+      <div className="flex h-[min(844px,calc(100dvh-64px))] max-w-[380px] flex-col">
+        <div className="flex flex-1 flex-col justify-center gap-6">
+          <div className="flex flex-col gap-2">
+            <span className="text-[64px] leading-none font-extrabold tracking-tight text-brand">SpArt</span>
+            <span className="text-2xl font-bold">The art of Sparen</span>
+          </div>
+          <p className="text-lg leading-relaxed text-muted">Write your shopping list. SpArt tells you which supermarket is cheapest for your whole basket.</p>
         </div>
-        <p className="text-lg leading-relaxed text-muted">Write your shopping list. SpArt tells you which supermarket is cheapest for your whole basket.</p>
         <div className="flex items-center gap-4 self-start rounded-[22px] bg-white p-4 pr-6">
           <img src="/linkedin-qr.svg" alt="QR code for LinkedIn" className="size-20 shrink-0" />
           <div className="flex flex-col gap-1">
