@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { useLocation } from 'react-router';
 
-// Splash: SpArt's name on violet for a moment each time the app opens, then it fades away.
+// Splash: SpArt's name on violet when the app opens (20 seconds for the Demo Day intro; a tap skips it).
 function Splash() {
   const [phase, setPhase] = useState<'show' | 'hide' | 'gone'>('show');
   useEffect(() => {
-    const hide = window.setTimeout(() => setPhase('hide'), 1100);
-    const gone = window.setTimeout(() => setPhase('gone'), 1500);
+    const hide = window.setTimeout(() => setPhase('hide'), 20000);
+    const gone = window.setTimeout(() => setPhase('gone'), 20400);
     return () => {
       window.clearTimeout(hide);
       window.clearTimeout(gone);
@@ -16,6 +16,10 @@ function Splash() {
   return (
     <div
       aria-hidden="true"
+      onClick={() => {
+        setPhase('hide');
+        window.setTimeout(() => setPhase('gone'), 400);
+      }}
       className={`splash fixed inset-0 z-[60] flex flex-col items-center justify-center gap-3 bg-brand text-white transition-opacity duration-400 ${phase === 'hide' ? 'pointer-events-none opacity-0' : 'opacity-100'}`}
     >
       <span className="splash-logo text-[64px] leading-none font-extrabold tracking-tight">SpArt</span>
